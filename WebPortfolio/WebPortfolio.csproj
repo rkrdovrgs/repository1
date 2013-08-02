@@ -310,6 +310,24 @@
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebPortfolio.Core\WebPortfolio.Core.csproj">
+      <Project>{5d0990fc-194e-4e7d-afa2-f7f11cbb0a5f}</Project>
+      <Name>WebPortfolio.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebPortfolio.Models\WebPortfolio.Models.csproj">
+      <Project>{dd8b0725-36de-44c9-8383-8ac3e1511397}</Project>
+      <Name>WebPortfolio.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebPortfolio.Ninject\WebPortfolio.Ninject.csproj">
+      <Project>{7303b508-5295-4f41-a311-ffac21ba74c1}</Project>
+      <Name>WebPortfolio.Ninject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebPortfolio.Repositories\WebPortfolio.Repositories.csproj">
+      <Project>{09e871af-b9c0-4150-9044-f0416d264da7}</Project>
+      <Name>WebPortfolio.Repositories</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

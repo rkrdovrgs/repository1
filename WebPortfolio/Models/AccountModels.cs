@@ -25,6 +25,7 @@ namespace WebPortfolio.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
+        public string UserEmail { get; set; }
     }
 
     public class RegisterExternalLoginModel
@@ -57,6 +58,9 @@ namespace WebPortfolio.Models
 
     public class LoginModel
     {
+        //[required]
+        //[display(name = "user name")]
+        //public string username { get; set; }
         [Required]
         [Display(Name = "User name")]
         public string UserName { get; set; }
@@ -73,6 +77,9 @@ namespace WebPortfolio.Models
     public class RegisterModel
     {
         [Required]
+        [Display(Name = "User email")]
+        public string UserEmail { get; set; }
+                
         [Display(Name = "User name")]
         public string UserName { get; set; }
 

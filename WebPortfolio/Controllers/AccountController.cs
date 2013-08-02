@@ -35,6 +35,7 @@ namespace WebPortfolio.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
+            
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
                 return RedirectToLocal(returnUrl);
@@ -79,7 +80,9 @@ namespace WebPortfolio.Controllers
                 // Attempt to register the user
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                    var props = new { UserEmail = model.UserEmail };
+                    
+                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password, props);
                     WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Index", "Home");
                 }
