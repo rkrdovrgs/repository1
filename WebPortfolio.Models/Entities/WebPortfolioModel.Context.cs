@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebPortfolio.Models
+namespace WebPortfolio.Models.Entities
 {
     using System;
     using System.Data.Entity;
@@ -26,5 +26,6 @@ namespace WebPortfolio.Models
         }
     
         public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<UserAddress> UserAddresses { get; set; }
     }
 }

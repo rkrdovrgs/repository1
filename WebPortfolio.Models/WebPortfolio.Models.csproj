@@ -48,48 +48,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserProfile.cs">
+    <Compile Include="Entities\UserAddress.cs">
       <DependentUpon>WebPortfolioModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="WebPortfolioModel.Context.cs">
+    <Compile Include="Entities\UserProfile.cs">
+      <DependentUpon>WebPortfolioModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\WebPortfolioModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>WebPortfolioModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="WebPortfolioModel.cs">
+    <Compile Include="Entities\WebPortfolioModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>WebPortfolioModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="WebPortfolioModel.Designer.cs">
+    <Compile Include="Entities\WebPortfolioModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>WebPortfolioModel.edmx</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="WebPortfolioModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>WebPortfolioModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="packages.config" />
-    <None Include="WebPortfolioModel.Context.tt">
+    <EntityDeploy Include="Entities\WebPortfolioModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>WebPortfolioModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Entities\WebPortfolioModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>WebPortfolioModel.edmx</DependentUpon>
       <LastGenOutput>WebPortfolioModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Entities\WebPortfolioModel.edmx.diagram">
       <DependentUpon>WebPortfolioModel.edmx</DependentUpon>
     </None>
-    <None Include="WebPortfolioModel.edmx.diagram">
-      <DependentUpon>WebPortfolioModel.edmx</DependentUpon>
-    </None>
-    <None Include="WebPortfolioModel.tt">
+    <None Include="Entities\WebPortfolioModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>WebPortfolioModel.edmx</DependentUpon>
       <LastGenOutput>WebPortfolioModel.cs</LastGenOutput>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

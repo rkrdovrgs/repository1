@@ -10,6 +10,7 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using WebPortfolio.Filters;
 using WebPortfolio.Models;
+using WebPortfolio.Core.Repositories;
 
 namespace WebPortfolio.Controllers
 {
@@ -17,6 +18,9 @@ namespace WebPortfolio.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+
+        public IWPRepository<WebPortfolio.Models.Entities.UserProfile> userprofilerepository { get; set; }
+
         //
         // GET: /Account/Login
 
@@ -35,8 +39,10 @@ namespace WebPortfolio.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            var userProfile = userprofilerepository.Get(x => x.UserEmail == model.UserEmail);
+            string userName = userProfile.UserName;
+
+            if (ModelState.IsValid && WebSecurity.Login(userName, model.Password, persistCookie: model.RememberMe))
             {
                 return RedirectToLocal(returnUrl);
             }
@@ -81,7 +87,7 @@ namespace WebPortfolio.Controllers
                 try
                 {
                     var props = new { UserEmail = model.UserEmail };
-                    
+
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password, props);
                     WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Index", "Home");

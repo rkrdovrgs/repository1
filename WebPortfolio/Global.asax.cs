@@ -18,6 +18,7 @@ namespace WebPortfolio
         {
             AreaRegistration.RegisterAllAreas();
 
+            IocConfig.RegisterIoc(GlobalConfiguration.Configuration);
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

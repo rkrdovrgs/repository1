@@ -58,12 +58,10 @@ namespace WebPortfolio.Models
 
     public class LoginModel
     {
-        //[required]
-        //[display(name = "user name")]
-        //public string username { get; set; }
+        
         [Required]
-        [Display(Name = "User name")]
-        public string UserName { get; set; }
+        [Display(Name = "User email")]
+        public string UserEmail { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

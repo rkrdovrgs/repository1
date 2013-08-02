@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebPortfolio.Core.Repositories;
-using WebPortfolio.Models;
+using WebPortfolio.Models.Entities;
 
 namespace WebPortfolio.Repositories
 {
-    public class DebtRepository<T> : Repository<T, WebPortfolioEntities>, IWPRepository<T>
+    public class WPRepository<T> : Repository<T, WebPortfolioEntities>, IWPRepository<T>
         where T: class
     {
     }

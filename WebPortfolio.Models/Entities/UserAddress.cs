@@ -7,15 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebPortfolio.Models
+namespace WebPortfolio.Models.Entities
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class UserProfile
+    public partial class UserAddress
     {
+        public int UserAddressId { get; set; }
+        public string Line1 { get; set; }
+        public string Line2 { get; set; }
         public int UserId { get; set; }
-        public string UserName { get; set; }
-        public string UserEmail { get; set; }
+    
+        public virtual UserProfile UserProfile { get; set; }
     }
 }
