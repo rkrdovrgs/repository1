@@ -11,6 +11,7 @@ namespace WebPortfolio.Models.Entities
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     
     public partial class UserProfile
     {
@@ -20,7 +21,7 @@ namespace WebPortfolio.Models.Entities
         }
     
         public int UserId { get; set; }
-        public string UserName { get; set; }
+        public string UserName { get; set; }       
         public string UserEmail { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
     

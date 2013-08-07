@@ -12,6 +12,7 @@ using WebPortfolio.Filters;
 using WebPortfolio.Models;
 using WebPortfolio.Core.Repositories;
 
+
 namespace WebPortfolio.Controllers
 {
     [Authorize]
@@ -87,6 +88,23 @@ namespace WebPortfolio.Controllers
                 try
                 {
                     var props = new { UserEmail = model.UserEmail };
+                    if (model.UserName == null)
+                    {
+                        model.UserName = "user";
+                        var maxup = userprofilerepository.GetList().Max(x => x.UserId) + 1;
+                        model.UserName += maxup.ToString();
+                    }
+                    var emailexists = userprofilerepository.GetList().Any(x => model.UserEmail == x.UserEmail);
+                    if (emailexists)
+                        //ModelState.AddModelError("UserEmail", "Email already exists");
+                        throw new MembershipCreateUserException(MembershipCreateStatus.DuplicateEmail);
+
+                    //var letteremail = model.UserEmail[0].ToString();
+                    //if (Char.IsNumber(letteremail ,0) )
+                    //    throw new MembershipCreateUserException(MembershipCreateStatus.InvalidEmail);
+                    //var namevalidation = model.UserName;
+                    //if(Char.IsNumber(namevalidation) )
+
 
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password, props);
                     WebSecurity.Login(model.UserName, model.Password);
@@ -226,6 +244,7 @@ namespace WebPortfolio.Controllers
         [AllowAnonymous]
         public ActionResult ExternalLoginCallback(string returnUrl)
         {
+
             AuthenticationResult result = OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new { ReturnUrl = returnUrl }));
             if (!result.IsSuccessful)
             {
@@ -245,11 +264,29 @@ namespace WebPortfolio.Controllers
             }
             else
             {
+
+                var userProfile = userprofilerepository.Get(x => x.UserEmail  == result.UserName);
+                var userName=string.Empty;
+                if (userProfile != null)
+                {
+                    userName = userProfile.UserName;
+                    FormsAuthentication.SetAuthCookie(userName, true);
+                    OAuthWebSecurity.CreateOrUpdateAccount(result.Provider, result.ProviderUserId, userName);
+                    return RedirectToLocal(returnUrl);
+                }
+
                 // User is new, ask for their desired membership name
+                userName = "user";
+                var maxup = userprofilerepository.GetList().Max(x => x.UserId) + 1;
+                userName += maxup.ToString();
+
                 string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
-                ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
-                ViewBag.ReturnUrl = returnUrl;
-                return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserName = result.UserName, ExternalLoginData = loginData });
+                //ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
+                //ViewBag.ReturnUrl = returnUrl;
+
+
+                //return View("ExternalLoginConfirmation", new RegisterExternalLoginModel { UserEmail = result.UserName, UserName= getname.ToString(),  ExternalLoginData = loginData });
+                return ExternalLoginConfirmation(new RegisterExternalLoginModel { ExternalLoginData = loginData, UserEmail = result.UserName, UserName = userName }, returnUrl);
             }
         }
 
@@ -274,12 +311,12 @@ namespace WebPortfolio.Controllers
                 // Insert a new user into the database
                 using (UsersContext db = new UsersContext())
                 {
-                    UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+                    WebPortfolio.Models.UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
                     // Check if user already exists
                     if (user == null)
                     {
                         // Insert name into the profile table
-                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
+                        db.UserProfiles.Add(new WebPortfolio.Models.UserProfile { UserName = model.UserName });
                         db.SaveChanges();
 
                         OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
