@@ -29,7 +29,11 @@ namespace WebPortfolio.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+            
+            if (ControllerContext.HttpContext.Request.IsAjaxRequest())
+                return PartialView("_LoginPartial");
+            else 
+                return View();
         }
 
         //
@@ -71,7 +75,7 @@ namespace WebPortfolio.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            return PartialView();
         }
 
         //
@@ -265,8 +269,8 @@ namespace WebPortfolio.Controllers
             else
             {
 
-                var userProfile = userprofilerepository.Get(x => x.UserEmail  == result.UserName);
-                var userName=string.Empty;
+                var userProfile = userprofilerepository.Get(x => x.UserEmail == result.UserName);
+                var userName = string.Empty;
                 if (userProfile != null)
                 {
                     userName = userProfile.UserName;
