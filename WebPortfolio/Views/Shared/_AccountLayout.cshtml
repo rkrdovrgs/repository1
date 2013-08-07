@@ -15,6 +15,7 @@
     <script src="~/Scripts/jquery-1.8.2.min.js"></script>
     <script src="~/Scripts/accountlayout/script.js"></script>
     <script src="~/Scripts/accountlayout/script.responsive.js"></script>
+     
 
 
 
@@ -78,7 +79,7 @@
                         </div>
                         <div class="art-layout-cell art-sidebar1">
                             <div class="art-block clearfix">
-                                <div class="art-blockcontent">
+                                <div class="art-blockcontent" id="blockbody">
                                     @RenderBody()
                                 </div>
                             </div>
@@ -97,6 +98,7 @@
         </div>
     </div>
 
+    @Scripts.Render("~/bundles/app")
     @RenderSection("scripts", required: false)
 </body>
 </html>

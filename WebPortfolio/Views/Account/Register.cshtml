@@ -5,16 +5,16 @@
 
 <hgroup class="title">
     <h1>@ViewBag.Title.</h1>
-    <h2>Create a new account.</h2>
+    @*<h2>Create a new account.</h2>*@
 </hgroup>
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
 
-    <fieldset>
-        <legend>Registration Form</legend>
-        <ol>
+    
+        
+        <ul class="input login-fieldset">
             <li>
                 @Html.LabelFor(m => m.UserEmail)
                 @Html.TextBoxFor(m => m.UserEmail)
@@ -31,9 +31,18 @@
                 @Html.LabelFor(m => m.ConfirmPassword)
                 @Html.PasswordFor(m => m.ConfirmPassword)
             </li>
-        </ol>
-        <input type="submit" value="Register" />
-    </fieldset>
+             <li>
+                 <div>
+                     <input type="submit" value="Register" class="art-button" />
+
+                 </div>
+            </li>
+            <li>
+                @Html.ActionLink("Login", "Login", null, new {@id= "login-link" }) if you already have an account.                
+            </li>
+        </ul>
+       
+    
 }
 
 @section Scripts {
