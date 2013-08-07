@@ -1,49 +1,84 @@
 ﻿@model WebPortfolio.Models.LoginModel
 
 @{
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
     ViewBag.Title = "Log in";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
+
 
 <section id="loginForm">
-<h2>Use a local account to log in.</h2>
-@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>Log in Form</legend>
-        <ol>
-            <li>
+    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <ul class="input login-fieldset">
+
+
+            <li id="form-login-username">
                 @Html.LabelFor(m => m.UserEmail)
-                @Html.TextBoxFor(m => m.UserEmail)
+                @Html.TextBoxFor(m => m.UserEmail, new { @id = "modlgn_username", @class = "inputbox" })
                 @Html.ValidationMessageFor(m => m.UserEmail)
             </li>
-            <li>
+
+
+            <li id="form-login-password">
                 @Html.LabelFor(m => m.Password)
                 @Html.PasswordFor(m => m.Password)
                 @Html.ValidationMessageFor(m => m.Password)
             </li>
-            <li>
+
+            <li id="form-login-remember">
                 @Html.CheckBoxFor(m => m.RememberMe)
-                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+                @Html.LabelFor(m => m.RememberMe, new { @id = "modlgn_remember", @class = "art-checkbox" })
             </li>
-        </ol>
-        <input type="submit" value="Log in" />
-    </fieldset>
-    <p>
-        @Html.ActionLink("Register", "Register") if you don't have an account.
-    </p>
-}
+
+            <li>
+                <div>
+                    <input type="submit" value="Log in" class="art-button" />
+                </div>
+            </li>
+
+            <li>
+                @Html.ActionLink("Register", "Register") if you don't have an account.
+            </li>
+
+        </ul>
+        
+        
+    }
 </section>
 
-<section class="social" id="socialLoginForm">
-    <h2>Use another service to log in.</h2>
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+
+
+
+
+
+<section class="art-blockcontent" id="socialLoginForm">
+    <br />
+
+
+
+
+
+    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl, })
+
+
+
+
 </section>
+
+
+
+
+
+
+
+
+
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

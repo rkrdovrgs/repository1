@@ -198,6 +198,35 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\accountlayout\images\footerbullets.png" />
+    <Content Include="Content\accountlayout\images\footerfacebookicon.png" />
+    <Content Include="Content\accountlayout\images\footergmailicon.jpg" />
+    <Content Include="Content\accountlayout\images\footergoogleicon.png" />
+    <Content Include="Content\accountlayout\images\footermicrosofticon.jpg" />
+    <Content Include="Content\accountlayout\images\footermicrosofticon.png" />
+    <Content Include="Content\accountlayout\images\footerrssicon.png" />
+    <Content Include="Content\accountlayout\images\footertwittericon.png" />
+    <Content Include="Content\accountlayout\images\header.png" />
+    <Content Include="Content\accountlayout\images\no-avatar.jpg" />
+    <Content Include="Content\accountlayout\images\postauthoricon.png" />
+    <Content Include="Content\accountlayout\images\postdateicon.png" />
+    <Content Include="Content\accountlayout\images\postediticon.png" />
+    <Content Include="Content\accountlayout\images\postquote.png" />
+    <Content Include="Content\accountlayout\images\preloader-01.gif" />
+    <Content Include="Content\accountlayout\images\searchicon.png" />
+    <Content Include="Content\accountlayout\images\shutterstock_32050237-large.png" />
+    <Content Include="Content\accountlayout\images\shutterstock_32050237.png" />
+    <Content Include="Content\accountlayout\images\shutterstock_62287657-01-3-large.jpg" />
+    <Content Include="Content\accountlayout\images\shutterstock_62287657-01-3.jpg" />
+    <Content Include="Content\accountlayout\images\SorterAscActive.png" />
+    <Content Include="Content\accountlayout\images\SorterAscPassive.png" />
+    <Content Include="Content\accountlayout\images\SorterDescActive.png" />
+    <Content Include="Content\accountlayout\images\SorterDescPassive.png" />
+    <Content Include="Content\accountlayout\images\spacer.gif" />
+    <Content Include="Content\accountlayout\images\template_preview.png" />
+    <Content Include="Content\accountlayout\style.css" />
+    <Content Include="Content\accountlayout\style.ie7.css" />
+    <Content Include="Content\accountlayout\style.responsive.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -255,6 +284,8 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\accountlayout\script.js" />
+    <Content Include="Scripts\accountlayout\script.responsive.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -309,6 +340,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\UserProfiles\Index.cshtml" />
+    <Content Include="Views\Shared\_AccountLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
