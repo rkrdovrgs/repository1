@@ -21,6 +21,8 @@
         </p>
         <ol>
             <li class="name">
+                @Html.LabelFor(m => m.UserEmail)
+                @Html.TextBoxFor(m => m.UserEmail)
                 @Html.LabelFor(m => m.UserName)
                 @Html.TextBoxFor(m => m.UserName)
                 @Html.ValidationMessageFor(m => m.UserName)
