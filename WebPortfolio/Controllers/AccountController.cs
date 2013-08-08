@@ -29,10 +29,10 @@ namespace WebPortfolio.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            
+
             if (ControllerContext.HttpContext.Request.IsAjaxRequest())
                 return PartialView("_LoginPartial");
-            else 
+            else
                 return View();
         }
 
@@ -45,24 +45,15 @@ namespace WebPortfolio.Controllers
         public ActionResult Login(LoginModel model, string returnUrl)
         {
             //comprobar si el email existe en la base de datos
-            var emailexists = userprofilerepository.GetList().Any(x => model.UserEmail == x.UserEmail);
-            if (!emailexists)
-            {
-                ModelState.AddModelError("UserEmail", "the email don't exists");
-                
-                return View();
-            }
-
             var userProfile = userprofilerepository.Get(x => x.UserEmail == model.UserEmail);
-            string userName = userProfile.UserName;
 
-            if (ModelState.IsValid && WebSecurity.Login(userName, model.Password, persistCookie: model.RememberMe))
+            if (userProfile != null && ModelState.IsValid && WebSecurity.Login(userProfile.UserName, model.Password, persistCookie: model.RememberMe))
             {
                 return RedirectToLocal(returnUrl);
             }
 
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            ModelState.AddModelError("", "The email or password provided is incorrect.");
             return View(model);
         }
 
@@ -88,7 +79,7 @@ namespace WebPortfolio.Controllers
                 return PartialView("_RegisterPartial");
             else
                 return View();
-            
+
         }
 
         //
