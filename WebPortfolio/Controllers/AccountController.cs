@@ -44,10 +44,11 @@ namespace WebPortfolio.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
+            //comprobar si el email existe en la base de datos
             var emailexists = userprofilerepository.GetList().Any(x => model.UserEmail == x.UserEmail);
             if (!emailexists)
             {
-                //ModelState.AddModelError("UserEmail", "Email already exists");
+                ModelState.AddModelError("UserEmail", "the email don't exists");
                 
                 return View();
             }
@@ -74,7 +75,7 @@ namespace WebPortfolio.Controllers
         {
             WebSecurity.Logout();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //
@@ -83,7 +84,11 @@ namespace WebPortfolio.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return PartialView();
+            if (ControllerContext.HttpContext.Request.IsAjaxRequest())
+                return PartialView("_RegisterPartial");
+            else
+                return View();
+            
         }
 
         //

@@ -91,9 +91,9 @@ namespace WebPortfolio.Models
         public string UserEmail { get; set; }
                 
         [Display(Name = "User name")]
-        [MinLength(3, ErrorMessage = "The username must contain a minimum of {3} characters long.")]
-        [MaxLength(12, ErrorMessage = "The username must not contain more than {12} characters long.")]
-        [RegularExpression(@"^[a-zA-Z0-9]+$" , ErrorMessage = "No special characters are allowed. Only letters and numbers.")]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
+               
+        [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "No special characters are allowed in the user name.")]
         public string UserName { get; set; }
         
         [Required]

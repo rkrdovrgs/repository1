@@ -4,6 +4,7 @@
             url: '/Account/Register',
             success: function (data) {
                 $('#blockbody').html(data);
+                $.validator.unobtrusive.parse($("#blockbody"));
 
             }
         });
