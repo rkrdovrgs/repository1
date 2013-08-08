@@ -44,6 +44,14 @@ namespace WebPortfolio.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
+            var emailexists = userprofilerepository.GetList().Any(x => model.UserEmail == x.UserEmail);
+            if (!emailexists)
+            {
+                //ModelState.AddModelError("UserEmail", "Email already exists");
+                
+                return View();
+            }
+
             var userProfile = userprofilerepository.Get(x => x.UserEmail == model.UserEmail);
             string userName = userProfile.UserName;
 

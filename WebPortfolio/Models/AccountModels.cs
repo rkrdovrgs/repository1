@@ -69,9 +69,8 @@ namespace WebPortfolio.Models
     public class LoginModel
     {
         
-        [Required]
-               
-        [EmailAddress(ErrorMessage = "mail does not have the correct format")]
+        [Required]               
+        [EmailAddress(ErrorMessage = "Mail does not have the correct format.")]        
         [Display(Name = "User email")]
         public string UserEmail { get; set; }
 
@@ -92,9 +91,9 @@ namespace WebPortfolio.Models
         public string UserEmail { get; set; }
                 
         [Display(Name = "User name")]
-        [MinLength(3, ErrorMessage = "The username must contain a minimum of 3 characters")]
-        [MaxLength(12, ErrorMessage = "The user name must not contain more than 12 characters")]
-        [RegularExpression(@"^[a-zA-Z0-9]+$" , ErrorMessage = "No special characters are allowed. Only letters and numbers")]
+        [MinLength(3, ErrorMessage = "The username must contain a minimum of {3} characters long.")]
+        [MaxLength(12, ErrorMessage = "The username must not contain more than {12} characters long.")]
+        [RegularExpression(@"^[a-zA-Z0-9]+$" , ErrorMessage = "No special characters are allowed. Only letters and numbers.")]
         public string UserName { get; set; }
         
         [Required]
