@@ -4,7 +4,7 @@
         success: function (data) {
             $('#blockbody').html(data);
             $.validator.unobtrusive.parse($("#blockbody"));
-
+            $.replaceUrl('/Register');
         }
     });
 
@@ -18,6 +18,7 @@ $('#blockbody').on("click", '#login-link', function () {
         success: function (data) {
             $('#blockbody').html(data);
             $.validator.unobtrusive.parse($("#blockbody"));
+            $.replaceUrl('/Login');
         }
     });
 

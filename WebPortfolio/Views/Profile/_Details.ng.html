@@ -1,0 +1,25 @@
+﻿
+
+<fieldset>
+    <legend>UserProfile</legend>
+
+
+
+    <div class="display-label">
+        <label>Name:</label>
+    </div>
+    <div class="display-field">
+        {{ userProfile.UserName  }}
+    </div>
+
+    <div class="display-label">
+        <label>Email:</label>
+    </div>
+    <div class="display-field">
+        {{ userProfile.UserEmail }}
+    </div>
+</fieldset>
+<p>
+    <a href="#/Profile/Edit/{{ userProfile.UserId }}">Edit</a>
+
+</p>
