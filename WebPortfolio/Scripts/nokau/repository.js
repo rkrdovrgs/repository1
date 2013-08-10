@@ -1,13 +1,23 @@
-﻿$repository = function($http, $q) {
+﻿$repository = function ($http, $q, dataContext) {
+
+    
+
     var _modelName;
     var _Get = function (id, model) {
 
         var d = $q.defer();
 
-        $http.get("/api/" + _modelName + "/" + id)
+        var url = "/api/" + _modelName + "/" + id;
+        if (dataContext[_modelName][url] != undefined)
+        {
+            angular.copy(dataContext[_modelName]
+        }
+
+
+        $http.get(url)
             .success(function (data) {
                 angular.copy(data, model);
-
+                dataContext[_modelName][url] = data;
                 d.resolve(data);
             })
             .error(function () {
@@ -17,6 +27,10 @@
             });
 
         return d.promise;
+    };
+
+    var _FindOne = function (filters, model) {
+
     };
 
 
@@ -40,6 +54,10 @@
 
     return function (modelName) {
         _modelName = modelName;
+
+        if (dataContext[modelName] == undefined)
+            dataContext[modelName] = {};
+
         return {
             Get: _Get,
             //GetList: _GetValues,

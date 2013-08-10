@@ -1,6 +1,7 @@
 ﻿var globalModule = angular.module("global", ['ng']),
     //App main namespace
     WebPortfolio = {},
+    WPDataContext = {},
     Repository,
     IRepository = function (modelName) {
         return function () {
@@ -18,7 +19,7 @@ globalModule.config(function ($routeProvider) {
 
 globalModule.factory('$repository', function ($http, $q) {
     //Custom IoC
-    Repository = $repository($http, $q);
+    Repository = $repository($http, $q, WPDataContext);
 });
 
 
