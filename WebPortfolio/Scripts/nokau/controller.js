@@ -6,19 +6,30 @@
 
 
     $.each(controller, function (actionName, action) {
-        //console.log(actionName);
-        /// <summary>Auto Injection to all controller functions</summary>
-        controller[actionName] = function ($scope, $routeParams, $repository, $rootScope, $location) {
+        
+        
+        var parmNames = action.GetParamNames();
+        var actionParms = new Array();
+
+        controller[actionName] = function ($scope, $routeParams, $wprepository, $rootScope, $location) {
             $context = {
                 $scope: $scope,
                 $routeParams: $routeParams,
-                $repository: $repository,
+                $wprepository: $wprepository,
                 $rootScope: $rootScope,
                 $location: $location
             };
 
             $rootScope.isReady = false;
-            var result = action($context);
+
+            //console.log(arguments);
+            
+            
+            $.each(parmNames, function (idx, pName) {
+                actionParms[idx] = $context[pName];
+            });
+
+            var result = action.apply(action, actionParms);
 
             if (result != undefined && result.then)
                 return result
@@ -44,6 +55,4 @@
     return controller;
 };
 
-//Controller.prototype = function () {
 
-//};

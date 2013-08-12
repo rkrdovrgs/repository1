@@ -260,6 +260,8 @@
     <Content Include="Controllers\ProfileController.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\app\Core\Extensions\FunctionExtensions.js" />
+    <Content Include="Scripts\app\Repositories\WebPortfolioRepository.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.min.js" />
     <Content Include="Scripts\angular-bootstrap.js" />

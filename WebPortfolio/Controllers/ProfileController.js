@@ -1,7 +1,7 @@
 ﻿var ProfileController = new Controller(WebPortfolio, "ProfileController",
     function () {
 
-        var userprofilerepository = Repository('UserProfile');
+        //var userprofilerepository = Repository('UserProfile');
 
 
         var _Index = function ($context) {
@@ -12,13 +12,15 @@
 
 
 
-        var _Details = function ($context) {
+        var _Details = function ($scope, $wprepository) {
             //$rootScope.isReady = false;
 
-            $context.$scope.userProfile = {};
+            $scope.userProfile = {};
 
-            return userprofilerepository()
-                .FindOne($context.$scope.userProfile, null, 'details');
+            return $wprepository
+                .UserProfileRepository
+                .Details($scope.userProfile);
+                //.FindOne($context.$scope.userProfile, null, 'details');
 
         };
 
