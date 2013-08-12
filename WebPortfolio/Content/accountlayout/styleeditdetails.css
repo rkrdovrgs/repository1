@@ -9,19 +9,50 @@
     vertical-align:top;
     width:50%;
 }
+    
     #sectioncenter div {
-        margin-bottom:0.5em;
+        margin-bottom:1em;
     }
     #sectioncenter label {
             display:inline-block;
-            vertical-align:top;
-            width:25%;
+            vertical-align:auto;
+            width:20%;
         }
-    #sectioncenter input {
+    #sectioncenter input, select {
+        background-color:#E4ECED;
         display:inline-block;
+        padding: 0.5em 0;
         vertical-align:top;
         width:70%;
     }
+     #sectioncenter select {        
+        padding: 0.8em 0;       
+    }
+    #sectioncenter input:hover, select:hover, textarea {             
+        cursor:pointer;
+    }
+    #sectioncenter input:focus, select:focus, textarea:focus {   
+        background:none;    
+        border:1px solid #0158FA;
+        border-radius:5px;
+        cursor:text;
+    }
+    #sectioncenter select:focus {
+        cursor:pointer;
+    }
+   
+     #sectioncenter h4 {
+        text-align:center;
+    }
+    #sectioncenter .addme {
+        font-size:7px;
+        float:right;
+    }
+    #sectioncenter .addme:hover {
+        color:#8761BF;
+        font-style:inherit;
+    }
+   
 #sectiondetails {
     width:100%;    
 }
@@ -45,10 +76,11 @@
     vertical-align:top;
     width:30%;
 }
-    #sectionright input {
-        height:500px;       
-        
+    #sectionright textarea {
+        background-color:#E4ECED;
+        height:300px; 
         width: 100%;
     }
+    
 
     

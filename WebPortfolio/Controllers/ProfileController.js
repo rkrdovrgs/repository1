@@ -1,7 +1,7 @@
 ﻿var ProfileController = new Controller(WebPortfolio, "ProfileController",
     function () {
 
-        //var userprofilerepository = Repository('UserProfile');
+        
 
 
         var _Index = function () {
@@ -14,11 +14,34 @@
             //$rootScope.isReady = false;
 
             $scope.userProfile = {};
+            
+           
+            $('.validation').mouseenter(function () {
+                if ($(this).val() != "")
+                    $(this).css("background", "#E4ECED");
+            });
+            $('.validation').mouseleave(function () {
+                if ($(this).val() != "")
+                    $(this).css("background", "none");
+            });
+
+            $('.validation').keyup(function () {
+                if ($(this).val() != "")
+                    $(this).css("background", "none");
+            });
+
+            $(".addme").click(function () {
+                var txt = document.createElement('input');
+                txt.setAttribute('class', 'validation');
+                document.getElementById("divvemail").appendChild(txt);
+            });
+            
+           
+
 
             return $wprepository
                 .UserProfile
-                .Details($scope.userProfile);
-                //.FindOne($context.$scope.userProfile, null, 'details');
+                .Details($scope.userProfile);               
 
         };
 
