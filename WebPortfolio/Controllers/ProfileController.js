@@ -4,43 +4,45 @@
         //var userprofilerepository = Repository('UserProfile');
 
 
-        var _Index = function ($context) {
+        var _Index = function () {
 
 
         };
 
 
-        var _Details = function ($context) {
+        var _Details = function ($scope, $wprepository) {
             //$rootScope.isReady = false;
 
             $scope.userProfile = {};
 
             return $wprepository
-                .UserProfileRepository
+                .UserProfile
                 .Details($scope.userProfile);
                 //.FindOne($context.$scope.userProfile, null, 'details');
 
         };
 
 
-        var _Edit = function ($context) {
+        var _Edit = function ($scope, $wprepository, $routeParams, $location) {
 
 
-            $context.$scope.userProfile = {};
+            $scope.userProfile = {};
 
 
 
-            $context.$scope.updateProfile = function () {
-                userprofilerepository()
-                    .Update($context.$scope.userProfile, $context.$routeParams.id)
+            $scope.updateProfile = function () {
+                $wprepository
+                    .UserProfile
+                    .Update($scope.userProfile, $routeParams.id)
                     .then(function () {
-                        $context.$location.path('/Profile/' + $context.$scope.userProfile.UserId);
+                        $location.path('/Profile/' + $scope.userProfile.UserId);
                     });
             };
 
 
-            return userprofilerepository()
-                .FindOne($context.$scope.userProfile, null, 'details');
+            return $wprepository
+                .UserProfile
+                .Details($scope.userProfile);
         };
 
 
