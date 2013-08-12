@@ -40,7 +40,7 @@
 
 
             return userprofilerepository()
-                .Get($context.$scope.userProfile, $context.$routeParams.id);
+                .FindOne($context.$scope.userProfile, null, 'details');
         };
 
 

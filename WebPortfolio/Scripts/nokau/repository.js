@@ -25,7 +25,10 @@
 
 
 
-        var url = prefix + _modelName + "/" + id;
+        var url = prefix + _modelName + "/";
+        if (id != undefined)
+            url += id;
+
 
         return _get(model, url);
 
