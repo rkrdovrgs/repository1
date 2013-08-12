@@ -198,12 +198,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\accountlayout\images\footerfacebookicon.png" />
-    <Content Include="Content\accountlayout\images\footergoogleicon.png" />
-    <Content Include="Content\accountlayout\images\footermicrosofticon.png" />
-    <Content Include="Content\accountlayout\images\footertwittericon.png" />
-    <Content Include="Content\accountlayout\style.css" />
-    <Content Include="Content\accountlayout\styleeditdetails.css" />
+    <Content Include="Content\account\images\footerfacebookicon.png" />
+    <Content Include="Content\account\images\footergoogleicon.png" />
+    <Content Include="Content\account\images\footermicrosofticon.png" />
+    <Content Include="Content\account\images\footertwittericon.png" />
+    <Content Include="Content\account\style.css" />
+    <Content Include="Content\app\profile\details.css" />
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\glyphicons-halflings-white.png" />
+    <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -280,6 +286,8 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\account.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\nokau\App_Start\route-config.js" />
     <Content Include="Scripts\nokau\controller.js" />
     <Content Include="Scripts\app\global.js" />

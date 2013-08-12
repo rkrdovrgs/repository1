@@ -4,12 +4,12 @@
         <meta charset="utf-8" />
         <title>@ViewBag.Title - My ASP.NET MVC Application</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <link rel="stylesheet" href="~/Content/accountlayout/styleeditdetails.css" media="screen">
         <meta name="viewport" content="width=device-width" />
-        <script src="~/Scripts/jquery-2.0.3.js"></script>
         
         
         @Styles.Render("~/Content/css")
+        @Styles.Render("~/Content/bootstrap")
+        @Styles.Render("~/Content/app")
         @Scripts.Render("~/bundles/modernizr")
     </head>
     <body>
@@ -47,6 +47,7 @@
         </footer>
         
         @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
         @Scripts.Render("~/bundles/angularjs")
         @Scripts.Render("~/bundles/app")
         @Scripts.Render("~/bundles/controllers")
