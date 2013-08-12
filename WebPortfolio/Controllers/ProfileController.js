@@ -10,8 +10,6 @@
         };
 
 
-
-
         var _Details = function ($context) {
             //$rootScope.isReady = false;
 
