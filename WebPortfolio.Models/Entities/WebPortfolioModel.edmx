@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WebPortfolioModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="WebPortfolioModelStoreContainer">
+          <EntitySet Name="UserAddress" EntityType="WebPortfolioModel.Store.UserAddress" store:Type="Tables" store:Schema="dbo" store:Name="UserAddress">
+            <DefiningQuery>SELECT 
+      [UserAddress].[UserAddressId] AS [UserAddressId], 
+      [UserAddress].[Line1] AS [Line1], 
+      [UserAddress].[Line2] AS [Line2], 
+      [UserAddress].[UserId] AS [UserId]
+      FROM [dbo].[UserAddress] AS [UserAddress]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="UserProfile" EntityType="WebPortfolioModel.Store.UserProfile" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_UserAddress_UserProfile" Association="WebPortfolioModel.Store.FK_UserAddress_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="UserAddress" EntitySet="UserAddress" />
+          </AssociationSet>
+        </EntityContainer>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'WebPortfolio.dbo.UserAddress' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="UserAddress">
+          <Key>
+            <PropertyRef Name="UserAddressId" />
+            <PropertyRef Name="Line1" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserAddressId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Line1" Type="varchar" Nullable="false" MaxLength="1000" />
+          <Property Name="Line2" Type="varchar" MaxLength="500" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="varchar" MaxLength="250" />
+          <Property Name="UserEmail" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DOB" Type="date" />
+        </EntityType>
+        <Association Name="FK_UserAddress_UserProfile">
+          <End Role="UserProfile" Type="WebPortfolioModel.Store.UserProfile" Multiplicity="1" />
+          <End Role="UserAddress" Type="WebPortfolioModel.Store.UserAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserAddress">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WebPortfolioModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="WebPortfolioEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="UserProfiles" EntityType="WebPortfolioModel.UserProfile" />
+          <EntitySet Name="UserAddresses" EntityType="WebPortfolioModel.UserAddress" />
+          <AssociationSet Name="FK_UserAddress_UserProfile" Association="WebPortfolioModel.FK_UserAddress_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="UserAddress" EntitySet="UserAddresses" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="250" Unicode="false" FixedLength="false" />
+          <Property Name="UserEmail" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="DateTime" Name="DOB" Precision="0" />
+          <NavigationProperty Name="UserAddresses" Relationship="WebPortfolioModel.FK_UserAddress_UserProfile" FromRole="UserProfile" ToRole="UserAddress" />
+        </EntityType>
+        <EntityType Name="UserAddress">
+          <Key>
+            <PropertyRef Name="UserAddressId" />
+            <PropertyRef Name="Line1" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Int32" Name="UserAddressId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Line1" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Line2" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <NavigationProperty Name="UserProfile" Relationship="WebPortfolioModel.FK_UserAddress_UserProfile" FromRole="UserAddress" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="FK_UserAddress_UserProfile">
+          <End Type="WebPortfolioModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="WebPortfolioModel.UserAddress" Role="UserAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserAddress">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WebPortfolioModelStoreContainer" CdmEntityContainer="WebPortfolioEntities">
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="WebPortfolioModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAddresses">
+            <EntityTypeMapping TypeName="WebPortfolioModel.UserAddress">
+              <MappingFragment StoreEntitySet="UserAddress">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Line2" ColumnName="Line2" />
+                <ScalarProperty Name="Line1" ColumnName="Line1" />
+                <ScalarProperty Name="UserAddressId" ColumnName="UserAddressId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
