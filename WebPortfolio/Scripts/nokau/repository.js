@@ -118,12 +118,10 @@
     };
 
 
-    return function (modelName) {
+    return function (modelName, fxs) {
         _modelName = modelName;
 
-
-
-        return {
+        var repo = {
             Get: _Get,
             FindOne: _FindOne,
             GetList: _GetList,
@@ -131,6 +129,13 @@
             Update: _Put,
             Delete: _Delete
         };
+
+
+        if (fxs != undefined)
+            angular.extend(repo, fxs);
+
+        return repo;
+
     };
 
 };
