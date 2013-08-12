@@ -40,8 +40,6 @@ namespace WebPortfolio
             bundles.Add(new ScriptBundle("~/bundles/controllers")
                 .IncludeDirectory("~/Controllers", "*.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/models")
-                .IncludeDirectory("~/Models", "*.js"));
 
 
 

@@ -10,9 +10,7 @@
         };
 
 
-
-
-        var _Details = function ($scope, $wprepository) {
+        var _Details = function ($context) {
             //$rootScope.isReady = false;
 
             $scope.userProfile = {};

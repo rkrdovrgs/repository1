@@ -1,0 +1,54 @@
+﻿
+#divusername {
+    width:100%;
+}
+
+#sectioncenter {
+    display:inline-block;
+    margin: 0 0.5em 0.5em 0;
+    vertical-align:top;
+    width:50%;
+}
+    #sectioncenter div {
+        margin-bottom:0.5em;
+    }
+    #sectioncenter label {
+            display:inline-block;
+            vertical-align:top;
+            width:25%;
+        }
+    #sectioncenter input {
+        display:inline-block;
+        vertical-align:top;
+        width:70%;
+    }
+#sectiondetails {
+    width:100%;    
+}
+#sectiondetails * {
+    margin:0;
+    padding:0;    
+}
+
+#sectionleft {
+    display:inline-block;
+    float:left;
+    margin: 0 1em 0.5em 0;
+    vertical-align:top;
+    width:15%;
+}
+
+#sectionright {
+    display:inline-block;
+    float:right;
+    
+    vertical-align:top;
+    width:30%;
+}
+    #sectionright input {
+        height:500px;       
+        
+        width: 100%;
+    }
+
+    
