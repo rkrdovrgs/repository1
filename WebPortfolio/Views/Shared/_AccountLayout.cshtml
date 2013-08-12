@@ -1,103 +1,39 @@
 ﻿<!DOCTYPE html>
 <html dir="ltr" lang="en-US">
 <head>
-    <!-- Created by Artisteer v4.1.0.59861 -->
     <meta charset="utf-8">
     <title>@ViewBag.Title - App Name</title>
     <meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no, width = device-width">
 
     <!--[if lt IE 9]><script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
     <link rel="stylesheet" href="~/Content/accountlayout/style.css" media="screen">
-    <!--[if lte IE 7]><link rel="stylesheet" href="style.ie7.css" media="screen" /><![endif]-->
-    <link rel="stylesheet" href="~/Content/accountlayout/style.responsive.css" media="all">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu&amp;subset=latin">
 
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-
-
-
-    <style>
-        .art-content .art-postcontent-0 .layout-item-0 {
-            padding-right: 10px;
-            padding-left: 10px;
-        }
-
-        .ie7 .art-post .art-layout-cell {
-            border: none !important;
-            padding: 0 !important;
-        }
-
-        .ie6 .art-post .art-layout-cell {
-            border: none !important;
-            padding: 0 !important;
-        }
-    </style>
 </head>
 <body>
-    <div id="art-main">
-        <div class="art-sheet clearfix">
-            <header class="art-header">
+    <div id="main">
 
+        <div id="block-left">
 
-                <div class="art-shapes">
-                </div>
-
-
-
-
-
-
-            </header>
-            <div class="art-layout-wrapper">
-                <div class="art-content-layout">
-                    <div class="art-content-layout-row">
-                        <div class="art-layout-cell art-content">
-                            <article class="art-post art-article">
-
-
-                                <div class="art-postcontent art-postcontent-0 clearfix">
-                                    <div class="art-content-layout">
-                                        <div class="art-content-layout-row">
-                                            <div class="art-layout-cell layout-item-0" style="width: 100%">
-                                                <p><span style="color: rgb(41, 177, 219); font-size: 24px;">
-                                                    <br>
-                                                </span></p>
-                                                <p><span style="color: rgb(41, 177, 219); font-size: 24px;">
-                                                    <br>
-                                                </span></p>
-                                                <p><span style="color: rgb(41, 177, 219); font-size: 28px; text-shadow: rgb(23, 23, 23) 1px 0px 0px, rgb(23, 23, 23) -1px 0px 0px, rgb(23, 23, 23) 0px -1px 0px, rgb(23, 23, 23) 0px 1px 0px, rgba(0, 0, 0, 0.984375) 0px 0px 10px;">Logo y Nombre de la Empresa</span></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </article>
-                        </div>
-                        <div class="art-layout-cell art-sidebar1">
-                            <div class="art-block clearfix" id="1blockbody" >
-                                <div class="art-blockcontent" id="blockbody">
-                                    @RenderBody()
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <footer class="art-footer">
-                <p><span style="font-size: 12px;"><a href="#">Link1</a> | <a href="#">Link2</a> | <a href="#">Link3</a></span></p>
-                <p><span style="font-size: 12px;">Copyright © 2013. All Rights Reserved.</span></p>
-                <p class="art-page-footer">
-                    <span id="art-footnote-links"><a href="http://www.artisteer.com/" target="_blank">Web Template</a> created with Artisteer.</span>
-                </p>
-            </footer>
+            <span id="logo-name">Logo y Nombre de la Empresa</span>
 
         </div>
+        <div id="blockbody">
+            @RenderBody()
+        </div>
+
+        <footer>
+            <p><span style="font-size: 12px;"><a href="#">About</a> | <a href="#">Contact</a></span></p>
+            <p><span style="font-size: 12px;">Copyright © 2013. All Rights Reserved.</span></p>
+        </footer>
+
+
     </div>
 
-    
-    @Scripts.Render("~/bundles/app")
+
+    @Scripts.Render("~/bundles/account")
     @RenderSection("scripts", required: false)
 </body>
 </html>

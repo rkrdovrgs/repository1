@@ -1,7 +1,7 @@
 ﻿var ProfileController = new Controller(WebPortfolio, "ProfileController",
     function () {
 
-        var userprofilerepository = IRepository('UserProfile');
+        var userprofilerepository = Repository('UserProfile');
 
 
         var _Index = function ($context) {
@@ -18,7 +18,7 @@
             $context.$scope.userProfile = {};
 
             return userprofilerepository()
-                .Get($context.$routeParams.id, $context.$scope.userProfile);
+                .FindOne($context.$scope.userProfile, null, 'details');
 
         };
 
@@ -32,7 +32,7 @@
 
             $context.$scope.updateProfile = function () {
                 userprofilerepository()
-                    .Update($context.$routeParams.id, $context.$scope.userProfile)
+                    .Update($context.$scope.userProfile, $context.$routeParams.id)
                     .then(function () {
                         $context.$location.path('/Profile/' + $context.$scope.userProfile.UserId);
                     });
@@ -40,7 +40,7 @@
 
 
             return userprofilerepository()
-                .Get($context.$routeParams.id, $context.$scope.userProfile);
+                .Get($context.$scope.userProfile, $context.$routeParams.id);
         };
 
 

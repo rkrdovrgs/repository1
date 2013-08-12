@@ -1,23 +1,15 @@
-﻿$repository = function ($http, $q, dataContext) {
+﻿$repository = function ($http, $q) {
 
-    
+    var prefix = "/api/";
 
     var _modelName;
-    var _Get = function (id, model) {
 
+    var _get = function (model, url, filters) {
         var d = $q.defer();
 
-        var url = "/api/" + _modelName + "/" + id;
-        if (dataContext[_modelName][url] != undefined)
-        {
-            angular.copy(dataContext[_modelName]
-        }
-
-
-        $http.get(url)
+        $http.get(url, filters)
             .success(function (data) {
                 angular.copy(data, model);
-                dataContext[_modelName][url] = data;
                 d.resolve(data);
             })
             .error(function () {
@@ -29,16 +21,42 @@
         return d.promise;
     };
 
-    var _FindOne = function (filters, model) {
+    var _Get = function (model, id) {
+
+
+
+        var url = prefix + _modelName + "/" + id;
+
+        return _get(model, url);
 
     };
 
+    var _FindOne = function (model, filters, actionName) {
 
-    var _Put = function (id, model) {
+
+        var url = prefix + _modelName + "/" + actionName;
+
+        return _get(model, url, filters);
+    };
+
+    var _GetList = function (model, filters, actionName) {
+
+        url = prefix + _modelName;
+        if (actionName != undefined)
+            url += "/" + actionName;
+
+        return _get(model, url, filters);
+    };
+
+
+    var _Post = function (model, actionName) {
         var d = $q.defer();
 
-        
-        $http.put("/api/" + _modelName + "/" + id, model)
+        var url = prefix + _modelName;
+        if (actionName != undefined)
+            url += "/" + actionName;
+
+        $http.post(url, model)
             .success(function (data) {
                 //success code here
                 d.resolve(data);
@@ -49,21 +67,66 @@
             });
 
         return d.promise;
-    }
+    };
+
+    var _Put = function (model, id, actionName) {
+        var d = $q.defer();
+
+        var url = prefix + _modelName + "/";
+        if (actionName != undefined)
+            url += actionName;
+        else
+            url += id
+
+        $http.put(url, model)
+            .success(function (data) {
+                //success code here
+                d.resolve(data);
+            })
+            .error(function () {
+                //error code here
+                deferred.reject();
+            });
+
+        return d.promise;
+    };
+
+
+    var _Delete = function (id, actionName) {
+        var d = $q.defer();
+
+        var url = prefix + _modelName + "/";
+        if (actionName != undefined)
+            url += actionName;
+        else
+            url += id
+
+        $http.delete(url)
+            .success(function (data) {
+                //success code here
+                d.resolve(data);
+            })
+            .error(function () {
+                //error code here
+                deferred.reject();
+            });
+
+        return d.promise;
+    };
 
 
     return function (modelName) {
         _modelName = modelName;
 
-        if (dataContext[modelName] == undefined)
-            dataContext[modelName] = {};
+
 
         return {
             Get: _Get,
-            //GetList: _GetValues,
-            //Add: _Post,
+            FindOne: _FindOne,
+            GetList: _GetList,
+            Add: _Post,
             Update: _Put,
-            //Delete: _Delete
+            Delete: _Delete
         };
     };
 

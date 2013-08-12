@@ -1,4 +1,4 @@
-﻿$(document).on('click', '#register-link', function () {
+﻿$('#blockbody').on('click', '#register-link', function () {
     $.ajax({
         url: '/Account/Register',
         success: function (data) {

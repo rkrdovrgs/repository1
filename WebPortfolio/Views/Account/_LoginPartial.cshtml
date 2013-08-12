@@ -11,7 +11,7 @@
 
             <li id="form-login-username">
                 @Html.LabelFor(m => m.UserEmail)
-                @Html.TextBoxFor(m => m.UserEmail, new { @id = "modlgn_username", @class = "inputbox" })
+                @Html.TextBoxFor(m => m.UserEmail, new { @id = "modlgn_username" })
                 @Html.ValidationMessageFor(m => m.UserEmail)
             </li>
 
@@ -24,12 +24,12 @@
 
             <li id="form-login-remember">
                 @Html.CheckBoxFor(m => m.RememberMe)
-                @Html.LabelFor(m => m.RememberMe, new { @id = "modlgn_remember", @class = "art-checkbox" })
+                @Html.LabelFor(m => m.RememberMe, new { @id = "modlgn_remember", @class = "checkbox" })
             </li>
 
             <li>
                 <div>
-                    <input type="submit" value="Log in" class="art-button" />
+                    <input type="submit" value="Log in" class="button" />
                 </div>
             </li>
 
@@ -48,7 +48,7 @@
 
 
 
-<section class="art-blockcontent" id="socialLoginForm">
+<section class="blockcontent" id="socialLoginForm">
     <br />
 
 

@@ -20,10 +20,12 @@ namespace WebPortfolio.Controllers.Api
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/userprofile/5
-        public UserProfile Get(int id)
-        {
-            return userprofilerepository.Get(x => x.UserId == id);
+        
+        [HttpGet]
+        public UserProfile Details()
+        { 
+            var userName = User.Identity.Name;
+            return userprofilerepository.Get(x => x.UserName == userName);
         }
 
         // POST api/userprofile

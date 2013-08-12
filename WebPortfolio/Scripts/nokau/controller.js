@@ -26,8 +26,11 @@
                         $rootScope.isReady = true;
                     });
 
-            if (result != undefined)
+
+            $rootScope.isReady = true;
+            if (result != undefined) 
                 return result;
+
 
         };
 
