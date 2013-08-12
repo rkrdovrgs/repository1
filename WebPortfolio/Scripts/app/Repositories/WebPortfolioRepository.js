@@ -6,8 +6,6 @@
     };
 
 
-
-
     return {
 
         UserProfile : _UserProfileRepository

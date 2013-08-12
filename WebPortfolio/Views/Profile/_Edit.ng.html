@@ -1,5 +1,5 @@
 ﻿<div class="display-label" id="divusername">
-    <label>Name:    </label>  {{ userProfile.UserName  }}
+    <label>User name: {{ userProfile.UserName  }}</label>  
     <hr />
 </div>
 
@@ -34,7 +34,7 @@
             </div>
             <div>
                 <label>DOB</label>
-                <input type="date" name="bday" />
+                <input type="date" />
             </div>
         </fieldset>
 
@@ -43,7 +43,7 @@
             <div>
                 <label>Country</label>
                 <!--<input type="text" data-ng-model="userProfile.UserCountry" />-->
-                <select>
+                <select>                    
                     <option value="Nicaragua">Nicaragua</option>
                     <option value="US">United State</option>                    
                     <option value="US">otro</option>
@@ -74,7 +74,7 @@
 
     <section id="sectionright">
         <div>
-            <input type="text" placeholder="Click here to edit" />
+            <textarea placeholder="Click here to edit" ></textarea>
         </div>
     </section>
 </section>
