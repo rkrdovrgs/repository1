@@ -15,16 +15,15 @@ namespace WebPortfolio.Controllers.Api
         public IWPRepository<UserProfile> userprofilerepository { get; set; }
 
         // GET api/userprofile
-        public IEnumerable<string> Get()
+        [HttpGet]
+        public UserProfile Details()
         {
-            return new string[] { "value1", "value2" };
+            var userName = User.Identity.Name;
+            return userprofilerepository.Get(x => x.UserName == userName);
         }
 
-        // GET api/userprofile/5
-        public UserProfile Get(int id)
-        {
-            return userprofilerepository.Get(x => x.UserId == id);
-        }
+        
+        
 
         // POST api/userprofile
         public void Post([FromBody]string value)

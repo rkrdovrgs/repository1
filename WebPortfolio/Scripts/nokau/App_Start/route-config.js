@@ -3,6 +3,7 @@
     _RegisterRoutes = function ($routeProvider, $nameSpace) {
         var suffix = ConfigurationManager.AppSettings.templateSuffix;
 
+        //console.log($routeProvider);
 
         //#region Default route
 

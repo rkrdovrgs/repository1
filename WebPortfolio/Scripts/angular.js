@@ -7390,7 +7390,7 @@ function $RouteProvider(){
       // Append trailing path part.
       regex += when.substr(lastMatchedIndex);
 
-      var match = on.match(new RegExp(regex));
+      var match = on.match(new RegExp(regex, 'i'));
       if (match) {
         forEach(params, function(name, index) {
           dst[name] = match[index + 1];

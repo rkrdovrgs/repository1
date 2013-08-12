@@ -29,7 +29,14 @@ namespace WebPortfolio
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index" },
+                constraints: new { id = @"\d+" }
+            );
+
+            routes.MapRoute(
+                name: "ControllerAndAction",
+                url: "{controller}/{action}",
+                defaults: new { controller = "Home", action = "Index" }
             );
         }
     }

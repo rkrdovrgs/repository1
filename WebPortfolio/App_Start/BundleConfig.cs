@@ -8,9 +8,13 @@ namespace WebPortfolio
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
         {
+
+            bundles.Add(new ScriptBundle("~/bundles/angularjs")
+                .Include("~/Scripts/angular.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery")
                 .Include("~/Scripts/jquery-{version}.js")
-                .Include("~/Scripts/jquery.partial.binder.min.js"));
+                .Include("~/Scripts/jquery.partial.binder.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));
@@ -30,7 +34,11 @@ namespace WebPortfolio
                 .IncludeDirectory("~/Scripts/app", "*.js", true)
                 .IncludeDirectory("~/Scripts/nokau", "*.js", true));
 
-            bundles.Add(new ScriptBundle("~/bundles/controllers").IncludeDirectory("~/Controllers", "*.js"));
+            bundles.Add(new ScriptBundle("~/bundles/account")
+                .Include("~/Scripts/account.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/controllers")
+                .IncludeDirectory("~/Controllers", "*.js"));
 
 
 
