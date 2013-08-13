@@ -16,19 +16,21 @@ namespace WebPortfolio.Controllers.Api
         public IWPRepository<UserProfile> userprofilerepository { get; set; }
         public IWPRepository<UserAddress> useraddressrepository { get; set; }
         public IWPRepository<UserPhone> userphonerepository { get; set; }
-        
+
         // GET api/userprofile
         [HttpGet]
         public UserProfile Details()
         {
             var userName = User.Identity.Name;
-            var userProfile = userprofilerepository.GetList(x => x.UserName == userName).Include (x => x.UserAddresses ).Include(x => x.UserPhones).FirstOrDefault();
+            var userProfile = userprofilerepository.GetList(x => x.UserName == userName).Include(x => x.UserAddresses).Include(x => x.UserPhones).FirstOrDefault();
 
             if (userProfile.UserAddresses == null || !userProfile.UserAddresses.Any())
-                userProfile.UserAddresses = new List<UserAddress>() { new UserAddress{
-                UserId = userProfile.UserId
-                } };
-            
+                userProfile.UserAddresses = new List<UserAddress>() { 
+                    new UserAddress{
+                        UserId = userProfile.UserId
+                    } 
+                };
+
             return userProfile;
         }
 
@@ -41,24 +43,30 @@ namespace WebPortfolio.Controllers.Api
 
         // PUT api/userprofile/5
         [HttpPut]
-        public HttpResponseMessage Put([FromBody]UserProfile userProfile)
+        public object Put([FromBody]UserProfile userProfile)
         {
             //var username = User.Identity.Name;
             //var userid = userprofilerepository.Get(x => x.UserName == username ) ;
             userprofilerepository.Update(userProfile);
 
+            
+            ///TODO: Validar si la direccion esta vacia
+            ///Si esta vacia y existe, borrar
+            ///Sino si esta vacia, no guardar
+            ///Sino, guardar o actualizar
 
-            if(userProfile.UserAddresses != null && userProfile.UserAddresses.Any()) //si useraddress no es nulo y si contiene una fila
-                if(userProfile.UserAddresses.FirstOrDefault().UserAddressId == 0)
-                    useraddressrepository.Save(userProfile.UserAddresses.FirstOrDefault(),true);
+
+            if (userProfile.UserAddresses != null && userProfile.UserAddresses.Any()) //si useraddress no es nulo y si contiene una fila
+                if (userProfile.UserAddresses.FirstOrDefault().UserAddressId == 0)
+                    useraddressrepository.Save(userProfile.UserAddresses.FirstOrDefault());
                 else
                     useraddressrepository.Update(userProfile.UserAddresses.FirstOrDefault());
 
-            if (userProfile.UserPhones != null && userProfile.UserPhones.Any())
-                userphonerepository.Update(userProfile.UserPhones.FirstOrDefault());
-            
-            return new HttpResponseMessage(HttpStatusCode.OK) { 
-            
+            //if (userProfile.UserPhones != null && userProfile.UserPhones.Any())
+            //    userphonerepository.Update(userProfile.UserPhones.FirstOrDefault());
+
+            return new {
+                userAddressId = userProfile.UserAddresses.FirstOrDefault().UserAddressId
             };
 
         }
