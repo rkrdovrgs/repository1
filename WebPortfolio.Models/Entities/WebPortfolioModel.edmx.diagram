@@ -5,9 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="3c8455331e324f9eaed71e35ba33bff1" Name="Diagram1">
-        <EntityTypeShape EntityType="WebPortfolioModel.UserProfile" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebPortfolioModel.UserAddress" Width="1.5" PointX="5.125" PointY="1.375" />
+        <EntityTypeShape EntityType="WebPortfolioModel.UserAddress" Width="1.5" PointX="3.125" PointY="3.375" />
+        <EntityTypeShape EntityType="WebPortfolioModel.UserProfile" Width="1.5" PointX="7.25" PointY="4.875" />
         <AssociationConnector Association="WebPortfolioModel.FK_UserAddress_UserProfile" />
+        <EntityTypeShape EntityType="WebPortfolioModel.UserPhone" Width="1.5" PointX="6" PointY="2.625" />
+        <AssociationConnector Association="WebPortfolioModel.FK_UserPhone_UserProfile" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

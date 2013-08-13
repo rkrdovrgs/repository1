@@ -51,6 +51,9 @@
     <Compile Include="Entities\UserAddress.cs">
       <DependentUpon>WebPortfolioModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\UserPhone.cs">
+      <DependentUpon>WebPortfolioModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\UserProfile.cs">
       <DependentUpon>WebPortfolioModel.tt</DependentUpon>
     </Compile>
