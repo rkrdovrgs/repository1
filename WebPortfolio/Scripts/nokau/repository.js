@@ -78,7 +78,7 @@
         var url = prefix + _modelName + "/";
         if (actionName != undefined)
             url += actionName;
-        else
+        else if(id != undefined)
             url += id
 
         $http.put(url, model)

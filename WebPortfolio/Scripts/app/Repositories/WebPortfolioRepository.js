@@ -7,13 +7,10 @@
         }
 
     });
-
-    
-
+   
 
     return {
-
-        UserProfile : _UserProfileRepository
-
+        UserProfile: _UserProfileRepository
     };
+
 };

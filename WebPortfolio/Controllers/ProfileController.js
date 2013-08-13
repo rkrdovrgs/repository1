@@ -1,19 +1,16 @@
 ﻿var ProfileController = new Controller(WebPortfolio, "ProfileController",
-    function () {
-
-        
+    function () {        
 
 
         var _Index = function () {
-
-
         };
-
 
         var _Details = function ($scope, $wprepository) {
             //$rootScope.isReady = false;
 
             $scope.userProfile = {};
+            $scope.userAddress = {};
+            //$scope.userAddress = {};
             
            
             //$('.validation').mouseenter(function () {
@@ -35,23 +32,29 @@
             //    txt.setAttribute('class', 'validation');
             //    document.getElementById("divvemail").appendChild(txt);
             //});
+            //$(function () {
+            //    $("#DOB").datepicker();
+            //});
             
+            $scope.updateProfile = function () {
+                $wprepository
+                    .UserProfile
+                    .Update($scope.userProfile)
+                    .then(function () {
+                        //$location.path('/Profile/' + $scope.userProfile.UserId);
+                    });  
+            };
            
-
-
             return $wprepository
                 .UserProfile
-                .Details($scope.userProfile);               
+                .Details($scope.userProfile);           
 
         };
-
+        
 
         var _Edit = function ($scope, $wprepository, $routeParams, $location) {
 
-
             $scope.userProfile = {};
-
-
 
             $scope.updateProfile = function () {
                 $wprepository
@@ -61,7 +64,6 @@
                         $location.path('/Profile/' + $scope.userProfile.UserId);
                     });
             };
-
 
             return $wprepository
                 .UserProfile

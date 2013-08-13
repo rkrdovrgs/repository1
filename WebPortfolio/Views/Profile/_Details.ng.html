@@ -27,20 +27,20 @@
             <div class="control-group">
                 <label class="control-label">First name:</label>
                 <div class="controls">
-                    <input type="text" class="validation" />
+                    <input type="text" class="validation" data-ng-model="userProfile.FirstName" />
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">Last name:</label>
                 <div class="controls">
-                    <input type="text" class="validation" />
+                    <input type="text" class="validation" data-ng-model="userProfile.LastName" />
                 </div>
             </div>
 
             <div class="control-group">
                 <label class="control-label">Email:</label>
                 <div class="controls">
-                    <input type="email" class="validation" placeholder="emial@x.com" />
+                    <input type="email" class="validation" placeholder="email@x.com" data-ng-model="userProfile.UserEmail" required />
                 </div>
             </div>
 
@@ -49,7 +49,7 @@
             <div class="control-group">
                 <label class="control-label">DOB:</label>
                 <div class="controls">
-                    <input type="text" class="validation" />
+                    <input type="text" class="validation" id="DOB" data-ng-model="userProfile.DOB"/>
                 </div>
             </div>
         </fieldset>
@@ -71,31 +71,37 @@
             <div class="control-group">
                 <label class="control-label">State:</label>
                 <div class="controls">
-                    <input type="text" class="validation" />
+                    <input type="text" class="validation" data-ng-model="userProfile.UserAddresses[0].State" />
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">City:</label>
                 <div class="controls">
-                    <input type="text" class="validation" />
+                    <input type="text" class="validation" data-ng-model="userProfile.UserAddresses[0].City" />
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label">Address:</label>
+                <label class="control-label">Address 1:</label>
                 <div class="controls">
-                    <input type="text" class="validation" />
+                    <input type="text" class="validation" data-ng-model="userProfile.UserAddresses[0].Line1" />                   
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Address 2:</label>
+                <div class="controls">
+                    <input type="text" class="validation" data-ng-model="userProfile.UserAddresses[0].Line2" />                   
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">Zip code:</label>
                 <div class="controls">
-                    <input type="text" class="validation" />
+                    <input type="text" class="validation" data-ng-model="userProfile.UserAddresses[0].Zipcode" />
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label">Phone:</label>
                 <div class="controls">
-                    <input type="text" class="validation" />
+                    <input type="text" class="validation" data-ng-model=" userProfile.UserPhones[1].Phone" />
                 </div>
             </div>
 
