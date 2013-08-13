@@ -23,6 +23,9 @@ namespace WebPortfolio
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                        "~/Scripts/bootstrap.js"));
+
 
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
@@ -36,13 +39,20 @@ namespace WebPortfolio
 
             bundles.Add(new ScriptBundle("~/bundles/account")
                 .Include("~/Scripts/account.js"));
+           
 
             bundles.Add(new ScriptBundle("~/bundles/controllers")
                 .IncludeDirectory("~/Controllers", "*.js"));
 
 
+            bundles.Add(new StyleBundle("~/Content/app")
+                .IncludeDirectory("~/Content/app", "*.css", true));
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
+                        "~/Content/bootstrap-responsive.css",
+                        "~/Content/bootstrap.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",

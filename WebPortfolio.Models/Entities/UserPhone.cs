@@ -12,14 +12,11 @@ namespace WebPortfolio.Models.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class UserAddress
+    public partial class UserPhone
     {
-        public int UserAddressId { get; set; }
-        public string Line1 { get; set; }
-        public string Line2 { get; set; }
-        public string State { get; set; }
-        public string City { get; set; }
-        public Nullable<int> Zipcode { get; set; }
         public int UserId { get; set; }
+        public decimal Phone { get; set; }
+    
+        public virtual UserProfile UserProfile { get; set; }
     }
 }

@@ -25,7 +25,10 @@
 
 
 
-        var url = prefix + _modelName + "/" + id;
+        var url = prefix + _modelName + "/";
+        if (id != undefined)
+            url += id;
+
 
         return _get(model, url);
 
@@ -75,7 +78,7 @@
         var url = prefix + _modelName + "/";
         if (actionName != undefined)
             url += actionName;
-        else
+        else if(id != undefined)
             url += id
 
         $http.put(url, model)
@@ -115,12 +118,10 @@
     };
 
 
-    return function (modelName) {
+    return function (modelName, fxs) {
         _modelName = modelName;
 
-
-
-        return {
+        var repo = {
             Get: _Get,
             FindOne: _FindOne,
             GetList: _GetList,
@@ -128,6 +129,13 @@
             Update: _Put,
             Delete: _Delete
         };
+
+
+        if (fxs != undefined)
+            angular.extend(repo, fxs);
+
+        return repo;
+
     };
 
 };

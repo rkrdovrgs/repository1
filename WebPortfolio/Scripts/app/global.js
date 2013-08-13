@@ -1,12 +1,6 @@
 ﻿var globalModule = angular.module("global", ['ng']),
     //App main namespace
-    WebPortfolio = {},
-    IRepository,
-    Repository = function (modelName) {
-        return function () {
-            return IRepository(modelName);
-        };
-    };
+    WebPortfolio = {};
 
 
 
@@ -16,9 +10,12 @@ globalModule.config(function ($routeProvider) {
 
 });
 
-globalModule.factory('$repository', function ($http, $q) {
+globalModule.factory('$wprepository', function ($http, $q) {
     //Custom IoC
-    IRepository = $repository($http, $q);
+    var Repository = new $repository($http, $q);
+
+    return new WebPortfolioRepository(Repository);
+
 });
 
 

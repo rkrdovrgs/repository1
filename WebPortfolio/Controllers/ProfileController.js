@@ -1,46 +1,75 @@
 ﻿var ProfileController = new Controller(WebPortfolio, "ProfileController",
-    function () {
-
-        var userprofilerepository = Repository('UserProfile');
+    function () {        
 
 
-        var _Index = function ($context) {
-
-
+        var _Index = function () {
         };
 
-
-
-
-        var _Details = function ($context) {
+        var _Details = function ($scope, $wprepository) {
             //$rootScope.isReady = false;
 
-            $context.$scope.userProfile = {};
+            $scope.userProfile = {};
+            $scope.userAddress = {};
+            //$scope.userAddress = {};
+            
+           
+            //$('.validation').mouseenter(function () {
+            //    if ($(this).val() != "")
+            //        $(this).css("background", "#E4ECED");
+            //});
+            //$('.validation').mouseleave(function () {
+            //    if ($(this).val() != "")
+            //        $(this).css("background", "none");
+            //});
 
-            return userprofilerepository()
-                .FindOne($context.$scope.userProfile, null, 'details');
+            //$('.validation').keyup(function () {
+            //    if ($(this).val() != "")
+            //        $(this).css("background", "none");
+            //});
+
+            //$(".addme").click(function () {
+            //    var txt = document.createElement('input');
+            //    txt.setAttribute('class', 'validation');
+            //    document.getElementById("divvemail").appendChild(txt);
+            //});
+            //$(function () {
+            //    $("#DOB").datepicker();
+            //});
+            
+            $scope.updateProfile = function () {
+                $wprepository
+                    .UserProfile
+                    .Update($scope.userProfile)
+                    .then(function (data) {
+                        $scope.userProfile.UserAddresses[0].UserAddressId = data.userAddressId;
+                        
+                        //$location.path('/Profile/' + $scope.userProfile.UserId);
+                    });  
+            };
+           
+            return $wprepository
+                .UserProfile
+                .Details($scope.userProfile);           
 
         };
+        
 
+        var _Edit = function ($scope, $wprepository, $routeParams, $location) {
 
-        var _Edit = function ($context) {
+            $scope.userProfile = {};
 
-
-            $context.$scope.userProfile = {};
-
-
-
-            $context.$scope.updateProfile = function () {
-                userprofilerepository()
-                    .Update($context.$scope.userProfile, $context.$routeParams.id)
+            $scope.updateProfile = function () {
+                $wprepository
+                    .UserProfile
+                    .Update($scope.userProfile, $routeParams.id)
                     .then(function () {
-                        $context.$location.path('/Profile/' + $context.$scope.userProfile.UserId);
+                        $location.path('/Profile/' + $scope.userProfile.UserId);
                     });
             };
 
-
-            return userprofilerepository()
-                .Get($context.$scope.userProfile, $context.$routeParams.id);
+            return $wprepository
+                .UserProfile
+                .Details($scope.userProfile);
         };
 
 
