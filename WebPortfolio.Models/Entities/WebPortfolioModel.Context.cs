@@ -26,7 +26,7 @@ namespace WebPortfolio.Models.Entities
         }
     
         public DbSet<UserAddress> UserAddresses { get; set; }
-        public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<UserPhone> UserPhones { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
     }
 }

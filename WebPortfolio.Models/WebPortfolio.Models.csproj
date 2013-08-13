@@ -57,6 +57,7 @@
     <Compile Include="Entities\UserProfile.cs">
       <DependentUpon>WebPortfolioModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Configuration\WebPortfolioEntities.cs" />
     <Compile Include="Entities\WebPortfolioModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
