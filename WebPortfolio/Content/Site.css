@@ -401,9 +401,9 @@ fieldset {
     padding: 0;
 }
 
-    fieldset legend {
+    /*fieldset legend {
         display: none;
-    }
+    }*/
 
     fieldset ol {
         padding: 0;
@@ -424,7 +424,7 @@ label {
         display: inline;
     }
 
-input, textarea {
+/*input, textarea {
     border: 1px solid #e2e2e2;
     background: #fff;
     color: #333;
@@ -432,7 +432,7 @@ input, textarea {
     margin: 5px 0 6px 0;
     padding: 5px;
     width: 300px;
-}
+}*/
 
 textarea {
     font-family: inherit;
@@ -714,9 +714,9 @@ tr.pager td {
         }
 
     /* forms */
-    input {
+    /*input {
         width: 90%;
-    }
+    }*/
 
     /* login page */
     #loginForm {
@@ -755,6 +755,8 @@ tr.pager td {
         }
 }
 
+
+
 /* Portrait tablet to landscape and desktop */
 @media (max-width: 979px) and (min-width: 768px) {
     .row-fluid .span-main-content {
@@ -769,3 +771,12 @@ tr.pager td {
     }
 }
 
+
+img.profile-picture {
+    width: 120px;
+    height: 120px;
+}
+
+figure {
+    margin: 0px;
+}

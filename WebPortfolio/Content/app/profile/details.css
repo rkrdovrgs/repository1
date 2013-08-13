@@ -1,86 +1,12 @@
-﻿
-#divusername {
-    width:100%;
+﻿#profile-details #section-left {
+    min-width:130px
 }
 
-#sectioncenter {
-    display:inline-block;
-    margin: 0 0.5em 0.5em 0;
-    vertical-align:top;
-    width:50%;
-}
-    
-    #sectioncenter div {
-        margin-bottom:1em;
-    }
-    #sectioncenter label {
-            display:inline-block;
-            vertical-align:auto;
-            width:20%;
-        }
-    #sectioncenter input, select {
-        background-color:#E4ECED;
-        display:inline-block;
-        padding: 0.5em 0;
-        vertical-align:top;
-        width:70%;
-    }
-     #sectioncenter select {        
-        padding: 0.8em 0;       
-    }
-    #sectioncenter input:hover, select:hover, textarea {             
-        cursor:pointer;
-    }
-    #sectioncenter input:focus, select:focus, textarea:focus {   
-        background:none;    
-        border:1px solid #0158FA;
-        border-radius:5px;
-        cursor:text;
-    }
-    #sectioncenter select:focus {
-        cursor:pointer;
-    }
-   
-     #sectioncenter h4 {
-        text-align:center;
-    }
-    #sectioncenter .addme {
-        font-size:7px;
-        float:right;
-    }
-    #sectioncenter .addme:hover {
-        color:#8761BF;
-        font-style:inherit;
-    }
-   
-#sectiondetails {
-    width:100%;    
-}
-#sectiondetails * {
-    margin:0;
-    padding:0;    
+#profile-details #section-right {
+    margin-left:150px;
+    margin-right:20px;
 }
 
-#sectionleft {
-    display:inline-block;
-    float:left;
-    margin: 0 1em 0.5em 0;
-    vertical-align:top;
-    width:15%;
-}
-
-#sectionright {
-    display:inline-block;
-    float:right;
-    
-    vertical-align:top;
-    width:30%;
-}
-    #sectionright textarea {
-        background-color:#E4ECED;
-        height:300px; 
-        width: 100%;
-    }
     
 
     

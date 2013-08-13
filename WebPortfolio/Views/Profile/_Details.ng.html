@@ -1,75 +1,107 @@
-﻿<div class="row">
+﻿<div>
     <label>Name:  {{ userProfile.UserName  }}</label>
     <hr />
-    <!--No usar <hr />. En vez, usar css border.-->
 </div>
 
-<section class="row-fluid">
-    <section class="span2">
-        <div>
-            <figure>
-                <img src="../../Images/orderedList1.png" height="50" width="50" />
-                <figcaption>Profile picture</figcaption>
-            </figure>
-        </div>
+<section class="row-fluid" id="profile-details">
+
+    <section class="span3" id="section-left">
+
+        <figure>
+            <img src="../../Images/orderedList1.png" class="img-polaroid profile-picture" />
+        </figure>
+
     </section>
 
-    <section class="span10">
+    <section class="span9">
+        <fieldset class="form-horizontal">
 
-        <h4>Personal info</h4>
-        <div>
-            <label>User name</label>
-            <input type="text" class="validation" data-ng-model="userProfile.UserName" required />
-        </div>
-        <div>
-            <label>First name</label>
-            <input type="text" class="validation" id="firstname" />
-        </div>
-        <div>
-            <label>Last name</label>
-            <input type="text" class="validation" value="" />
-        </div>
-        <div id="divvemail">
-            <label>Email</label>
-            <input type="email" class="validation" placeholder="email@x.com" required />
+            <legend>Personal Info</legend>
 
-        </div>
-        <label class="addme">Add me</label>
-        <div>
-            <label>DOB</label>
-            <input type="date" class="validation" />
-        </div>
+            <div class="control-group">
+                <label class="control-label">User name:</label>
+                <div class="controls">
+                    <input type="text" class="validation" data-ng-model="userProfile.UserName" required />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">First name:</label>
+                <div class="controls">
+                    <input type="text" class="validation" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Last name:</label>
+                <div class="controls">
+                    <input type="text" class="validation" />
+                </div>
+            </div>
 
-        <h4>Contact info</h4>
-        <div>
-            <label>Country</label>
-            <!--<input type="text" data-ng-model="userProfile.UserCountry" />-->
-            <select class="validation">
-                <option value="US"></option>
-                <option value="Nicaragua">Nicaragua</option>
-                <option value="US">United State</option>
-                <option value="US"></option>
-            </select>
-        </div>
-        <div>
-            <label>State</label>
-            <input type="text" class="validation" />
-        </div>
-        <div>
-            <label>City</label>
-            <input type="text" class="validation" />
-        </div>
-        <div id="adderess">
-            <label>Address</label>
-            <input type="text" class="validation" />
-        </div>
-        <div>
-            <label>Zip code</label>
-            <input type="text" class="validation" />
-        </div>
-        <div id="divvphone">
-            <label>Phone</label>
-            <input type="tel" class="validation" />
+            <div class="control-group">
+                <label class="control-label">Email:</label>
+                <div class="controls">
+                    <input type="email" class="validation" placeholder="emial@x.com" />
+                </div>
+            </div>
+
+
+            <!--<label class="addme">Add me</label>-->
+            <div class="control-group">
+                <label class="control-label">DOB:</label>
+                <div class="controls">
+                    <input type="text" class="validation" />
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="form-horizontal">
+            <legend>Contact info</legend>
+            <div class="control-group">
+                <label class="control-label">Country:</label>
+                <!--<input type="text" data-ng-model="userProfile.UserCountry" />-->
+                <div class="controls">
+                    <select class="validation">
+                        <option value="US"></option>
+                        <option value="Nicaragua">Nicaragua</option>
+                        <option value="US">United State</option>
+                        <option value="US"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">State:</label>
+                <div class="controls">
+                    <input type="text" class="validation" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">City:</label>
+                <div class="controls">
+                    <input type="text" class="validation" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Address:</label>
+                <div class="controls">
+                    <input type="text" class="validation" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Zip code:</label>
+                <div class="controls">
+                    <input type="text" class="validation" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Phone:</label>
+                <div class="controls">
+                    <input type="text" class="validation" />
+                </div>
+            </div>
+
+        </fieldset>
+        <div class="form-actions">
+            <input type="button" value="Save" class="btn btn-primary" data-ng-click="updateProfile()" />
         </div>
 
     </section>
@@ -78,4 +110,4 @@
 </section>
 
 
-<input type="button" value="Save" data-ng-click="updateProfile()" />
+

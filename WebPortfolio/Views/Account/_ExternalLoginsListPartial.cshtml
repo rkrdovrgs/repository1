@@ -21,7 +21,7 @@ else
             @foreach (AuthenticationClientData p in Model)
             {
                 <button type="submit" name="provider" value="@p.AuthenticationClient.ProviderName" title="Log in using your @p.DisplayName account">
-                    <img src="@("/Content/accountlayout/images/footer" +p.DisplayName.ToLower() +"icon.png")"/>
+                    <img src="@("/Content/account/images/footer" +p.DisplayName.ToLower() +"icon.png")"/>
                     </button>
             }
         </li>

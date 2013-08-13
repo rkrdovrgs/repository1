@@ -16,25 +16,25 @@
             $scope.userProfile = {};
             
            
-            $('.validation').mouseenter(function () {
-                if ($(this).val() != "")
-                    $(this).css("background", "#E4ECED");
-            });
-            $('.validation').mouseleave(function () {
-                if ($(this).val() != "")
-                    $(this).css("background", "none");
-            });
+            //$('.validation').mouseenter(function () {
+            //    if ($(this).val() != "")
+            //        $(this).css("background", "#E4ECED");
+            //});
+            //$('.validation').mouseleave(function () {
+            //    if ($(this).val() != "")
+            //        $(this).css("background", "none");
+            //});
 
-            $('.validation').keyup(function () {
-                if ($(this).val() != "")
-                    $(this).css("background", "none");
-            });
+            //$('.validation').keyup(function () {
+            //    if ($(this).val() != "")
+            //        $(this).css("background", "none");
+            //});
 
-            $(".addme").click(function () {
-                var txt = document.createElement('input');
-                txt.setAttribute('class', 'validation');
-                document.getElementById("divvemail").appendChild(txt);
-            });
+            //$(".addme").click(function () {
+            //    var txt = document.createElement('input');
+            //    txt.setAttribute('class', 'validation');
+            //    document.getElementById("divvemail").appendChild(txt);
+            //});
             
            
 
