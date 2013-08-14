@@ -14,14 +14,14 @@ namespace WebPortfolio.Models.Entities
     
     public partial class UserAddress
     {
-        public int UserAddressId { get; set; }
+        public int UserId { get; set; }
         public string Line1 { get; set; }
         public string Line2 { get; set; }
         public string State { get; set; }
         public string City { get; set; }
         public Nullable<int> Zipcode { get; set; }
-        public int UserId { get; set; }
+        public Nullable<int> CountryId { get; set; }
     
-        public virtual UserProfile UserProfile { get; set; }
+        public virtual UserProfile UserProfile { internal get; set; }
     }
 }

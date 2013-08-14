@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3c8455331e324f9eaed71e35ba33bff1" Name="Diagram1">
-        <EntityTypeShape EntityType="WebPortfolioModel.UserAddress" Width="1.5" PointX="6.25" PointY="9.25" />
-        <EntityTypeShape EntityType="WebPortfolioModel.UserPhone" Width="1.5" PointX="7.4580678676525451" PointY="23.907419975803894" />
-        <EntityTypeShape EntityType="WebPortfolioModel.UserProfile" Width="1.5" PointX="10.385570609190301" PointY="4.530620770776002" />
+      <Diagram DiagramId="9901998046b348109f6500a6390620ac" Name="Diagram1">
+        <EntityTypeShape EntityType="WebPortfolioModel.UserAddress" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="WebPortfolioModel.UserPhone" Width="1.5" PointX="3" PointY="4.375" />
+        <EntityTypeShape EntityType="WebPortfolioModel.UserProfile" Width="1.5" PointX="0.75" PointY="2.375" />
         <AssociationConnector Association="WebPortfolioModel.FK_UserAddress_UserProfile" />
         <AssociationConnector Association="WebPortfolioModel.FK_UserPhone_UserProfile" />
       </Diagram>

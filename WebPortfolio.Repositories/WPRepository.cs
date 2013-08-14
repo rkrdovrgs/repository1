@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebPortfolio.Core.Repositories;
-using WebPortfolio.Models.Entities.Configuration;
+using WebPortfolio.Models.Entities;
 
 namespace WebPortfolio.Repositories
 {

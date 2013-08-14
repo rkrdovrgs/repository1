@@ -41,7 +41,7 @@
                     .UserProfile
                     .Update($scope.userProfile)
                     .then(function (data) {
-                        $scope.userProfile.UserAddresses[0].UserAddressId = data.userAddressId;
+                        //$scope.userProfile.UserAddresses[0].UserAddressId = data.userAddressId;
                         
                         //$location.path('/Profile/' + $scope.userProfile.UserId);
                     });  

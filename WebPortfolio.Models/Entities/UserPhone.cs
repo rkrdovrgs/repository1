@@ -14,9 +14,10 @@ namespace WebPortfolio.Models.Entities
     
     public partial class UserPhone
     {
+        public int Id { get; set; }
         public int UserId { get; set; }
-        public decimal Phone { get; set; }
+        public decimal Number { get; set; }
     
-        public virtual UserProfile UserProfile { get; set; }
+        public virtual UserProfile UserProfile { internal get; set; }
     }
 }

@@ -52,8 +52,8 @@ namespace WebPortfolio.Repositories
             catch (Exception ex)
             {
                 //Log error
+                throw ex;
             }
-            return null;
         }
 
         /*
