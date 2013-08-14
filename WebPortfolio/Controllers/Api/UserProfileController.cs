@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Linq;
 using System.Web.Http;
 using WebPortfolio.Core.Repositories;
 using WebPortfolio.Models.Entities;
 using System.Data.Entity;
+using WebPortfolio.Core.Extensions;
 
 namespace WebPortfolio.Controllers.Api
 {
     public class UserProfileController : ApiController
     {
-
+        
         public IWPRepository<UserProfile> userprofilerepository { get; set; }
         public IWPRepository<UserAddress> useraddressrepository { get; set; }
         public IWPRepository<UserPhone> userphonerepository { get; set; }
@@ -24,7 +21,7 @@ namespace WebPortfolio.Controllers.Api
             var userName = User.Identity.Name;
             var userProfile = userprofilerepository.GetList(x => x.UserName == userName)
                                     .Include(x => x.UserAddress)
-                                    .Include(x => x.UserPhones)
+                                    .Include(x => x.UserPhone)
                                     .FirstOrDefault();
 
             return userProfile;
@@ -39,8 +36,16 @@ namespace WebPortfolio.Controllers.Api
 
         // PUT api/userprofile/5
         [HttpPut]
-        public void Put([FromBody]UserProfile userProfile)
+        public object Put([FromBody]UserProfile userProfile)
         {
+            var isNewAddress = userProfile.UserAddress != null && userProfile.UserAddress.UserId == 0; //la tabla address no es nula y no hay un registro. se guardara por primera vez
+            var isNewPhone = userProfile.UserPhone != null && userProfile.UserPhone.UserId == 0;
+
+            if (isNewAddress)
+                userProfile.UserAddress.UserId = userProfile.UserId;
+            if (isNewPhone)
+                userProfile.UserPhone.UserId = userProfile.UserId;
+
             //var username = User.Identity.Name;
             //var userid = userprofilerepository.Get(x => x.UserName == username ) ;
             userprofilerepository.Update(userProfile);
@@ -50,24 +55,47 @@ namespace WebPortfolio.Controllers.Api
             ///Si esta vacia y existe, borrar
             ///Sino si esta vacia, no guardar
             ///Sino, guardar o actualizar
+            
+           
+            //Estableciendo en SavePutDelete en UserAddress       
+            if (isNewAddress)     
+                //userProfile.UserAddress.UserId = userProfile.UserId;
+                useraddressrepository.Save(userProfile.UserAddress);  
 
-
-
-            if (userProfile.UserAddress.UserId == 0)
+            else if (userProfile.UserAddress.Line1.IsNullOrEmpty() && userProfile.UserAddress.Line2.IsNullOrEmpty() && userProfile.UserAddress.State.IsNullOrEmpty() && userProfile.UserAddress.City.IsNullOrEmpty() && !userProfile.UserAddress.Zipcode.HasValue )
             {
-                userProfile.UserAddress.UserId = userProfile.UserId;
-                useraddressrepository.Save(userProfile.UserAddress);
+                useraddressrepository.Delete(userProfile.UserAddress);
+                return new { userAddressId = 0 };                
             }
+
             else
                 useraddressrepository.Update(userProfile.UserAddress);
+
+            //Estableciendo en SavePutDelete en UserPhone 
+            if (isNewPhone)
+                userphonerepository.Save(userProfile.UserPhone);
+
+            //else if (userProfile.UserPhone.Number == null)
+            //{
+            //    userphonerepository.Delete(userProfile.UserPhone);
+            //    return new { userPhoneId = 0 };
+            //}
+
+            else
+                userphonerepository.Update(userProfile.UserPhone);
+
+
+            return new
+            {
+                userAddressId = userProfile.UserAddress.UserId
+            };
+
             //else if (!userProfile.UserAddresses.Any())
             //    useraddressrepository.Delete(userProfile.UserAddresses.FirstOrDefault());
             ////if (userProfile.UserPhones != null && userProfile.UserPhones.Any())
             ////    userphonerepository.Update(userProfile.UserPhones.FirstOrDefault());
-
-            //return new {
-            //    userAddressId = userProfile.UserAddresses.FirstOrDefault().Id
-            //};
+            
+           
 
         }
 

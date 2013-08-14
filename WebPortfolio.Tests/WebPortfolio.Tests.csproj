@@ -37,6 +37,9 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -115,6 +118,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\UserProfileControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
@@ -125,6 +129,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WebPortfolio.Core\WebPortfolio.Core.csproj">
+      <Project>{5d0990fc-194e-4e7d-afa2-f7f11cbb0a5f}</Project>
+      <Name>WebPortfolio.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebPortfolio.Models\WebPortfolio.Models.csproj">
+      <Project>{dd8b0725-36de-44c9-8383-8ac3e1511397}</Project>
+      <Name>WebPortfolio.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WebPortfolio\WebPortfolio.csproj">
       <Project>{6355BE8A-40DC-4A6F-B8F3-DC06F8F6C3BC}</Project>
       <Name>WebPortfolio</Name>

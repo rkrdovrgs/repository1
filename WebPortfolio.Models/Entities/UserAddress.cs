@@ -21,7 +21,5 @@ namespace WebPortfolio.Models.Entities
         public string City { get; set; }
         public Nullable<int> Zipcode { get; set; }
         public Nullable<int> CountryId { get; set; }
-    
-        public virtual UserProfile UserProfile { internal get; set; }
     }
 }

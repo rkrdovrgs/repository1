@@ -14,10 +14,10 @@ namespace WebPortfolio.Models.Entities
     
     public partial class UserProfile
     {
-        public UserProfile()
-        {
-            this.UserPhones = new HashSet<UserPhone>();
-        }
+        //public UserProfile()
+        //{
+        //    this.UserPhone = new HashSet<UserPhone>();
+        //}
     
         public int UserId { get; set; }
         public string UserName { get; set; }
@@ -27,6 +27,6 @@ namespace WebPortfolio.Models.Entities
         public Nullable<System.DateTime> DOB { get; set; }
     
         public virtual UserAddress UserAddress { get; set; }
-        public virtual ICollection<UserPhone> UserPhones { get; set; }
+        public virtual /*ICollection<*/UserPhone UserPhone { get; set; }
     }
 }

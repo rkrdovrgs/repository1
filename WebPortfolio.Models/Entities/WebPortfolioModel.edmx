@@ -36,7 +36,7 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="Number" Type="numeric" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
@@ -79,12 +79,12 @@
       <Schema Namespace="WebPortfolioModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="WebPortfolioEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="UserAddresses" EntityType="WebPortfolioModel.UserAddress" />
-          <EntitySet Name="UserPhones" EntityType="WebPortfolioModel.UserPhone" />
           <EntitySet Name="UserProfiles" EntityType="WebPortfolioModel.UserProfile" />
           <AssociationSet Name="FK_UserAddress_UserProfile" Association="WebPortfolioModel.FK_UserAddress_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="UserAddress" EntitySet="UserAddresses" />
           </AssociationSet>
+          <EntitySet Name="UserPhones" EntityType="WebPortfolioModel.UserPhone" />
           <AssociationSet Name="FK_UserPhone_UserProfile" Association="WebPortfolioModel.FK_UserPhone_UserProfile">
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="UserPhone" EntitySet="UserPhones" />
@@ -101,16 +101,6 @@
           <Property Type="String" Name="City" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="Zipcode" />
           <Property Type="Int32" Name="CountryId" />
-          <NavigationProperty Name="UserProfile" Relationship="WebPortfolioModel.FK_UserAddress_UserProfile" FromRole="UserAddress" ToRole="UserProfile" a:GetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
-        </EntityType>
-        <EntityType Name="UserPhone">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="UserId" Nullable="false" />
-          <Property Type="Decimal" Name="Number" Nullable="false" Precision="18" Scale="0" />
-          <NavigationProperty Name="UserProfile" Relationship="WebPortfolioModel.FK_UserPhone_UserProfile" FromRole="UserPhone" ToRole="UserProfile" a:GetterAccess="Internal" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
@@ -123,7 +113,7 @@
           <Property Type="String" Name="UserEmail" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="DOB" Precision="0" />
           <NavigationProperty Name="UserAddress" Relationship="WebPortfolioModel.FK_UserAddress_UserProfile" FromRole="UserProfile" ToRole="UserAddress" />
-          <NavigationProperty Name="UserPhones" Relationship="WebPortfolioModel.FK_UserPhone_UserProfile" FromRole="UserProfile" ToRole="UserPhone" />
+          <NavigationProperty Name="UserPhone" Relationship="WebPortfolioModel.FK_UserPhone_UserProfile" FromRole="UserProfile" ToRole="UserPhone" />
         </EntityType>
         <Association Name="FK_UserAddress_UserProfile">
           <End Type="WebPortfolioModel.UserProfile" Role="UserProfile" Multiplicity="1" />
@@ -137,6 +127,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="UserPhone">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Int32" Name="Number" Nullable="false" />
+        </EntityType>
         <Association Name="FK_UserPhone_UserProfile">
           <End Type="WebPortfolioModel.UserProfile" Role="UserProfile" Multiplicity="1" />
           <End Type="WebPortfolioModel.UserPhone" Role="UserPhone" Multiplicity="*" />
@@ -168,15 +166,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserPhones">
-            <EntityTypeMapping TypeName="WebPortfolioModel.UserPhone">
-              <MappingFragment StoreEntitySet="UserPhone">
-                <ScalarProperty Name="Number" ColumnName="Number" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserProfiles">
             <EntityTypeMapping TypeName="WebPortfolioModel.UserProfile">
               <MappingFragment StoreEntitySet="UserProfile">
@@ -186,6 +175,15 @@
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPhones">
+            <EntityTypeMapping TypeName="WebPortfolioModel.UserPhone">
+              <MappingFragment StoreEntitySet="UserPhone">
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -16,8 +16,6 @@ namespace WebPortfolio.Models.Entities
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public decimal Number { get; set; }
-    
-        public virtual UserProfile UserProfile { internal get; set; }
+        public int Number { get; set; }
     }
 }

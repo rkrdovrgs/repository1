@@ -1,6 +1,6 @@
-﻿<div>
+﻿<div id="displayusername">
     <label>Name:  {{ userProfile.UserName  }}</label>
-    <hr />
+    
 </div>
 
 <section class="row-fluid" id="profile-details">
@@ -100,7 +100,7 @@
             <div class="control-group">
                 <label class="control-label">Phone:</label>
                 <div class="controls">
-                    <input type="text" class="validation" data-ng-model=" userProfile.UserPhones[1].Phone" />
+                    <input type="text" class="validation" data-ng-model="userProfile.UserPhones.Number" />
                 </div>
             </div>
 

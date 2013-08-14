@@ -10,6 +10,7 @@
 
             $scope.userProfile = {};
             $scope.userAddress = {};
+            $scope.userPhone = {};
             //$scope.userAddress = {};
             
            
@@ -41,7 +42,8 @@
                     .UserProfile
                     .Update($scope.userProfile)
                     .then(function (data) {
-                        //$scope.userProfile.UserAddresses[0].UserAddressId = data.userAddressId;
+                        $scope.userProfile.UserAddress.UserId = data.userAddressId;
+                        $scope.userProfile.UserPhone.UserId = data.userPhoneId;
                         
                         //$location.path('/Profile/' + $scope.userProfile.UserId);
                     });  
