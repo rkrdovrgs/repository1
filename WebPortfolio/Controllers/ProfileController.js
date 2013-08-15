@@ -48,6 +48,10 @@
                         //$location.path('/Profile/' + $scope.userProfile.UserId);
                     });  
             };
+
+            $scope.isNullOrEmpty = function (val) {
+                return val == null || val == undefined || val.length == 0;
+            };
            
             return $wprepository
                 .UserProfile

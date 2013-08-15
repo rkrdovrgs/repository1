@@ -21,7 +21,7 @@ namespace WebPortfolio.Controllers.Api
             var userName = User.Identity.Name;
             var userProfile = userprofilerepository.GetList(x => x.UserName == userName)
                                     .Include(x => x.UserAddress)
-                                    .Include(x => x.UserPhone)
+                                    .Include(x => x.UserPhones)
                                     .FirstOrDefault();
 
             return userProfile;
@@ -36,15 +36,30 @@ namespace WebPortfolio.Controllers.Api
 
         // PUT api/userprofile/5
         [HttpPut]
-        public object Put([FromBody]UserProfile userProfile)
+        public object Put([FromBody]UserProfile userProfile )
         {
             var isNewAddress = userProfile.UserAddress != null && userProfile.UserAddress.UserId == 0; //la tabla address no es nula y no hay un registro. se guardara por primera vez
-            var isNewPhone = userProfile.UserPhone != null && userProfile.UserPhone.UserId == 0;
+            var isnewphone = true;            var comparephone = false;
+            int[] userNumbers = userProfile.UserPhones.Select(x => x.Number).ToArray();
+            int nextphone = userNumbers[1];
+            for (int i = 0; i < userNumbers.Length; i++ )
+            {                
+                if (userNumbers[i] == nextphone)
+                {                   
+                    comparephone = true;
+                    
+                }
+                nextphone = userNumbers[i + 2];
+            }
+            
+            
+            
+            
 
             if (isNewAddress)
                 userProfile.UserAddress.UserId = userProfile.UserId;
-            if (isNewPhone)
-                userProfile.UserPhone.UserId = userProfile.UserId;
+            //if (isNewPhone)
+            //    userProfile.UserPhone.UserId = userProfile.UserId;
 
             //var username = User.Identity.Name;
             //var userid = userprofilerepository.Get(x => x.UserName == username ) ;
@@ -72,8 +87,8 @@ namespace WebPortfolio.Controllers.Api
                 useraddressrepository.Update(userProfile.UserAddress);
 
             //Estableciendo en SavePutDelete en UserPhone 
-            if (isNewPhone)
-                userphonerepository.Save(userProfile.UserPhone);
+            //if (isNewPhone)
+            //    userphonerepository.Save(userProfile.UserPhone);
 
             //else if (userProfile.UserPhone.Number == null)
             //{
@@ -81,8 +96,8 @@ namespace WebPortfolio.Controllers.Api
             //    return new { userPhoneId = 0 };
             //}
 
-            else
-                userphonerepository.Update(userProfile.UserPhone);
+            //else
+            //    userphonerepository.Update(userProfile.UserPhone);
 
 
             return new

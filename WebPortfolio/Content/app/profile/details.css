@@ -2,6 +2,10 @@
     min-width:130px
 }
 
+
+.inputsempty{
+    background-color:red !important;
+}
     
 
     

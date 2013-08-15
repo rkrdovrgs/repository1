@@ -12,16 +12,16 @@ namespace WebPortfolio.Models.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class UserAddress
+    public partial class Country
     {
-        public int UserId { get; set; }
-        public string Line1 { get; set; }
-        public string Line2 { get; set; }
-        public string State { get; set; }
-        public string City { get; set; }
-        public Nullable<int> Zipcode { get; set; }
-        public Nullable<int> CountryId { get; set; }
+        public Country()
+        {
+            this.UserAddresses = new HashSet<UserAddress>();
+        }
     
-        public virtual Country Country { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+    
+        public virtual ICollection<UserAddress> UserAddresses { get; set; }
     }
 }

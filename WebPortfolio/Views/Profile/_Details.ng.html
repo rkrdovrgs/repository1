@@ -21,7 +21,7 @@
             <div class="control-group">
                 <label class="control-label">User name:</label>
                 <div class="controls">
-                    <input type="text" class="validation" data-ng-model="userProfile.UserName" required />
+                    <input type="text" data-ng-class="{inputsempty:isNullOrEmpty(userProfile.UserName)}" data-ng-model="userProfile.UserName" required />
                 </div>
             </div>
             <div class="control-group">
@@ -99,8 +99,8 @@
             </div>
             <div class="control-group">
                 <label class="control-label">Phone:</label>
-                <div class="controls">
-                    <input type="text" class="validation" data-ng-model="userProfile.UserPhones.Number" />
+                <div class="controls" data-ng-repeat="ph in userProfile.UserPhones" >
+                    <input type="text" class="validation" data-ng-model="ph.Number" />
                 </div>
             </div>
 
