@@ -56,7 +56,7 @@
                     .Update($scope.userProfile)
                     .then(function (data) {
                         $scope.userProfile.UserAddress.UserId = data.userAddressId;
-                        $scope.userProfile.UserPhone.UserId = data.userPhoneId;
+                        $scope.userProfile.UserPhones = data.userPhones;
                         
                         //$location.path('/Profile/' + $scope.userProfile.UserId);
                     });  

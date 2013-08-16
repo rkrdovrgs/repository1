@@ -32,6 +32,7 @@ namespace WebPortfolio.Core.Repositories
         OperationStatus Delete<T>(T entity) where T : class;
 
         OperationStatus Delete(Expression<Func<T, bool>> predicate);
+        bool SubmitChanges();
 
         //Pagination functions
         IQueryable<T> GetPageOrderByAscending<TKey>(Expression<Func<T, bool>> predicate, Expression<Func<T, TKey>> orderBy, int page, int pageSize);
