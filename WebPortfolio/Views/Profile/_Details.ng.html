@@ -60,11 +60,9 @@
                 <label class="control-label">Country:</label>
                 <!--<input type="text" data-ng-model="userProfile.UserCountry" />-->
                 <div class="controls">
-                    <select class="validation">
-                        <option value="US"></option>
-                        <option value="Nicaragua">Nicaragua</option>
-                        <option value="US">United State</option>
-                        <option value="US"></option>
+                    <select class="validation" >
+                        <option data-ng-repeat="ctry in userProfile.UserAddress.Country" data-ng-model="ctry.Name"></option>
+                       
                     </select>
                 </div>
             </div>
@@ -97,13 +95,13 @@
                     <input type="text" class="validation" data-ng-model="userProfile.UserAddress.Zipcode" />
                 </div>
             </div>
-            <div class="control-group">
+            <div class="control-group" id="divphones">
                 <label class="control-label">Phone:</label>
                 <div class="controls" data-ng-repeat="ph in userProfile.UserPhones" >
                     <input type="text" class="validation" data-ng-model="ph.Number" />
-                </div>
+                </div>               
             </div>
-
+             <label id="addphone">agregar</label>
         </fieldset>
         <div class="form-actions">
             <input type="button" value="Save" class="btn btn-primary" data-ng-click="updateProfile()" />

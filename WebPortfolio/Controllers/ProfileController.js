@@ -27,12 +27,25 @@
             //    if ($(this).val() != "")
             //        $(this).css("background", "none");
             //});
+            /* <div class="controls" data-ng-repeat="ph in userProfile.UserPhones" >
+                    <input type="text" class="validation" data-ng-model="ph.Number" />
+                </div>*/
+            var count = 1;
+            $("#addphone").click(function () {                
+                //var strcount = count;
+                //var div = document.createElement('div');
+                //div.setAttribute('class', 'controls');
+                //div.setAttribute('id', 'phone'+count.toString());              
+                //document.getElementById("divphones").appendChild(div);
 
-            //$(".addme").click(function () {
-            //    var txt = document.createElement('input');
-            //    txt.setAttribute('class', 'validation');
-            //    document.getElementById("divvemail").appendChild(txt);
-            //});
+                //var txt = document.createElement('input');
+                //txt.setAttribute('class', 'validation');              
+                //document.getElementById("phone" + count.toString()).appendChild(txt);
+                //count++;
+                $scope.userProfile.UserPhones.push({Number: null, UserId: $scope.userProfile.UserId});
+                console.log($scope.userProfile.UserPhones);
+                $scope.$apply();
+            });
             //$(function () {
             //    $("#DOB").datepicker();
             //});

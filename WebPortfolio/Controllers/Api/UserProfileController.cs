@@ -13,6 +13,7 @@ namespace WebPortfolio.Controllers.Api
         public IWPRepository<UserProfile> userprofilerepository { get; set; }
         public IWPRepository<UserAddress> useraddressrepository { get; set; }
         public IWPRepository<UserPhone> userphonerepository { get; set; }
+        public IWPRepository<Country> countryrepository { get; set; }
 
         // GET api/userprofile
         [HttpGet]
@@ -22,11 +23,12 @@ namespace WebPortfolio.Controllers.Api
             var userProfile = userprofilerepository.GetList(x => x.UserName == userName)
                                     .Include(x => x.UserAddress)
                                     .Include(x => x.UserPhones)
+                                    .Include(x => x.UserAddress.Country)
                                     .FirstOrDefault();
 
             return userProfile;
         }
-
+       
 
         // POST api/userprofile
         public void Post([FromBody]string value)
@@ -39,31 +41,19 @@ namespace WebPortfolio.Controllers.Api
         public object Put([FromBody]UserProfile userProfile )
         {
             var isNewAddress = userProfile.UserAddress != null && userProfile.UserAddress.UserId == 0; //la tabla address no es nula y no hay un registro. se guardara por primera vez
-            var isnewphone = true;            var comparephone = false;
-            int[] userNumbers = userProfile.UserPhones.Select(x => x.Number).ToArray();
-            int nextphone = userNumbers[1];
-            for (int i = 0; i < userNumbers.Length; i++ )
-            {                
-                if (userNumbers[i] == nextphone)
-                {                   
-                    comparephone = true;
-                    
-                }
-                nextphone = userNumbers[i + 2];
-            }
             
-            
-            
-            
-
-            if (isNewAddress)
-                userProfile.UserAddress.UserId = userProfile.UserId;
-            //if (isNewPhone)
-            //    userProfile.UserPhone.UserId = userProfile.UserId;
+            int numPhone = userProfile.UserPhones.Count();            
+            var comparePhone = numPhone == userProfile.UserPhones.Select(x =>x.Number).Distinct().Count();//diferencia entre el total de registro y el total de numeros diferentes
+            var isNewPhone = userProfile.UserPhones.Select(x => x.Id == 0).Count();
+            //var country = userProfile.UserAddress.Country.;
+                  
+            if (isNewPhone == 0)
+            {}
+                        
 
             //var username = User.Identity.Name;
             //var userid = userprofilerepository.Get(x => x.UserName == username ) ;
-            userprofilerepository.Update(userProfile);
+            userprofilerepository.Update(userProfile);          
 
 
             ///TODO: Validar si la direccion esta vacia
@@ -73,22 +63,25 @@ namespace WebPortfolio.Controllers.Api
             
            
             //Estableciendo en SavePutDelete en UserAddress       
-            if (isNewAddress)     
-                //userProfile.UserAddress.UserId = userProfile.UserId;
-                useraddressrepository.Save(userProfile.UserAddress);  
+            if (isNewAddress)
+            {
+                userProfile.UserAddress.UserId = userProfile.UserId;
+                useraddressrepository.Save(userProfile.UserAddress);
+            }
 
-            else if (userProfile.UserAddress.Line1.IsNullOrEmpty() && userProfile.UserAddress.Line2.IsNullOrEmpty() && userProfile.UserAddress.State.IsNullOrEmpty() && userProfile.UserAddress.City.IsNullOrEmpty() && !userProfile.UserAddress.Zipcode.HasValue )
+            else if (userProfile.UserAddress.Line1.IsNullOrEmpty() && userProfile.UserAddress.Line2.IsNullOrEmpty() && userProfile.UserAddress.State.IsNullOrEmpty() && userProfile.UserAddress.City.IsNullOrEmpty() && !userProfile.UserAddress.Zipcode.HasValue)
             {
                 useraddressrepository.Delete(userProfile.UserAddress);
-                return new { userAddressId = 0 };                
+                return new { userAddressId = 0 };
             }
 
             else
                 useraddressrepository.Update(userProfile.UserAddress);
 
             //Estableciendo en SavePutDelete en UserPhone 
-            //if (isNewPhone)
-            //    userphonerepository.Save(userProfile.UserPhone);
+           // if (comparePhone)
+               
+                //userphonerepository.Save(userProfile.UserPhone);
 
             //else if (userProfile.UserPhone.Number == null)
             //{
