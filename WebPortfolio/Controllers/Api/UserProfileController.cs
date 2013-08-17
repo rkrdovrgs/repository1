@@ -56,7 +56,8 @@ namespace WebPortfolio.Controllers.Api
             if (isNewAddress)
             {
                 userProfile.UserAddress.UserId = userProfile.UserId;
-                useraddressrepository.Save(userProfile.UserAddress);
+                //TODO: CHANGE TO INSERT
+                //useraddressrepository.Save(userProfile.UserAddress);
             }
 
             else if (userProfile.UserAddress.Line1.IsNullOrEmpty() && userProfile.UserAddress.Line2.IsNullOrEmpty() && userProfile.UserAddress.State.IsNullOrEmpty() && userProfile.UserAddress.City.IsNullOrEmpty() && !userProfile.UserAddress.Zipcode.HasValue)
@@ -106,7 +107,8 @@ namespace WebPortfolio.Controllers.Api
             {
                 for (int i = 0; i < newPhones; i++)
                 {
-                    userphonerepository.Save(saveNewPhone[i]);
+                    //TODO: CHANGE TO INSERT
+                    //userphonerepository.Save(saveNewPhone[i]);
                 }
             }
             // end the phone

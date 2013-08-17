@@ -14,46 +14,36 @@ namespace WebPortfolio.Repositories
     [DataObject]
     public class Repository<T, C> : RepositoryBase<C>, IRepository<T>
         where T : class
-        where C: DbContext, new()
+        where C : DbContext, new()
     {
-        public virtual T Get<T>(int id) where T : class, IEntity 
+        /// <summary>
+        /// Returns entity by Id as long as the table name
+        /// contains a column Id. If not, throws an exception
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public virtual T Get(int id)
         {
-            return DataContext.Set<T>().Where(x => x.Id == id).SingleOrDefault();
+            var type = typeof(T);
+
+            if (type.GetProperties().Any(x => x.Name.ToLower() == "id"))
+                throw new Exception("Table does not contain a column Id");
+
+            var parm = Expression.Parameter(type, type.Name);
+            var predicate = Expression.Lambda<Func<T, bool>>
+                    (Expression.Convert(Expression.Property(parm, "Id"), typeof(int)), parm);
+            return DataContext.Set<T>().Where(predicate).SingleOrDefault();
         }
 
         public virtual T Get(Expression<Func<T, bool>> predicate)
         {
-            if (predicate != null)
-            {
+            return DataContext.Set<T>().Where(predicate).SingleOrDefault();
 
-                try
-                {
-                    return DataContext.Set<T>().Where(predicate).SingleOrDefault();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-
-            }
-            else
-            {
-                throw new ApplicationException("Predicate value must be passed to Get<T>.");
-            }
-            //return null;
         }
 
         public virtual IQueryable<T> GetList(Expression<Func<T, bool>> predicate)
         {
-            try
-            {
-                return DataContext.Set<T>().Where(predicate);
-            }
-            catch (Exception ex)
-            {
-                //Log error
-                throw ex;
-            }
+            return DataContext.Set<T>().Where(predicate);
         }
 
         /*
@@ -71,54 +61,23 @@ namespace WebPortfolio.Repositories
         }
         */
 
-        [DataObjectMethod(DataObjectMethodType.Select, true)]
         public virtual IQueryable<T> GetList()
         {
-            try
-            {
-                return DataContext.Set<T>();
-            }
-            catch (Exception ex)
-            {
-                //Log error
-            }
-            return null;
+            return DataContext.Set<T>();
         }
 
-        public virtual OperationStatus Save(T entity, bool submit = false)
+        public virtual void Insert(T entity)
         {
-            OperationStatus opStatus = new OperationStatus { Status = true };
-
-            try
-            {
-                DataContext.Set<T>().Add(entity);
-                opStatus.Status = (submit ? SubmitChanges() : DataContext.SaveChanges() > 0);
-                
-            }
-            catch (Exception exp)
-            {
-                opStatus = OperationStatus.CreateFromException("Error saving " + typeof(T) + ".", exp);
-            }
-
-            return opStatus;
+            DataContext.Set<T>().Add(entity);
+            //opStatus.Status = (submit ? SubmitChanges() : DataContext.SaveChanges() > 0);
         }
 
-        public virtual OperationStatus Update(T entity, params string[] propsToUpdate)
+        public virtual void Update(T entity)
         {
-            OperationStatus opStatus = new OperationStatus { Status = true };
 
-            try
-            {
-                //DataContext.Set<T>().Attach(entity);
-                DataContext.Entry(entity).State = System.Data.EntityState.Modified;
-                opStatus.Status = DataContext.SaveChanges() > 0;
-            }
-            catch (Exception exp)
-            {
-                opStatus = OperationStatus.CreateFromException("Error updating " + typeof(T) + ".", exp);
-            }
-
-            return opStatus;
+            //DataContext.Set<T>().Attach(entity);
+            DataContext.Entry(entity).State = System.Data.EntityState.Modified;
+            //opStatus.Status = DataContext.SaveChanges() > 0;
         }
 
         public OperationStatus ExecuteStoreCommand(string cmdText, params object[] parameters)
@@ -136,43 +95,32 @@ namespace WebPortfolio.Repositories
             return opStatus;
         }
 
-        public virtual OperationStatus Delete<T>(T entity) where T : class
+        public virtual void Delete(T entity)
         {
-            OperationStatus opStatus = new OperationStatus { Status = true };
 
-            try
-            {
-                var objectSet = DataContext.Set<T>();
-                objectSet.Attach(entity);
-                objectSet.Remove(entity);
-                opStatus.Status = DataContext.SaveChanges() > 0;
-            }
-            catch (Exception exp)
-            {
-                return OperationStatus.CreateFromException("Error deleting " + typeof(T), exp);
-            }
+            var objectSet = DataContext.Set<T>();
+            objectSet.Attach(entity);
+            objectSet.Remove(entity);
+            //opStatus.Status = DataContext.SaveChanges() > 0;
 
-            return opStatus;
         }
 
 
-        public virtual OperationStatus Delete(Expression<Func<T, bool>> predicate)
+        public virtual void Delete(Expression<Func<T, bool>> predicate)
         {
-            OperationStatus opStatus = new OperationStatus { Status = true };
 
-            try
-            {
                 var objectSet = DataContext.Set<T>().Where(predicate).FirstOrDefault();
                 DataContext.Entry(objectSet).State = System.Data.EntityState.Deleted;
-                opStatus.Status = DataContext.SaveChanges() > 0;
+                //opStatus.Status = DataContext.SaveChanges() > 0;
 
-            }
-            catch (Exception exp)
-            {
-                return OperationStatus.CreateFromException("Error deleting " + typeof(T), exp);
-            }
 
-            return opStatus;
+        }
+
+
+        public bool Save()
+        {
+            var status = DataContext.SaveChanges() > 0;
+            return status;
         }
 
         /*

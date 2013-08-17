@@ -10,7 +10,7 @@ namespace WebPortfolio.Core.Repositories
     public interface IRepository<T>
         where T : class
     {
-        T Get<T>(int id) where T : class, IEntity;
+        T Get(int id);
 
         T Get(Expression<Func<T, bool>> predicate);
 
@@ -23,16 +23,17 @@ namespace WebPortfolio.Core.Repositories
         */
         IQueryable<T> GetList();
 
-        OperationStatus Save(T entity, bool submit = false);
+        void Insert(T entity);
 
-        OperationStatus Update(T entity, params string[] propsToUpdate);
+        void Update(T entity);
 
         OperationStatus ExecuteStoreCommand(string cmdText, params object[] parameters);
 
-        OperationStatus Delete<T>(T entity) where T : class;
+        void Delete(T entity);
 
-        OperationStatus Delete(Expression<Func<T, bool>> predicate);
-        bool SubmitChanges();
+        void Delete(Expression<Func<T, bool>> predicate);
+        
+        bool Save();
 
         //Pagination functions
         IQueryable<T> GetPageOrderByAscending<TKey>(Expression<Func<T, bool>> predicate, Expression<Func<T, TKey>> orderBy, int page, int pageSize);

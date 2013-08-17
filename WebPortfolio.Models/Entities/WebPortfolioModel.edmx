@@ -150,9 +150,9 @@
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
-            <PropertyRef Name="UserId" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="UserName" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="FirstName" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="LastName" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -178,7 +178,7 @@
           <End Type="WebPortfolioModel.UserAddress" Role="UserAddress" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="UserProfile">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserAddress">
               <PropertyRef Name="UserId" />
@@ -190,7 +190,7 @@
           <End Type="WebPortfolioModel.UserPhone" Role="UserPhone" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserProfile">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserPhone">
               <PropertyRef Name="UserId" />
@@ -241,7 +241,7 @@
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

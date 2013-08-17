@@ -45,13 +45,13 @@ namespace WebPortfolio.Repositories
             if (DataContext != null) DataContext.Dispose();
         }
 
-        public bool SubmitChanges()
-        {
-            var status = DataContext.SaveChanges() > 0;
-            Dispose();
-            _DataContext = new C();
-            return status;
+        //public bool SubmitChanges()
+        //{
+        //    var status = DataContext.SaveChanges() > 0;
+        //    Dispose();
+        //    _DataContext = new C();
+        //    return status;
 
-        }
+        //}
     }
 }

@@ -112,7 +112,7 @@ foreach (var complex in typeMapper.GetItemsToGenerate<ComplexType>(itemCollectio
     BeginNamespace(code);
 #>
 <#=codeStringGenerator.UsingDirectives(inHeader: false, includeCollections: false)#>
-<#=Accessibility.ForType(complex)#> partial class <#=code.Escape(complex)#>
+<#=Accessibility.ForType(complex)#> partial class <#=code.Escape(complex)#> : IEntity
 {
 <#
     var complexProperties = typeMapper.GetComplexProperties(complex);
