@@ -99,7 +99,7 @@ namespace WebPortfolio.Controllers
                     if (model.UserName == null)
                     {
                         model.UserName = "user";
-                        var maxup = userprofilerepository.GetList().Max(x => x.UserId) + 1;
+                        var maxup = userprofilerepository.GetList().Max(x => x.Id) + 1;
                         model.UserName += maxup.ToString();
                     }
                     var emailexists = userprofilerepository.GetList().Any(x => model.UserEmail == x.UserEmail);
@@ -285,7 +285,7 @@ namespace WebPortfolio.Controllers
 
                 // User is new, ask for their desired membership name
                 userName = "user";
-                var maxup = userprofilerepository.GetList().Max(x => x.UserId) + 1;
+                var maxup = userprofilerepository.GetList().Max(x => x.Id) + 1;
                 userName += maxup.ToString();
 
                 string loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);

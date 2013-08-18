@@ -11,8 +11,9 @@ namespace WebPortfolio.Models.Entities
 {
     using System;
     using System.Collections.Generic;
+    using WebPortfolio.Core.DataAccess.Abstract;
     
-    public partial class UserAddress
+    public partial class UserAddress: IEntity
     {
         public int UserId { get; set; }
         public string Line1 { get; set; }
@@ -21,6 +22,7 @@ namespace WebPortfolio.Models.Entities
         public string City { get; set; }
         public Nullable<int> Zipcode { get; set; }
         public Nullable<int> CountryId { get; set; }
+        public int Id { get; set; }
     
         public virtual Country Country { get; set; }
     }

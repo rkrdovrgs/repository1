@@ -55,7 +55,7 @@ namespace WebPortfolio.Controllers.Api
             //Estableciendo en SavePutDelete en UserAddress       
             if (isNewAddress)
             {
-                userProfile.UserAddress.UserId = userProfile.UserId;
+                userProfile.UserAddress.UserId = userProfile.Id;
                 //TODO: CHANGE TO INSERT
                 //useraddressrepository.Save(userProfile.UserAddress);
             }
@@ -116,7 +116,7 @@ namespace WebPortfolio.Controllers.Api
             return new
             {
                 userAddressId = userProfile.UserAddress.UserId,
-                userPhones = userphonerepository.GetList(x => x.UserId == userProfile.UserId)
+                userPhones = userphonerepository.GetList(x => x.UserId == userProfile.Id)
             };
 
             //else if (!userProfile.UserAddresses.Any())

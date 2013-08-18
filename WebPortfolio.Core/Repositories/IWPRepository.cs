@@ -5,10 +5,11 @@ using System.Text;
 using System.Linq.Expressions;
 using WebPortfolio.Core.DataAccess.Abstract;
 
+
 namespace WebPortfolio.Core.Repositories
 {
     public interface IWPRepository<T> : IRepository<T>
-        where T : class
+        where T : class, IEntity
     {
     }
 }

@@ -51,7 +51,6 @@
     <Compile Include="Entities\Country.cs">
       <DependentUpon>WebPortfolioModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\IEntity.cs" />
     <Compile Include="Entities\UserAddress.cs">
       <DependentUpon>WebPortfolioModel.tt</DependentUpon>
     </Compile>
@@ -103,6 +102,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebPortfolio.Core\WebPortfolio.Core.csproj">
+      <Project>{5d0990fc-194e-4e7d-afa2-f7f11cbb0a5f}</Project>
+      <Name>WebPortfolio.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

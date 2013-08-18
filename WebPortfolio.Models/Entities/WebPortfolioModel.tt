@@ -24,7 +24,7 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
     BeginNamespace(code);
 #>
 <#=codeStringGenerator.UsingDirectives(inHeader: false)#>
-<#=codeStringGenerator.EntityClassOpening(entity)#>
+<#=codeStringGenerator.EntityClassOpening(entity) + ": IEntity"#>
 {
 <#
     var propertiesWithDefaultValues = typeMapper.GetPropertiesWithDefaultValues(entity);
@@ -112,7 +112,7 @@ foreach (var complex in typeMapper.GetItemsToGenerate<ComplexType>(itemCollectio
     BeginNamespace(code);
 #>
 <#=codeStringGenerator.UsingDirectives(inHeader: false, includeCollections: false)#>
-<#=Accessibility.ForType(complex)#> partial class <#=code.Escape(complex)#> : IEntity
+<#=Accessibility.ForType(complex)#> partial class <#=code.Escape(complex)#>
 {
 <#
     var complexProperties = typeMapper.GetComplexProperties(complex);
@@ -421,7 +421,9 @@ public class CodeStringGenerator
                 "{0}using System;{1}" +
                 "{2}",
                 inHeader ? Environment.NewLine : "",
-                includeCollections ? (Environment.NewLine + "using System.Collections.Generic;") : "",
+                includeCollections ? 
+					(Environment.NewLine + "using System.Collections.Generic;" 
+						+ Environment.NewLine + "using WebPortfolio.Core.DataAccess.Abstract;") : "",
                 inHeader ? "" : Environment.NewLine)
             : "";
     }

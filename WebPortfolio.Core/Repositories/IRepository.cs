@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Linq.Expressions;
+using WebPortfolio.Core.DataAccess;
 using WebPortfolio.Core.DataAccess.Abstract;
+
 
 namespace WebPortfolio.Core.Repositories
 {
     public interface IRepository<T>
-        where T : class
+        where T : class, IEntity
     {
         T Get(int id);
 
@@ -27,7 +29,7 @@ namespace WebPortfolio.Core.Repositories
 
         void Update(T entity);
 
-        OperationStatus ExecuteStoreCommand(string cmdText, params object[] parameters);
+        int ExecuteStoreCommand(string cmdText, params object[] parameters);
 
         void Delete(T entity);
 

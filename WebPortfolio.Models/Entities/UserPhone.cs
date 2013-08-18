@@ -11,8 +11,9 @@ namespace WebPortfolio.Models.Entities
 {
     using System;
     using System.Collections.Generic;
+    using WebPortfolio.Core.DataAccess.Abstract;
     
-    public partial class UserPhone
+    public partial class UserPhone: IEntity
     {
         public int Id { get; set; }
         public int UserId { get; set; }

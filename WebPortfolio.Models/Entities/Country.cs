@@ -11,8 +11,9 @@ namespace WebPortfolio.Models.Entities
 {
     using System;
     using System.Collections.Generic;
+    using WebPortfolio.Core.DataAccess.Abstract;
     
-    public partial class Country
+    public partial class Country: IEntity
     {
         public Country()
         {

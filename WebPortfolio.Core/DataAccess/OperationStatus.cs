@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 
-namespace WebPortfolio.Core.DataAccess.Abstract
+namespace WebPortfolio.Core.DataAccess
 {
     [DebuggerDisplay("Status: {Status}")]
     public class OperationStatus

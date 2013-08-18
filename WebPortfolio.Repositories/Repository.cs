@@ -6,14 +6,15 @@ using System.Data.Entity.Validation;
 using System.Diagnostics;
 using WebPortfolio.Core.Repositories;
 using WebPortfolio.Core.DataAccess;
-using WebPortfolio.Core.DataAccess.Abstract;
 using System.Data.Entity;
+using WebPortfolio.Core.DataAccess.Abstract;
+
 
 namespace WebPortfolio.Repositories
 {
     [DataObject]
     public class Repository<T, C> : RepositoryBase<C>, IRepository<T>
-        where T : class
+        where T : class, IEntity
         where C : DbContext, new()
     {
         /// <summary>
@@ -80,19 +81,13 @@ namespace WebPortfolio.Repositories
             //opStatus.Status = DataContext.SaveChanges() > 0;
         }
 
-        public OperationStatus ExecuteStoreCommand(string cmdText, params object[] parameters)
+        public int ExecuteStoreCommand(string cmdText, params object[] parameters)
         {
-            var opStatus = new OperationStatus { Status = true };
+            int recordsAffected;
 
-            try
-            {
-                opStatus.RecordsAffected = DataContext.Database.ExecuteSqlCommand(cmdText, parameters);
-            }
-            catch (Exception exp)
-            {
-                OperationStatus.CreateFromException("Error executing store command: ", exp);
-            }
-            return opStatus;
+            recordsAffected = DataContext.Database.ExecuteSqlCommand(cmdText, parameters);
+            
+            return recordsAffected;
         }
 
         public virtual void Delete(T entity)
