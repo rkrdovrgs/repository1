@@ -1,5 +1,5 @@
 ﻿var ProfileController = new Controller(WebPortfolio, "ProfileController",
-    function () {        
+    function () {
 
 
         var _Index = function () {
@@ -12,8 +12,8 @@
             $scope.userAddress = {};
             $scope.userPhone = {};
             //$scope.userAddress = {};
-            
-           
+
+
             //$('.validation').mouseenter(function () {
             //    if ($(this).val() != "")
             //        $(this).css("background", "#E4ECED");
@@ -31,7 +31,7 @@
                     <input type="text" class="validation" data-ng-model="ph.Number" />
                 </div>*/
             var count = 1;
-            $("#addphone").click(function () {                
+            $("#addphone").click(function () {
                 //var strcount = count;
                 //var div = document.createElement('div');
                 //div.setAttribute('class', 'controls');
@@ -42,36 +42,38 @@
                 //txt.setAttribute('class', 'validation');              
                 //document.getElementById("phone" + count.toString()).appendChild(txt);
                 //count++;
-                $scope.userProfile.UserPhones.push({Number: null, UserId: $scope.userProfile.UserId});
+                $scope.userProfile.UserPhones.push({ Number: null, UserId: $scope.userProfile.UserId });
                 console.log($scope.userProfile.UserPhones);
                 $scope.$apply();
             });
             //$(function () {
             //    $("#DOB").datepicker();
             //});
-            
+
             $scope.updateProfile = function () {
                 $wprepository
                     .UserProfile
                     .Update($scope.userProfile)
                     .then(function (data) {
-                        $scope.userProfile.UserAddress.UserId = data.userAddressId;
+                        if ($scope.userProfile.UserAddress != null)
+                            $scope.userProfile.UserAddress.Id = data.userAddressId;
+
                         $scope.userProfile.UserPhones = data.userPhones;
-                        
+
                         //$location.path('/Profile/' + $scope.userProfile.UserId);
-                    });  
+                    });
             };
 
             $scope.isNullOrEmpty = function (val) {
                 return val == null || val == undefined || val.length == 0;
             };
-           
+
             return $wprepository
                 .UserProfile
-                .Details($scope.userProfile);           
+                .Details($scope.userProfile);
 
         };
-        
+
 
         var _Edit = function ($scope, $wprepository, $routeParams, $location) {
 

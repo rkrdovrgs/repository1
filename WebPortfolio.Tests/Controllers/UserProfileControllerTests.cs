@@ -32,7 +32,7 @@ namespace WebPortfolio.Tests.Controllers
                 var userProfile = new UserProfile
                 {
                     UserAddress = new UserAddress { 
-                        UserId = 123
+                        Id = 123
                     }
                 };
 
@@ -63,7 +63,7 @@ namespace WebPortfolio.Tests.Controllers
                 {
                     UserAddress = new UserAddress
                     {
-                        UserId = 123,
+                        Id = 123,
                         State= "ho"
                     }
                 };

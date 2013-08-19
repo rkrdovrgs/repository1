@@ -50,6 +50,7 @@ namespace WebPortfolio.Repositories
             return DataContext.Set<T>().Where(predicate);
         }
 
+
         /*
         public virtual IQueryable<T> GetList<TKey>(Expression<Func<T, TKey>> orderBy)
         {
@@ -85,9 +86,19 @@ namespace WebPortfolio.Repositories
 
         private void Update(T entity, bool submit)
         {
+            var attachedEntity = DataContext.Set<T>()
+                                    .Local
+                                    .FirstOrDefault(e => e.Id == entity.Id);
+            if (attachedEntity != null)
+            {
+                DataContext.Entry(attachedEntity).CurrentValues.SetValues(entity);
+            }
 
-            DataContext.Set<T>().Attach(entity);
-            DataContext.Entry(entity).State = System.Data.EntityState.Modified;
+            else
+            {
+                DataContext.Set<T>().Attach(entity);
+                DataContext.Entry(entity).State = System.Data.EntityState.Modified;
+            }
             if (submit)
                 DataContext.SaveChanges();
             //opStatus.Status = DataContext.SaveChanges() > 0;
@@ -126,7 +137,7 @@ namespace WebPortfolio.Repositories
             int recordsAffected;
 
             recordsAffected = DataContext.Database.ExecuteSqlCommand(cmdText, parameters);
-            
+
             return recordsAffected;
         }
 
@@ -147,10 +158,10 @@ namespace WebPortfolio.Repositories
         public virtual void Delete(Expression<Func<T, bool>> predicate)
         {
 
-                var objectSet = DataContext.Set<T>().Where(predicate).FirstOrDefault();
-                DataContext.Entry(objectSet).State = System.Data.EntityState.Deleted;
+            var objectSet = DataContext.Set<T>().Where(predicate).FirstOrDefault();
+            DataContext.Entry(objectSet).State = System.Data.EntityState.Deleted;
             DataContext.SaveChanges();
-                //opStatus.Status = DataContext.SaveChanges() > 0;
+            //opStatus.Status = DataContext.SaveChanges() > 0;
 
 
         }
