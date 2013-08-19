@@ -15,6 +15,7 @@ namespace WebPortfolio.Controllers.Api
         public IWPRepository<UserPhone> userphonerepository { get; set; }
         public IWPRepository<Country> countryrepository { get; set; }
 
+
         // GET api/userprofile
         [HttpGet]
         public UserProfile Details()
@@ -40,7 +41,18 @@ namespace WebPortfolio.Controllers.Api
         [HttpPut]
         public object Put([FromBody]UserProfile userProfile )
         {
-            var isNewAddress = userProfile.UserAddress != null && userProfile.UserAddress.UserId == 0; //la tabla address no es nula y no hay un registro. se guardara por primera vez
+            int _userAddressId = 0;
+            if (!userProfile.UserAddress.IsNullOrEmpty())
+            {
+                userProfile.UserAddress.UserId = userProfile.Id;
+                useraddressrepository.InsertOrUpdate(userProfile.UserAddress);
+                _userAddressId = userProfile.UserAddress.Id;
+            }
+            else
+                useraddressrepository.Delete(userProfile.UserAddress);
+            
+
+            //var isNewAddress = userProfile.UserAddress != null && userProfile.UserAddress.UserId == 0; //la tabla address no es nula y no hay un registro. se guardara por primera vez
               
             //var username = User.Identity.Name;
             //var userid = userprofilerepository.Get(x => x.UserName == username ) ;
@@ -53,69 +65,73 @@ namespace WebPortfolio.Controllers.Api
             
            
             //Estableciendo en SavePutDelete en UserAddress       
-            if (isNewAddress)
-            {
-                userProfile.UserAddress.UserId = userProfile.Id;
+            //if (isNewAddress)
+            //{
+                //userProfile.UserAddress.UserId = userProfile.Id;
                 //TODO: CHANGE TO INSERT
                 //useraddressrepository.Save(userProfile.UserAddress);
-            }
+            //}
 
-            else if (userProfile.UserAddress.Line1.IsNullOrEmpty() && userProfile.UserAddress.Line2.IsNullOrEmpty() && userProfile.UserAddress.State.IsNullOrEmpty() && userProfile.UserAddress.City.IsNullOrEmpty() && !userProfile.UserAddress.Zipcode.HasValue)
-            {
-                useraddressrepository.Delete(userProfile.UserAddress);
-                return new { userAddressId = 0 };
-            }
+            //else if (userProfile.UserAddress.Line1.IsNullOrEmpty() && userProfile.UserAddress.Line2.IsNullOrEmpty() && userProfile.UserAddress.State.IsNullOrEmpty() && userProfile.UserAddress.City.IsNullOrEmpty() && !userProfile.UserAddress.Zipcode.HasValue)
+            //{
+               // useraddressrepository.Delete(userProfile.UserAddress);
+                //return new { userAddressId = 0 };
+            //}
 
-            else
-                useraddressrepository.Update(userProfile.UserAddress);
+            //else
+                //useraddressrepository.Update(userProfile.UserAddress);
             // end UserAddress
 
 
             //Estableciendo en SavePutDelete en UserPhone 
-            var oldListPhone = userProfile.UserPhones.Select(x => x).Where(x => x.Id == x.Id).ToList();// lista todos los numeros, viejos y nuevos
-            var newListPhone = oldListPhone.ToList() ;
-            int con = 0;
-            foreach (var item in oldListPhone)
+            if (false)
             {
-                if (item.Number == 0)// si no contiene numero de telefono 
+                var oldListPhone = userProfile.UserPhones.Select(x => x).Where(x => x.Id == x.Id).ToList();// lista todos los numeros, viejos y nuevos
+                var newListPhone = oldListPhone.ToList();
+                int con = 0;
+                foreach (var item in oldListPhone)
                 {
-                    if (item.Id != 0)//si ya exite un registro y se borro el numero. se elimina de la base de datos
+                    if (item.Number == 0)// si no contiene numero de telefono 
                     {
-                        userphonerepository.Delete(item);                        
+                        if (item.Id != 0)//si ya exite un registro y se borro el numero. se elimina de la base de datos
+                        {
+                            userphonerepository.Delete(item);
+                        }
+                        newListPhone.RemoveAt(con); // se remueve el registro que no contiene numero de telefono
+                        con--; // se descrementa porque cuando se elimina un registro de una lista, los que tienen posiciones superiores bajan un 'escalon' 
                     }
-                    newListPhone.RemoveAt(con); // se remueve el registro que no contiene numero de telefono
-                    con--; // se descrementa porque cuando se elimina un registro de una lista, los que tienen posiciones superiores bajan un 'escalon' 
+                    con++;
                 }
-                con++;
-            }
-            
-            var distintcPhone = newListPhone.Count() == newListPhone.Distinct().Count();//diferencia entre el total de registro y el total de numeros diferentes, deben de coincidir, sino, es que hay registro duplicados
-            //var isNewPhone = newListPhone.Select(x => x).Where(x => x.Id == 0).Count();
-            var saveNewPhone = newListPhone.Select(x => x).Where(x => x.Id == 0).ToList();
-            var newPhones = saveNewPhone.Count();
-                       
-            if (newListPhone.Count() != 0 && distintcPhone)// si hay registros se actualizan
-            {
-                for (int i = 0; i < newListPhone.Count(); i++)
-                {
-                    if (newListPhone[i].Id != 0)
-                        userphonerepository.Update(newListPhone[i]);
-                }
-            }   
 
-            if (newPhones != 0 && distintcPhone)// si hay un nuevo phone y si no existe ese numero
-            {
-                for (int i = 0; i < newPhones; i++)
+                var distintcPhone = newListPhone.Count() == newListPhone.Distinct().Count();//diferencia entre el total de registro y el total de numeros diferentes, deben de coincidir, sino, es que hay registro duplicados
+                //var isNewPhone = newListPhone.Select(x => x).Where(x => x.Id == 0).Count();
+                var saveNewPhone = newListPhone.Select(x => x).Where(x => x.Id == 0).ToList();
+                var newPhones = saveNewPhone.Count();
+
+                if (newListPhone.Count() != 0 && distintcPhone)// si hay registros se actualizan
                 {
-                    //TODO: CHANGE TO INSERT
-                    //userphonerepository.Save(saveNewPhone[i]);
+                    for (int i = 0; i < newListPhone.Count(); i++)
+                    {
+                        if (newListPhone[i].Id != 0)
+                            userphonerepository.Update(newListPhone[i]);
+                    }
+                }
+
+                if (newPhones != 0 && distintcPhone)// si hay un nuevo phone y si no existe ese numero
+                {
+                    for (int i = 0; i < newPhones; i++)
+                    {
+                        //TODO: CHANGE TO INSERT
+                        //userphonerepository.Save(saveNewPhone[i]);
+                    }
                 }
             }
             // end the phone
             //userprofilerepository.SubmitChanges();
+
             return new
             {
-                userAddressId = userProfile.UserAddress.UserId,
+                userAddressId = _userAddressId,
                 userPhones = userphonerepository.GetList(x => x.UserId == userProfile.Id)
             };
 

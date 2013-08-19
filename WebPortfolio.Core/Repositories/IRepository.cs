@@ -29,13 +29,17 @@ namespace WebPortfolio.Core.Repositories
 
         void Update(T entity);
 
+        void InsertOrUpdate(T entity);
+
+        void InsertOrUpdateCollection(ICollection<T> entity);
+
         int ExecuteStoreCommand(string cmdText, params object[] parameters);
 
         void Delete(T entity);
 
         void Delete(Expression<Func<T, bool>> predicate);
-        
-        bool Save();
+
+        //bool Save();
 
         //Pagination functions
         IQueryable<T> GetPageOrderByAscending<TKey>(Expression<Func<T, bool>> predicate, Expression<Func<T, TKey>> orderBy, int page, int pageSize);

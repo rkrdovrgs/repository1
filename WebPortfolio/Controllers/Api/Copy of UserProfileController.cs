@@ -7,7 +7,7 @@ using WebPortfolio.Core.Extensions;
 
 namespace WebPortfolio.Controllers.Api
 {
-    public class UserProfileController : ApiController
+    public class UserProfileController2 : ApiController
     {
         
         public IWPRepository<UserProfile> userprofilerepository { get; set; }

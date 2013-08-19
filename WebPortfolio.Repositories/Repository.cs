@@ -156,11 +156,11 @@ namespace WebPortfolio.Repositories
         }
 
 
-        public bool Save()
-        {
-            var status = DataContext.SaveChanges() > 0;
-            return status;
-        }
+        //public bool Save()
+        //{
+        //    var status = DataContext.SaveChanges() > 0;
+        //    return status;
+        //}
 
         /*
         public virtual IQueryable<T> GetList<TKey>(Expression<Func<T, bool>> predicate, Expression<Func<T, TKey>> orderBy)
