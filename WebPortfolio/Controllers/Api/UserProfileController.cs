@@ -42,7 +42,7 @@ namespace WebPortfolio.Controllers.Api
         [HttpPut]
         public object Put([FromBody]UserProfile userProfile)
         {
-           
+
 
             int _userAddressId = 0;
             if (!userProfile.UserAddress.IsNullOrEmpty())
@@ -61,7 +61,7 @@ namespace WebPortfolio.Controllers.Api
                 useraddressrepository.Delete(userProfile.UserAddress);
 
 
-            
+
 
             //var isNewAddress = userProfile.UserAddress != null && userProfile.UserAddress.UserId == 0; //la tabla address no es nula y no hay un registro. se guardara por primera vez
 
@@ -127,6 +127,7 @@ namespace WebPortfolio.Controllers.Api
             var oldPhones = userphonerepository.GetList(x => x.UserId == userProfile.Id).ToList();
 
             userProfile.UserPhones = userProfile.UserPhones
+                                            .Where(x => x.Number != 0)
                                             .GroupBy(x => x.Number)
                                             .Select(x => userProfile.UserPhones.First(p => p.Number == x.Key))
                                             .ToList();
@@ -137,7 +138,7 @@ namespace WebPortfolio.Controllers.Api
             }
             userphonerepository.InsertOrUpdateCollection(userProfile.UserPhones);
 
-            
+
             //else: aviso, no puede tener dos telefonos con el mismo numero         
             // END SavePutDelete UserPhone
 
