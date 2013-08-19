@@ -75,7 +75,6 @@ namespace WebPortfolio.Repositories
 
         public virtual void Update(T entity)
         {
-
             //DataContext.Set<T>().Attach(entity);
             DataContext.Entry(entity).State = System.Data.EntityState.Modified;
             //opStatus.Status = DataContext.SaveChanges() > 0;
@@ -92,7 +91,6 @@ namespace WebPortfolio.Repositories
 
         public virtual void Delete(T entity)
         {
-
             var objectSet = DataContext.Set<T>();
             objectSet.Attach(entity);
             objectSet.Remove(entity);
