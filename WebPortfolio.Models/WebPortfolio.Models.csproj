@@ -51,6 +51,7 @@
     <Compile Include="Entities\Country.cs">
       <DependentUpon>WebPortfolioModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Extensions\EntityValidator.cs" />
     <Compile Include="Entities\UserAddress.cs">
       <DependentUpon>WebPortfolioModel.tt</DependentUpon>
     </Compile>

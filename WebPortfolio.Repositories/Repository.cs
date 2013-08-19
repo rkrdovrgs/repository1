@@ -25,15 +25,17 @@ namespace WebPortfolio.Repositories
         /// <returns></returns>
         public virtual T Get(int id)
         {
-            var type = typeof(T);
+            //var type = typeof(T);
 
-            if (type.GetProperties().Any(x => x.Name.ToLower() == "id"))
-                throw new Exception("Table does not contain a column Id");
+            //if (type.GetProperties().Any(x => x.Name.ToLower() == "id"))
+            //    throw new Exception("Table does not contain a column Id");
 
-            var parm = Expression.Parameter(type, type.Name);
-            var predicate = Expression.Lambda<Func<T, bool>>
-                    (Expression.Convert(Expression.Property(parm, "Id"), typeof(int)), parm);
-            return DataContext.Set<T>().Where(predicate).SingleOrDefault();
+            //var parm = Expression.Parameter(type, type.Name);
+            //var predicate = Expression.Lambda<Func<T, bool>>
+            //        (Expression.Convert(Expression.Property(parm, "Id"), typeof(int)), parm);
+            //return DataContext.Set<T>().Where(predicate).SingleOrDefault();
+
+            return DataContext.Set<T>().Where(x => x.Id == id).FirstOrDefault();
         }
 
         public virtual T Get(Expression<Func<T, bool>> predicate)
@@ -71,14 +73,24 @@ namespace WebPortfolio.Repositories
         {
             DataContext.Set<T>().Add(entity);
             //opStatus.Status = (submit ? SubmitChanges() : DataContext.SaveChanges() > 0);
+            DataContext.SaveChanges();
         }
 
         public virtual void Update(T entity)
         {
 
-            //DataContext.Set<T>().Attach(entity);
+            DataContext.Set<T>().Attach(entity);
             DataContext.Entry(entity).State = System.Data.EntityState.Modified;
+            DataContext.SaveChanges();
             //opStatus.Status = DataContext.SaveChanges() > 0;
+        }
+
+        public virtual void InsertOrUpdate(T entity)
+        {
+            if (entity.Id == 0)
+                Insert(entity);
+            else
+                Update(entity);
         }
 
         public int ExecuteStoreCommand(string cmdText, params object[] parameters)
@@ -86,16 +98,19 @@ namespace WebPortfolio.Repositories
             int recordsAffected;
 
             recordsAffected = DataContext.Database.ExecuteSqlCommand(cmdText, parameters);
-            
+
             return recordsAffected;
         }
 
         public virtual void Delete(T entity)
         {
+            if (entity == null)
+                return;
 
             var objectSet = DataContext.Set<T>();
             objectSet.Attach(entity);
             objectSet.Remove(entity);
+            DataContext.SaveChanges();
             //opStatus.Status = DataContext.SaveChanges() > 0;
 
         }
@@ -104,19 +119,20 @@ namespace WebPortfolio.Repositories
         public virtual void Delete(Expression<Func<T, bool>> predicate)
         {
 
-                var objectSet = DataContext.Set<T>().Where(predicate).FirstOrDefault();
-                DataContext.Entry(objectSet).State = System.Data.EntityState.Deleted;
-                //opStatus.Status = DataContext.SaveChanges() > 0;
+            var objectSet = DataContext.Set<T>().Where(predicate).FirstOrDefault();
+            DataContext.Entry(objectSet).State = System.Data.EntityState.Deleted;
+            DataContext.SaveChanges();
+            //opStatus.Status = DataContext.SaveChanges() > 0;
 
 
         }
 
 
-        public bool Save()
-        {
-            var status = DataContext.SaveChanges() > 0;
-            return status;
-        }
+        //public bool Save()
+        //{
+        //    var status = DataContext.SaveChanges() > 0;
+        //    return status;
+        //}
 
         /*
         public virtual IQueryable<T> GetList<TKey>(Expression<Func<T, bool>> predicate, Expression<Func<T, TKey>> orderBy)

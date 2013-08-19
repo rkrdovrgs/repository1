@@ -42,6 +42,7 @@
     <Compile Include="DataAccess\Abstract\IEntity.cs" />
     <Compile Include="DataAccess\DataTableQuery.cs" />
     <Compile Include="DataAccess\OperationStatus.cs" />
+    <Compile Include="Extensions\EntityExtensions.cs" />
     <Compile Include="Extensions\GenericExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
