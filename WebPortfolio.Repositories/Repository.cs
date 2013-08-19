@@ -8,6 +8,7 @@ using WebPortfolio.Core.Repositories;
 using WebPortfolio.Core.DataAccess;
 using System.Data.Entity;
 using WebPortfolio.Core.DataAccess.Abstract;
+using System.Collections.Generic;
 
 
 namespace WebPortfolio.Repositories
@@ -69,28 +70,55 @@ namespace WebPortfolio.Repositories
             return DataContext.Set<T>();
         }
 
-        public virtual void Insert(T entity)
+        private void Insert(T entity, bool submit)
         {
             DataContext.Set<T>().Add(entity);
             //opStatus.Status = (submit ? SubmitChanges() : DataContext.SaveChanges() > 0);
-            DataContext.SaveChanges();
+            if (submit)
+                DataContext.SaveChanges();
         }
 
-        public virtual void Update(T entity)
+        public virtual void Insert(T entity)
+        {
+            Insert(entity, true);
+        }
+
+        private void Update(T entity, bool submit)
         {
 
             DataContext.Set<T>().Attach(entity);
             DataContext.Entry(entity).State = System.Data.EntityState.Modified;
-            DataContext.SaveChanges();
+            if (submit)
+                DataContext.SaveChanges();
             //opStatus.Status = DataContext.SaveChanges() > 0;
+        }
+
+        public virtual void Update(T entity)
+        {
+            Update(entity, true);
+        }
+
+        private void InsertOrUpdate(T entity, bool submit)
+        {
+            if (entity.Id == 0)
+                Insert(entity, submit);
+            else
+                Update(entity, submit);
         }
 
         public virtual void InsertOrUpdate(T entity)
         {
-            if (entity.Id == 0)
-                Insert(entity);
-            else
-                Update(entity);
+            InsertOrUpdate(entity, true);
+        }
+
+        public virtual void InsertOrUpdateCollection(ICollection<T> collection)
+        {
+            foreach (var entity in collection)
+            {
+                InsertOrUpdate(entity, false);
+            }
+
+            DataContext.SaveChanges();
         }
 
         public int ExecuteStoreCommand(string cmdText, params object[] parameters)
@@ -128,11 +156,11 @@ namespace WebPortfolio.Repositories
         }
 
 
-        //public bool Save()
-        //{
-        //    var status = DataContext.SaveChanges() > 0;
-        //    return status;
-        //}
+        public bool Save()
+        {
+            var status = DataContext.SaveChanges() > 0;
+            return status;
+        }
 
         /*
         public virtual IQueryable<T> GetList<TKey>(Expression<Func<T, bool>> predicate, Expression<Func<T, TKey>> orderBy)

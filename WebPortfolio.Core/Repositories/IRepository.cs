@@ -31,6 +31,8 @@ namespace WebPortfolio.Core.Repositories
 
         void InsertOrUpdate(T entity);
 
+        void InsertOrUpdateCollection(ICollection<T> entity);
+
         int ExecuteStoreCommand(string cmdText, params object[] parameters);
 
         void Delete(T entity);
