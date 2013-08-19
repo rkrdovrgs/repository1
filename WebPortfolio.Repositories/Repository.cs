@@ -8,6 +8,7 @@ using WebPortfolio.Core.Repositories;
 using WebPortfolio.Core.DataAccess;
 using System.Data.Entity;
 using WebPortfolio.Core.DataAccess.Abstract;
+using System.Collections.Generic;
 
 
 namespace WebPortfolio.Repositories
@@ -25,15 +26,17 @@ namespace WebPortfolio.Repositories
         /// <returns></returns>
         public virtual T Get(int id)
         {
-            var type = typeof(T);
+            //var type = typeof(T);
 
-            if (type.GetProperties().Any(x => x.Name.ToLower() == "id"))
-                throw new Exception("Table does not contain a column Id");
+            //if (type.GetProperties().Any(x => x.Name.ToLower() == "id"))
+            //    throw new Exception("Table does not contain a column Id");
 
-            var parm = Expression.Parameter(type, type.Name);
-            var predicate = Expression.Lambda<Func<T, bool>>
-                    (Expression.Convert(Expression.Property(parm, "Id"), typeof(int)), parm);
-            return DataContext.Set<T>().Where(predicate).SingleOrDefault();
+            //var parm = Expression.Parameter(type, type.Name);
+            //var predicate = Expression.Lambda<Func<T, bool>>
+            //        (Expression.Convert(Expression.Property(parm, "Id"), typeof(int)), parm);
+            //return DataContext.Set<T>().Where(predicate).SingleOrDefault();
+
+            return DataContext.Set<T>().Where(x => x.Id == id).FirstOrDefault();
         }
 
         public virtual T Get(Expression<Func<T, bool>> predicate)
@@ -67,17 +70,55 @@ namespace WebPortfolio.Repositories
             return DataContext.Set<T>();
         }
 
-        public virtual void Insert(T entity)
+        private void Insert(T entity, bool submit)
         {
             DataContext.Set<T>().Add(entity);
             //opStatus.Status = (submit ? SubmitChanges() : DataContext.SaveChanges() > 0);
+            if (submit)
+                DataContext.SaveChanges();
+        }
+
+        public virtual void Insert(T entity)
+        {
+            Insert(entity, true);
+        }
+
+        private void Update(T entity, bool submit)
+        {
+
+            DataContext.Set<T>().Attach(entity);
+            DataContext.Entry(entity).State = System.Data.EntityState.Modified;
+            if (submit)
+                DataContext.SaveChanges();
+            //opStatus.Status = DataContext.SaveChanges() > 0;
         }
 
         public virtual void Update(T entity)
         {
-            //DataContext.Set<T>().Attach(entity);
-            DataContext.Entry(entity).State = System.Data.EntityState.Modified;
-            //opStatus.Status = DataContext.SaveChanges() > 0;
+            Update(entity, true);
+        }
+
+        private void InsertOrUpdate(T entity, bool submit)
+        {
+            if (entity.Id == 0)
+                Insert(entity, submit);
+            else
+                Update(entity, submit);
+        }
+
+        public virtual void InsertOrUpdate(T entity)
+        {
+            InsertOrUpdate(entity, true);
+        }
+
+        public virtual void InsertOrUpdateCollection(ICollection<T> collection)
+        {
+            foreach (var entity in collection)
+            {
+                InsertOrUpdate(entity, false);
+            }
+
+            DataContext.SaveChanges();
         }
 
         public int ExecuteStoreCommand(string cmdText, params object[] parameters)
@@ -91,9 +132,13 @@ namespace WebPortfolio.Repositories
 
         public virtual void Delete(T entity)
         {
+            if (entity == null)
+                return;
+
             var objectSet = DataContext.Set<T>();
             objectSet.Attach(entity);
             objectSet.Remove(entity);
+            DataContext.SaveChanges();
             //opStatus.Status = DataContext.SaveChanges() > 0;
 
         }
@@ -104,6 +149,7 @@ namespace WebPortfolio.Repositories
 
                 var objectSet = DataContext.Set<T>().Where(predicate).FirstOrDefault();
                 DataContext.Entry(objectSet).State = System.Data.EntityState.Deleted;
+            DataContext.SaveChanges();
                 //opStatus.Status = DataContext.SaveChanges() > 0;
 
 
