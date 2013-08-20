@@ -14,7 +14,7 @@
     </section>
 
     <section class="span9">
-        <fieldset class="form-horizontal">
+        <fieldset class="form-horizontal" data-ng-model="inputs">
 
             <legend>Personal Info</legend>
 
@@ -27,7 +27,8 @@
             <div class="control-group">
                 <label class="control-label">First name:</label>
                 <div class="controls">
-                    <input type="text" class="validation" data-ng-model="userProfile.FirstName" />
+                    <input type="text" name="userName" class="validation" data-ng-model="userProfile.FirstName" data-ng-keypress="user.first" ngPattern="^[a-zA-Z]+$"/>
+                    <span class="error" ng-show="userName.$error.$invalid">solo letras!</span>
                 </div>
             </div>
             <div class="control-group">

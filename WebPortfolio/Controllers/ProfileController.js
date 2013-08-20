@@ -30,8 +30,9 @@
             /* <div class="controls" data-ng-repeat="ph in userProfile.UserPhones" >
                     <input type="text" class="validation" data-ng-model="ph.Number" />
                 </div>*/
-            $scope.soloLetras = function (val) {
-                val.push(/[A-Za-z\s]/);
+            $scope.soloLetras = function () {
+                angular.isString($scope.first)
+                
             };
            
             $scope.addPhone = function () {                
