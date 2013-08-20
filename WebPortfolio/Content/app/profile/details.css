@@ -4,9 +4,19 @@
 
 
 .inputsempty{
-    background-color:red !important;
+    background-color: #FF7373 !important;
    
 }
-    
 
-    
+/*-------------------------------------------*/
+
+.ng-dirty.ng-valid.validation {    
+     border:1px solid Green;
+}
+
+.ng-dirty.ng-invalid.validation {
+    border:1px solid Red;      
+    background-color: #FF7373;   
+    color: white;
+
+}

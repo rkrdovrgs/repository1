@@ -10,9 +10,10 @@
 
             $scope.userProfile = {};
             $scope.userAddress = {};
-            $scope.userPhone = {};
-            //$scope.userAddress = {};
-
+            $scope.userPhone = {};           
+            $scope.countries = [];
+                       
+           // $('.datepicker').datepicker();
 
             //$('.validation').mouseenter(function () {
             //    if ($(this).val() != "")
@@ -30,28 +31,27 @@
             /* <div class="controls" data-ng-repeat="ph in userProfile.UserPhones" >
                     <input type="text" class="validation" data-ng-model="ph.Number" />
                 </div>*/
-            $scope.soloLetras = function () {
-                angular.isString($scope.first)
-                
-            };
-           
+            //var app = angular.module('form-example', []);
+
+            
             $scope.addPhone = function () {                
                 $scope.userProfile.UserPhones.push({ Number: null, UserId: $scope.userProfile.Id });
+                
                // $scope.$apply();
             };
-            //$(function () {
-            //    $("#DOB").datepicker();
-            //});
+
+           
 
             $scope.updateProfile = function () {
                 $wprepository
                     .UserProfile
                     .Update($scope.userProfile)
                     .then(function (data) {
-                        if ($scope.userProfile.UserAddress != null)
+                        if ($scope.userProfile.UserAddress != null)                        
                             $scope.userProfile.UserAddress.Id = data.userAddressId;
-
-                        $scope.userProfile.UserPhones = data.userPhones;
+                        $scope.userProfile.UserAddress.Country.Name = data.country;
+                       
+                        
 
                         //$location.path('/Profile/' + $scope.userProfile.UserId);
                     });
@@ -60,6 +60,8 @@
             $scope.isNullOrEmpty = function (val) {
                 return val == null || val == undefined || val.length == 0;
             };
+
+            $wprepository.Country.GetList($scope.countries);
 
             return $wprepository
                 .UserProfile

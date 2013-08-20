@@ -7,10 +7,13 @@
         }
 
     });
+
+    var _CountryRepository = new Repository('Country');
    
 
     return {
-        UserProfile: _UserProfileRepository
+        UserProfile: _UserProfileRepository,
+        Country: _CountryRepository
     };
 
 };

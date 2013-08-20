@@ -58,11 +58,6 @@ namespace WebPortfolio.Controllers.Api
                 userProfile.UserAddress = null;
             }
             
-
-
-
-
-
             //var isNewAddress = userProfile.UserAddress != null && userProfile.UserAddress.UserId == 0; //la tabla address no es nula y no hay un registro. se guardara por primera vez
 
             //var username = User.Identity.Name;
