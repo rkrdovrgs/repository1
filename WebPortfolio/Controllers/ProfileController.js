@@ -35,8 +35,7 @@
             };
            
             $scope.addPhone = function () {                
-                $scope.userProfile.UserPhones.push({ Number: null, UserId: $scope.userProfile.UserId });
-                console.log($scope.userProfile.UserPhones);
+                $scope.userProfile.UserPhones.push({ Number: null, UserId: $scope.userProfile.Id });
                // $scope.$apply();
             };
             //$(function () {

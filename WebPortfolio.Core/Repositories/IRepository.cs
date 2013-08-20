@@ -37,6 +37,8 @@ namespace WebPortfolio.Core.Repositories
 
         void Delete(T entity);
 
+        void DeleteCollection(ICollection<T> collection);
+
         void Delete(Expression<Func<T, bool>> predicate);
 
         //bool Save();

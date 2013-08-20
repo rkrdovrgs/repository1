@@ -9,6 +9,8 @@ using WebPortfolio.Core.DataAccess;
 using System.Data.Entity;
 using WebPortfolio.Core.DataAccess.Abstract;
 using System.Collections.Generic;
+using System.Data.Objects;
+using System.Data.Entity.Infrastructure;
 
 
 namespace WebPortfolio.Repositories
@@ -18,22 +20,60 @@ namespace WebPortfolio.Repositories
         where T : class, IEntity
         where C : DbContext, new()
     {
+
+        //private Dictionary<Type, string> _KeyNames;
+        //private string GetKeyName(Type type)
+        //{
+        //    var _KeyName = string.Empty;
+
+        //    if (!_KeyNames.ContainsKey(type))
+        //    {
+        //        ObjectContext objectContext = ((IObjectContextAdapter)DataContext).ObjectContext;
+        //        var set = objectContext.CreateObjectSet<T>();
+
+        //        IEnumerable<string> keyNames = set.EntitySet.ElementType
+        //                                                    .KeyMembers
+        //                                                    .Select(k => k.Name);
+        //        _KeyName = keyNames.SingleOrDefault();
+        //    }
+        //    else
+        //        _KeyName = _KeyNames[type];
+
+        //    return _KeyName;
+
+        //}
+
+
+        //public Repository()
+        //    : base()
+        //{
+        //    _KeyNames = new Dictionary<Type, string>();
+        //}
+
+
+        //private Expression<Func<T, bool>> BuildKeyPredicate(Type type, object filter)
+        //{
+        //    var fieldName = GetKeyName(type);
+        //    var parm = Expression.Parameter(type, type.Name);
+        //    var exp = Expression.PropertyOrField(parm, fieldName);
+        //    var filt = Expression.Constant(filter);
+        //    var predicate = Expression.Lambda<Func<T, bool>>(Expression.Equal(exp, filt), parm);
+
+        //    return predicate;
+        //}
+
         /// <summary>
-        /// Returns entity by Id as long as the table name
+        /// Returns entity by key as long as the table name
         /// contains a column Id. If not, throws an exception
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public virtual T Get(int id)
         {
-            //var type = typeof(T);
 
-            //if (type.GetProperties().Any(x => x.Name.ToLower() == "id"))
-            //    throw new Exception("Table does not contain a column Id");
+            //var predicate = BuildKeyPredicate(typeof(T), id);
 
-            //var parm = Expression.Parameter(type, type.Name);
-            //var predicate = Expression.Lambda<Func<T, bool>>
-            //        (Expression.Convert(Expression.Property(parm, "Id"), typeof(int)), parm);
+
             //return DataContext.Set<T>().Where(predicate).SingleOrDefault();
 
             return DataContext.Set<T>().Where(x => x.Id == id).FirstOrDefault();
@@ -41,7 +81,7 @@ namespace WebPortfolio.Repositories
 
         public virtual T Get(Expression<Func<T, bool>> predicate)
         {
-            return DataContext.Set<T>().Where(predicate).SingleOrDefault();
+            return DataContext.Set<T>().Where(predicate).FirstOrDefault();
 
         }
 
@@ -71,9 +111,9 @@ namespace WebPortfolio.Repositories
             return DataContext.Set<T>();
         }
 
-        private void Insert(T entity, bool submit)
+        private void Insert(IEntity entity, bool submit)
         {
-            DataContext.Set<T>().Add(entity);
+            DataContext.Set(entity.GetType()).Add(entity);
             //opStatus.Status = (submit ? SubmitChanges() : DataContext.SaveChanges() > 0);
             if (submit)
                 DataContext.SaveChanges();
@@ -84,11 +124,15 @@ namespace WebPortfolio.Repositories
             Insert(entity, true);
         }
 
-        private void Update(T entity, bool submit)
+        private void Update(IEntity entity, bool submit)
         {
-            var attachedEntity = DataContext.Set<T>()
-                                    .Local
+
+            //var predicate = BuildKeyPredicate(entity.GetType(), KeyName, 
+
+            var attachedEntity = DataContext.Set(entity.GetType()).Local
+                                    .OfType<IEntity>()
                                     .FirstOrDefault(e => e.Id == entity.Id);
+
             if (attachedEntity != null)
             {
                 DataContext.Entry(attachedEntity).CurrentValues.SetValues(entity);
@@ -96,9 +140,11 @@ namespace WebPortfolio.Repositories
 
             else
             {
-                DataContext.Set<T>().Attach(entity);
+                DataContext.Set(entity.GetType()).Attach(entity);
                 DataContext.Entry(entity).State = System.Data.EntityState.Modified;
             }
+
+
             if (submit)
                 DataContext.SaveChanges();
             //opStatus.Status = DataContext.SaveChanges() > 0;
@@ -109,8 +155,27 @@ namespace WebPortfolio.Repositories
             Update(entity, true);
         }
 
-        private void InsertOrUpdate(T entity, bool submit)
+        private void InsertOrUpdate(IEntity entity, bool submit)
         {
+            ///Deep looping through
+            var props = entity.GetType().GetProperties();
+            foreach (var p in props.Where(x => x.PropertyType.GetInterfaces().Contains(typeof(IEntity))))
+            {
+                IEntity innerEntity = p.GetValue(entity) as IEntity;
+                if (innerEntity != null)
+                    InsertOrUpdate(innerEntity, false);
+            }
+
+            foreach (var p in props.Where(x => x.PropertyType.IsGenericType && (typeof(ICollection<>)).IsAssignableFrom(x.PropertyType.GetGenericTypeDefinition())))
+            {
+                var entCol = p.GetValue(entity) as IEnumerable<IEntity>;
+
+                if (entCol != null)
+                    InsertOrUpdateCollection(entCol, false);
+            }
+
+
+
             if (entity.Id == 0)
                 Insert(entity, submit);
             else
@@ -122,14 +187,21 @@ namespace WebPortfolio.Repositories
             InsertOrUpdate(entity, true);
         }
 
-        public virtual void InsertOrUpdateCollection(ICollection<T> collection)
+        private void InsertOrUpdateCollection(IEnumerable<IEntity> collection, bool submit)
         {
             foreach (var entity in collection)
             {
-                InsertOrUpdate(entity, false);
+                InsertOrUpdate((IEntity)entity, false);
             }
+            if (submit)
+                DataContext.SaveChanges();
+        }
 
-            DataContext.SaveChanges();
+
+        public virtual void InsertOrUpdateCollection(ICollection<T> collection)
+        {
+
+            InsertOrUpdateCollection(collection, true);
         }
 
         public int ExecuteStoreCommand(string cmdText, params object[] parameters)
@@ -141,7 +213,7 @@ namespace WebPortfolio.Repositories
             return recordsAffected;
         }
 
-        public virtual void Delete(T entity)
+        private void Delete(T entity, bool submit)
         {
             if (entity == null)
                 return;
@@ -149,9 +221,27 @@ namespace WebPortfolio.Repositories
             var objectSet = DataContext.Set<T>();
             objectSet.Attach(entity);
             objectSet.Remove(entity);
-            DataContext.SaveChanges();
+            if (submit)
+                DataContext.SaveChanges();
+
+
             //opStatus.Status = DataContext.SaveChanges() > 0;
 
+        }
+
+        public virtual void Delete(T entity)
+        {
+            Delete(entity, true);
+        }
+
+        public virtual void DeleteCollection(ICollection<T> collection)
+        {
+            foreach (var item in collection)
+            {
+                Delete(item, false);
+            }
+
+            DataContext.SaveChanges();
         }
 
 

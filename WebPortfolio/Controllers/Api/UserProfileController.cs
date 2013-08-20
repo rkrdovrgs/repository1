@@ -17,6 +17,11 @@ namespace WebPortfolio.Controllers.Api
         public IWPRepository<Country> countryrepository { get; set; }
 
 
+        public UserProfile Get(int id)
+        {
+            return userprofilerepository.Get(id);
+        }
+
         // GET api/userprofile
         [HttpGet]
         public UserProfile Details()
@@ -44,21 +49,16 @@ namespace WebPortfolio.Controllers.Api
         {
 
 
-            int _userAddressId = 0;
-            if (!userProfile.UserAddress.IsNullOrEmpty())
-            {
-                //if (userProfile.UserAddress.Id == 0)
-                //{
+            if (userProfile.UserAddress != null)
                 userProfile.UserAddress.UserId = userProfile.Id;
-                //    useraddressrepository.Insert(userProfile.UserAddress);
-                //}
-                //else
-                //    useraddressrepository.Update(userProfile.UserAddress);
-                useraddressrepository.InsertOrUpdate(userProfile.UserAddress);
-                _userAddressId = userProfile.UserAddress.Id;
-            }
-            else
+
+            if (userProfile.UserAddress.IsNullOrEmpty())
+            {
                 useraddressrepository.Delete(userProfile.UserAddress);
+                userProfile.UserAddress = null;
+            }
+            
+
 
 
 
@@ -119,12 +119,12 @@ namespace WebPortfolio.Controllers.Api
             //}
 
 
-            foreach (var p in userProfile.UserPhones)
-            {
-                p.UserId = userProfile.Id;
-            }
+            //foreach (var p in userProfile.UserPhones)
+            //{
+            //    p.UserId = userProfile.Id;
+            //}
 
-            var oldPhones = userphonerepository.GetList(x => x.UserId == userProfile.Id).ToList();
+            var dbPhones = userphonerepository.GetList(x => x.UserId == userProfile.Id).ToList();
 
             userProfile.UserPhones = userProfile.UserPhones
                                             .Where(x => x.Number != 0)
@@ -132,11 +132,10 @@ namespace WebPortfolio.Controllers.Api
                                             .Select(x => userProfile.UserPhones.First(p => p.Number == x.Key))
                                             .ToList();
 
-            foreach (var p in oldPhones.Where(x => !userProfile.UserPhones.Any(n => n.Id == x.Id)))
-            {
-                userphonerepository.Delete(p);
-            }
-            userphonerepository.InsertOrUpdateCollection(userProfile.UserPhones);
+            var missingPhones = dbPhones.Where(x => !userProfile.UserPhones.Any(n => n.Id == x.Id)).ToList();
+            userphonerepository.DeleteCollection(missingPhones);
+
+            //userphonerepository.InsertOrUpdateCollection(userProfile.UserPhones);
 
 
             //else: aviso, no puede tener dos telefonos con el mismo numero         
@@ -144,12 +143,12 @@ namespace WebPortfolio.Controllers.Api
 
             //userprofilerepository.SubmitChanges();
 
-
-            userprofilerepository.Update(userProfile);
+            
+            userprofilerepository.InsertOrUpdate(userProfile);
 
             return new
             {
-                userAddressId = _userAddressId,
+                userAddressId = userProfile.UserAddress == null ? 0 : userProfile.UserAddress.Id,
                 userPhones = userphonerepository.GetList(x => x.UserId == userProfile.Id)
             };
 
