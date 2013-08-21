@@ -9,14 +9,44 @@
 }
 
 /*-------------------------------------------*/
-
-.ng-dirty.ng-valid.validation {    
-     border:1px solid Green;
+.inputempty {
+    background: White !important;
+    border: 1px solid #CCCCCC !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset !important;
 }
 
+.ng-dirty.ng-valid.validation {  
+    background-color: rgba(11, 155, 32, 0.2) ;
+    border:1px solid Green;    
+    font-weight:bold;
+}
+    .ng-dirty.ng-valid.validation:focus {  
+        background-color:white;
+        color: black;
+        font-weight:normal;
+    }
 .ng-dirty.ng-invalid.validation {
     border:1px solid Red;      
-    background-color: #FF7373;   
-    color: white;
+    background-color: rgba(255, 0, 0, 0.2);     
+    font-weight:bold;
+}
+    .ng-dirty.ng-invalid.validation:focus {          
+        background-color: White;   
+        color: black;
+        font-weight:normal;
+    }
+    .ng-pristine.ng-valid.validation:focus, .ng-pristine.ng-invalid.validation:focus {  
+        border-radius:0;
+        
+    }
 
+.validation:hover {
+    cursor:pointer;
+}
+.validation:focus {
+    cursor:none;
+}
+
+#displayusername {
+    border-bottom: 1px solid #0B889B;
 }

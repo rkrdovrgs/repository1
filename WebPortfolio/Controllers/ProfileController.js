@@ -5,7 +5,7 @@
         var _Index = function () {
         };
 
-        var _Details = function ($scope, $wprepository) {
+        var _Details = function ($scope, $wprepository, $q) {
             //$rootScope.isReady = false;
 
             $scope.userProfile = {};
@@ -24,16 +24,21 @@
             //        $(this).css("background", "none");
             //});
 
-            //$('.validation').keyup(function () {
-            //    if ($(this).val() != "")
-            //        $(this).css("background", "none");
-            //});
+            $('.validation').change(function () {
+                if ($(this).val() == "") 
+                    $(this).addClass('inputempty');                
+                else
+                    $(this).removeClass('inputempty');               
+            });
             /* <div class="controls" data-ng-repeat="ph in userProfile.UserPhones" >
                     <input type="text" class="validation" data-ng-model="ph.Number" />
                 </div>*/
             //var app = angular.module('form-example', []);
+            //$('.maskphone').mask("(999) 999-9999");
+            
 
             
+
             $scope.addPhone = function () {                
                 $scope.userProfile.UserPhones.push({ Number: null, UserId: $scope.userProfile.Id });
                 
@@ -49,9 +54,6 @@
                     .then(function (data) {
                         if ($scope.userProfile.UserAddress != null)                        
                             $scope.userProfile.UserAddress.Id = data.userAddressId;
-                        $scope.userProfile.UserAddress.Country.Name = data.country;
-                       
-                        
 
                         //$location.path('/Profile/' + $scope.userProfile.UserId);
                     });
@@ -61,11 +63,14 @@
                 return val == null || val == undefined || val.length == 0;
             };
 
-            $wprepository.Country.GetList($scope.countries);
+            //$wprepository.Country.GetList($scope.countries);
 
-            return $wprepository
-                .UserProfile
-                .Details($scope.userProfile);
+            return $q.all([
+                $wprepository
+                    .UserProfile
+                    .Details($scope.userProfile),
+                $wprepository.Country.GetList($scope.countries)
+                ]);
 
         };
 

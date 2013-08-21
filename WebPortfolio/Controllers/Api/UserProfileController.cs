@@ -29,10 +29,10 @@ namespace WebPortfolio.Controllers.Api
             var userName = User.Identity.Name;
             var userProfile = userprofilerepository.GetList(x => x.UserName == userName)
                                     .Include(x => x.UserAddress)
-                                    .Include(x => x.UserPhones)
-                                    .Include(x => x.UserAddress.Country)
+                                    .Include(x => x.UserPhones)                                   
                                     .FirstOrDefault();
-
+            //if (userProfile.UserAddress.CountryId.HasValue)
+            //    userProfile.UserAddress.Country = countryrepository.Get((int)userProfile.UserAddress.CountryId);
             return userProfile;
         }
 
@@ -129,6 +129,13 @@ namespace WebPortfolio.Controllers.Api
 
             var missingPhones = dbPhones.Where(x => !userProfile.UserPhones.Any(n => n.Id == x.Id)).ToList();
             userphonerepository.DeleteCollection(missingPhones);
+
+
+
+            if (userProfile.UserAddress.CountryId != null)
+            { 
+
+            }
 
             //userphonerepository.InsertOrUpdateCollection(userProfile.UserPhones);
 
