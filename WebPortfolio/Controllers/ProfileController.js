@@ -33,18 +33,24 @@
             /* <div class="controls" data-ng-repeat="ph in userProfile.UserPhones" >
                     <input type="text" class="validation" data-ng-model="ph.Number" />
                 </div>*/
-            //var app = angular.module('form-example', []);
-            //$('.maskphone').mask("(999) 999-9999");
+           
             
-
+            $(document).ready(function () {
+                $(".DoB").inputmask("mask", { "mask": "9999-99-99" });
+                $(".DoB").datepicker({ format: 'yyyy-mm-dd' });
+               // $(".maskphone").mask("(999) 999-9999");
+            });
             
 
             $scope.addPhone = function () {                
-                $scope.userProfile.UserPhones.push({ Number: null, UserId: $scope.userProfile.Id });
+                $scope.userProfile.UserPhones.push({ Number: null, UserId: $scope.userProfile.Id });                
+                // $scope.$apply();
                 
-               // $scope.$apply();
+                    $(".maskphone").inputmask({ "mask": "(999) 999-9999" });
+                
             };
 
+            
            
 
             $scope.updateProfile = function () {

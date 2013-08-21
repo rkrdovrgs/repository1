@@ -46,6 +46,7 @@
                     <label class="control-label">Email:</label>
                     <div class="controls">
                         <input type="email" name="email"  class="validation" placeholder="email@x.com" data-ng-model="userProfile.UserEmail" required />
+                        <span class="error" data-ng-show="formprofile.email.$error.required"> Required email!</span>
                         <span class="error" data-ng-show="formprofile.email.$error.email"> Invalid email!</span>
                     </div>                
                 </div>
@@ -55,7 +56,7 @@
                 <div class="control-group">
                     <label class="control-label">DOB:</label>
                     <div class="controls">
-                        <input type="text" value="02-16-2012" data-date-format="mm/dd/yy" class="datepicker"  data-ng-model="userProfile.DOB" placeholder="year-month-day" />
+                        <input type="text"   class="DoB"  data-ng-model="userProfile.DOB" placeholder="year-month-day" />
 
                     </div>
                 </div>
@@ -107,13 +108,17 @@
                     </div>
                 </div>
                 <div class="control-group" id="divphones">
+                     
                     <label class="control-label">Phone:</label>
                     <div class="controls" data-ng-repeat="ph in userProfile.UserPhones" >
-                        <input type="text" name="phone" class="validation maskphone" data-ng-model="ph.Number" data-ng-pattern="/^[0-9]+$/"/>
+                        <input type="text" name="phone" class="validation maskphone" data-ng-model="ph.Number"  data-ng-pattern="/^[0-9]+$/"/>
                         <span class="error" data-ng-show="formprofile.phone.$error.pattern"> Only numbers!</span>
-                    </div>               
+                    </div>  
+                    <div class="controls">   
+                        <a data-ng-click="addPhone()" >add</a>
+                    </div>             
                 </div>
-                 <label data-ng-click="addPhone()">agregar</label>
+                
             </fieldset>
             <div class="form-actions">
                 <input type="button" name="Save" value="Save" class="btn btn-primary" data-ng-click="updateProfile()" data-ng-disabled="formprofile.$invalid" />

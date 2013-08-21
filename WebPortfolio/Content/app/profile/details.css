@@ -14,6 +14,10 @@
     border: 1px solid #CCCCCC !important;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset !important;
 }
+    .inputempty:focus {
+        border-color: rgba(82, 168, 236 , 0.8) !important;
+        box-shadow:  0 0 4px rgba(82, 168, 236 , 0.8) !important;
+    }
 
 .ng-dirty.ng-valid.validation {  
     background-color: rgba(11, 155, 32, 0.2) ;
@@ -35,7 +39,7 @@
         color: black;
         font-weight:normal;
     }
-    .ng-pristine.ng-valid.validation:focus, .ng-pristine.ng-invalid.validation:focus {  
+    .ng-pristine.ng-valid.validation:focus, .ng-pristine.ng-invalid.validation:focus, .ng-dirty.ng-valid.validation:focus , .ng-dirty.ng-invalid.validation:focus {  
         border-radius:0;
         
     }
