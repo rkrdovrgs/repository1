@@ -7,14 +7,19 @@
 
     <section class="span3" id="section-left">
 
-        <figure>
-            <img src="../../Images/account.jpg" class="img-polaroid profile-picture" />
+        <figure >
+            <img src="../../Images/account.jpg" class="img-polaroid profile-picture" id="profile-picture" data-ng-model="userProfile.PhotoProfile" />
+            <form id="form1"  enctype="multipart/form-data">
+                <input type="file" id="pruebaa" name="imagen" />
+                <input type="submit" id="enviar" />
+            </form>
+            
         </figure>
 
     </section>
 
     <section class="span9" >
-        <form name="formprofile">
+        <form name="formprofile" >
             <fieldset  class="form-horizontal" >
             
                 <legend>Personal Info</legend>
@@ -22,8 +27,8 @@
                 <div class="control-group">
                     <label class="control-label">User name:</label>
                     <div class="controls">
-                        <input type="text" name="UserName" class="validation"  data-ng-model="userProfile.UserName" data-ng-pattern="/^[A-Za-z0-9._ - ]+$/" />
-                         <span class="error" data-ng-show="formprofile.UserName.$error.pattern"> characters allowed: . _ -</span>
+                        <input type="text" name="UserName" class="validation"  data-ng-model="userProfile.UserName" data-ng-pattern="/^[A-Za-z0-9._]+$/" />
+                         <span class="error" data-ng-show="formprofile.UserName.$error.pattern"> Not space. Characters allowed: 'point(.)' , '_'</span>
                     </div>
                 </div>
                 <div class="control-group" >
@@ -121,7 +126,7 @@
                 
             </fieldset>
             <div class="form-actions">
-                <input type="button" name="Save" value="Save" class="btn btn-primary" data-ng-click="updateProfile()" data-ng-disabled="formprofile.$invalid" />
+                <input type="button" id="Save" name="Save" value="Save" class="btn btn-primary" data-ng-click="updateProfile()" data-ng-disabled="formprofile.$invalid" />
                 <span class="error" data-ng-show="formprofile.$invalid"> correct the fields!</span>
             </div>
         </form>

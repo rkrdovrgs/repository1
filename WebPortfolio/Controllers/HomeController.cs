@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebPortfolio.Core.Repositories;
+//using WebPortfolio.Models.Entities;
 
 namespace WebPortfolio.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
+        
         public ActionResult Index()
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application";
@@ -29,5 +32,11 @@ namespace WebPortfolio.Controllers
 
             return View();
         }
+        [HttpPost]
+        public void prueba(HttpPostedFileBase imagen)
+        {
+            
+        }
+
     }
 }

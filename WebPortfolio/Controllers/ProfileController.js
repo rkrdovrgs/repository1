@@ -24,30 +24,108 @@
             //        $(this).css("background", "none");
             //});
 
+            //estilos campos vacios
             $('.validation').change(function () {
                 if ($(this).val() == "") 
                     $(this).addClass('inputempty');                
                 else
                     $(this).removeClass('inputempty');               
-            });
+            });//END
+
             /* <div class="controls" data-ng-repeat="ph in userProfile.UserPhones" >
                     <input type="text" class="validation" data-ng-model="ph.Number" />
                 </div>*/
-           
-            
+
+            //cargar imagen
+            //$(function () {
+            //    $('#picField').change(function (e) { //a un input de tipo 'file' se cargara la imagen(ruta de direccion), y llamamos al evento 'addImage'
+            //        addImage(e);
+            //    });
+
+            //    function addImage(e) {
+            //        var file = e.target.files[0],
+            //        imageType = /image.*/; //se aplica un filtro para formato de imagen
+
+            //        if (!file.type.match(imageType))// si no es de tipo imagen..
+            //            return;
+
+            //        var reader = new FileReader(); //se cargara el archivo en memoria y se asignara a un metodo('fileOnload') el procesamiento de los datos.
+            //        reader.onload = fileOnload;
+            //        reader.readAsDataURL(file);
+            //        $('#prueba').attr("value", reader.readAsDataURL(file));
+            //    }
+
+            //    function fileOnload(e) { //se guarda los datos de la imagen en una variable y se agregara los datos al atributo src del img
+            //        var result = e.target.result;
+            //        console.log(result);
+            //        $('#profile-picture').attr("src", result);
+            //    } //Nota: La variable result contiene los datos de la imagen en codificación base64
+            //});// END
+
+            $('#enviar').click(function () {
+                var formData = new FormData();
+                formData.append("images", $('#pruebaa')[0].files[0]);
+                $.ajax({
+                    url: '/home/prueba',  //Server script to process data
+                    type: 'POST',
+                    //xhr: function () {  // Custom XMLHttpRequest
+                    //    var myXhr = $.ajaxSettings.xhr();
+                    //    if (myXhr.upload) { // Check if upload property exists
+                    //        myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // For handling the progress of the upload
+                    //    }
+                    //    return myXhr;
+                    //},
+                    //Ajax events
+                    //beforeSend: beforeSendHandler,
+                    //success: completeHandler,
+                    //error: errorHandler,
+                    // Form data
+                   data: formData,
+                    //Options to tell jQuery not to process data or worry about content-type.
+                    //cache: false,
+                    //contentType: false,
+                    //processData: false
+                });
+            });
+
+            //function archivo(evt) {
+            //    var files = evt.target.files; // FileList object
+
+            //    //Obtenemos la imagen del campo "file". 
+            //    for (var i = 0, f; f = files[i]; i++) {
+            //        //Solo admitimos imágenes.
+            //        if (!f.type.match('image.*')) {
+            //            continue;
+            //        }
+
+            //        var reader = new FileReader();
+
+            //        reader.onload = (function (theFile) {
+            //            return function (e) {
+            //                // Creamos la imagen.
+            //                document.getElementById("figure").innerHTML = ['<img class="thumb" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
+            //                console.log(result);
+            //            };
+            //        })(f);
+
+            //        reader.readAsDataURL(f);
+            //    }
+            //}
+
+            //document.getElementById('picField').addEventListener('change', archivo, false);
+
+            //mascaras para input
             $(document).ready(function () {
                 $(".DoB").inputmask("mask", { "mask": "9999-99-99" });
                 $(".DoB").datepicker({ format: 'yyyy-mm-dd' });
                // $(".maskphone").mask("(999) 999-9999");
-            });
+            });//END
             
 
             $scope.addPhone = function () {                
                 $scope.userProfile.UserPhones.push({ Number: null, UserId: $scope.userProfile.Id });                
-                // $scope.$apply();
-                
-                    $(".maskphone").inputmask({ "mask": "(999) 999-9999" });
-                
+                // $scope.$apply();                
+                    $(".maskphone").inputmask({ "mask": "(999) 999-9999" });               
             };
 
             

@@ -5,6 +5,7 @@ using WebPortfolio.Models.Entities;
 using System.Data.Entity;
 using WebPortfolio.Core.Extensions;
 using System.Collections.Generic;
+using System.Web;
 
 namespace WebPortfolio.Controllers.Api
 {
@@ -47,8 +48,6 @@ namespace WebPortfolio.Controllers.Api
         [HttpPut]
         public object Put([FromBody]UserProfile userProfile)
         {
-
-
             if (userProfile.UserAddress != null)
                 userProfile.UserAddress.UserId = userProfile.Id;
 
@@ -163,7 +162,7 @@ namespace WebPortfolio.Controllers.Api
 
         }
 
-
+       
         // DELETE api/userprofile/5
         public void Delete(int id)
         {
