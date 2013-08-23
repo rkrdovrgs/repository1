@@ -1,4 +1,4 @@
-﻿var globalModule = angular.module("global", ['ng']),
+﻿var globalModule = angular.module("global", ['ngUpload']),
     //App main namespace
     WebPortfolio = {};
 

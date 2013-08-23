@@ -10,10 +10,10 @@
 
             $scope.userProfile = {};
             $scope.userAddress = {};
-            $scope.userPhone = {};           
+            $scope.userPhone = {};
             $scope.countries = [];
-                       
-           // $('.datepicker').datepicker();
+
+            // $('.datepicker').datepicker();
 
             //$('.validation').mouseenter(function () {
             //    if ($(this).val() != "")
@@ -26,11 +26,15 @@
 
             //estilos campos vacios
             $('.validation').change(function () {
-                if ($(this).val() == "") 
-                    $(this).addClass('inputempty');                
+                if ($(this).val() == "")
+                    $(this).addClass('inputempty');
                 else
-                    $(this).removeClass('inputempty');               
+                    $(this).removeClass('inputempty');
             });//END
+
+
+            //$('#picField').fileupload();
+
 
             /* <div class="controls" data-ng-repeat="ph in userProfile.UserPhones" >
                     <input type="text" class="validation" data-ng-model="ph.Number" />
@@ -62,31 +66,47 @@
             //    } //Nota: La variable result contiene los datos de la imagen en codificación base64
             //});// END
 
-            $('#enviar').click(function () {
-                var formData = new FormData();
-                formData.append("images", $('#pruebaa')[0].files[0]);
-                $.ajax({
-                    url: '/home/prueba',  //Server script to process data
-                    type: 'POST',
-                    //xhr: function () {  // Custom XMLHttpRequest
-                    //    var myXhr = $.ajaxSettings.xhr();
-                    //    if (myXhr.upload) { // Check if upload property exists
-                    //        myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // For handling the progress of the upload
-                    //    }
-                    //    return myXhr;
-                    //},
-                    //Ajax events
-                    //beforeSend: beforeSendHandler,
-                    //success: completeHandler,
-                    //error: errorHandler,
-                    // Form data
-                   data: formData,
-                    //Options to tell jQuery not to process data or worry about content-type.
-                    //cache: false,
-                    //contentType: false,
-                    //processData: false
-                });
-            });
+            //$('#enviar').click(function () {
+            //    var formData = new FormData(),
+            //        file;
+
+
+            //    if (window.FileReader) {
+            //        reader = new FileReader();
+            //        reader.onloadend = function (e) {
+            //            showUploadedItem(e.target.result);
+            //        };
+            //        reader.readAsDataURL(file);
+            //    }
+            //    //console.log($('#pruebaa').eq(0).prop('files')[0]);
+
+            //    //files.push($('#pruebaa').eq(0).prop('files')[0]);
+            //    formData.append("imagen[]", file);
+            //    console.log(file);
+            //    //console.log(formData);
+            //    //console.log(files);
+            //    $.ajax({
+            //        url: '/home/prueba',  //Server script to process data
+            //        type: 'POST',
+            //        xhr: function () {  // Custom XMLHttpRequest
+            //            var myXhr = $.ajaxSettings.xhr();
+            //            if (myXhr.upload) { // Check if upload property exists
+            //                myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // For handling the progress of the upload
+            //            }
+            //            return myXhr;
+            //        },
+            //        //Ajax events
+            //        //beforeSend: beforeSendHandler,
+            //        //success: completeHandler,
+            //        //error: errorHandler,
+            //        // Form data
+            //       data: formData,
+            //        //Options to tell jQuery not to process data or worry about content-type.
+            //        //cache: false,
+            //        contentType: false,
+            //        //processData: false
+            //    });
+            //});
 
             //function archivo(evt) {
             //    var files = evt.target.files; // FileList object
@@ -94,21 +114,45 @@
             //    //Obtenemos la imagen del campo "file". 
             //    for (var i = 0, f; f = files[i]; i++) {
             //        //Solo admitimos imágenes.
-            //        if (!f.type.match('image.*')) {
-            //            continue;
-            //        }
+            //        //if (!f.type.match('image.*')) {
+            //        //    continue;
+            //        //}
 
             //        var reader = new FileReader();
 
             //        reader.onload = (function (theFile) {
             //            return function (e) {
             //                // Creamos la imagen.
-            //                document.getElementById("figure").innerHTML = ['<img class="thumb" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
-            //                console.log(result);
+            //                //document.getElementById("figure").innerHTML = ['<img class="thumb" src="', e.target.result, '" title="', escape(theFile.name), '"/>'].join('');
+            //                //console.log(result);
+            //                var formData = new FormData();
+            //                formData.append('imagen', theFile);
+            //                $.ajax({
+            //                    url: '/home/prueba',  //Server script to process data
+            //                    type: 'POST',
+            //                    xhr: function () {  // Custom XMLHttpRequest
+            //                        var myXhr = $.ajaxSettings.xhr();
+            //                        if (myXhr.upload) { // Check if upload property exists
+            //                            myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // For handling the progress of the upload
+            //                        }
+            //                        return myXhr;
+            //                    },
+            //                    //Ajax events
+            //                    //beforeSend: beforeSendHandler,
+            //                    //success: completeHandler,
+            //                    //error: errorHandler,
+            //                    // Form data
+            //                    data: formData,
+            //                    //Options to tell jQuery not to process data or worry about content-type.
+            //                    //cache: false,
+            //                    contentType: false,
+            //                    //processData: false
+            //                });
             //            };
             //        })(f);
 
             //        reader.readAsDataURL(f);
+
             //    }
             //}
 
@@ -118,25 +162,27 @@
             $(document).ready(function () {
                 $(".DoB").inputmask("mask", { "mask": "9999-99-99" });
                 $(".DoB").datepicker({ format: 'yyyy-mm-dd' });
-               // $(".maskphone").mask("(999) 999-9999");
+                // $(".maskphone").mask("(999) 999-9999");
             });//END
-            
 
-            $scope.addPhone = function () {                
-                $scope.userProfile.UserPhones.push({ Number: null, UserId: $scope.userProfile.Id });                
+
+            $scope.addPhone = function () {
+                $scope.userProfile.UserPhones.push({ Number: null, UserId: $scope.userProfile.Id });
                 // $scope.$apply();                
-                    $(".maskphone").inputmask({ "mask": "(999) 999-9999" });               
+                $(".maskphone").inputmask({ "mask": "(999) 999-9999" });
             };
 
-            
-           
+            $scope.results = function (content) {
+                console.log(content);
+            }
+
 
             $scope.updateProfile = function () {
                 $wprepository
                     .UserProfile
                     .Update($scope.userProfile)
                     .then(function (data) {
-                        if ($scope.userProfile.UserAddress != null)                        
+                        if ($scope.userProfile.UserAddress != null)
                             $scope.userProfile.UserAddress.Id = data.userAddressId;
 
                         //$location.path('/Profile/' + $scope.userProfile.UserId);
@@ -154,7 +200,7 @@
                     .UserProfile
                     .Details($scope.userProfile),
                 $wprepository.Country.GetList($scope.countries)
-                ]);
+            ]);
 
         };
 
