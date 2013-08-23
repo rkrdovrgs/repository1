@@ -269,6 +269,7 @@
     <Content Include="Controllers\ProfileController.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\account.JPG" />
     <Content Include="Scripts\app\Core\Extensions\FunctionExtensions.js" />
     <Content Include="Scripts\app\Core\Extensions\StringExtensions.js" />
     <Content Include="Scripts\app\Repositories\WebPortfolioRepository.js" />
