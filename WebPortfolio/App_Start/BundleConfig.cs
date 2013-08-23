@@ -17,7 +17,7 @@ namespace WebPortfolio
                 .Include("~/Scripts/jquery-{version}.js")
                 .Include("~/Scripts/jquery.partial.binder.js")
                 .IncludeDirectory("~/Scripts/jquery.inputmask", "*.js")
-                .Include("~/Scripts/jquery.maskedinput-1.3.1.js")
+                //.Include("~/Scripts/jquery.maskedinput-1.3.1.js")
                 .Include("~/Scripts/bootstrap-datepicker.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
