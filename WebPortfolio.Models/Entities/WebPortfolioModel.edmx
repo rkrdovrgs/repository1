@@ -163,7 +163,6 @@
           <Property Type="DateTime" Name="DOB" Precision="0" />
           <NavigationProperty Name="UserAddress" Relationship="WebPortfolioModel.FK_UserAddress_UserProfile" FromRole="UserProfile" ToRole="UserAddress" />
           <NavigationProperty Name="UserPhones" Relationship="WebPortfolioModel.FK_UserPhone_UserProfile" FromRole="UserProfile" ToRole="UserPhone" />
-          <Property Type="Binary" Name="PhotoProfile" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_UserAddress_Country">
           <End Type="WebPortfolioModel.Country" Role="Country" Multiplicity="0..1" />
@@ -241,7 +240,6 @@
           <EntitySetMapping Name="UserProfiles">
             <EntityTypeMapping TypeName="WebPortfolioModel.UserProfile">
               <MappingFragment StoreEntitySet="UserProfile">
-                <ScalarProperty Name="PhotoProfile" ColumnName="PhotoProfile" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />
                 <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />

@@ -7,48 +7,167 @@
     <meta name="viewport" content="width=device-width" />
 
 
-    
     @Styles.Render("~/Content/bootstrap")
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/app")
+    @Styles.Render("~/Content/desing")
     @Scripts.Render("~/bundles/modernizr")
+
 </head>
+
+
+
 <body>
-    <header>
-        <div class="content-wrapper">
+
+    <header id="header">
+        <div>
             <div class="float-left">
-                <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
+                <p id="logo" class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
             </div>
-            <div class="float-right">
-                <section id="login">
+
+            <div id="account" class="float-right">
+                <section>
                     @Html.Partial("_AccountPartial")
                 </section>
-                <nav>
-                    <ul id="menu">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    </ul>
-                </nav>
             </div>
+
         </div>
     </header>
-    <div id="body" class="row-fluid">
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="block-body">
         @*@RenderSection("featured", required: false)*@
-        <div class="span2 hidden-phone">LEFT SIDEBAR</div>
-        <section class="span8 span-main-content">
-            @RenderBody()
-        </section>
-        <div class="span2 visible-desktop">RIGHT SIDEBAR</div>
+
+
+        <div id="block-left">
+
+
+            <div id="block-left-top">
+                <div id="menu">
+                    <nav>
+                        <ul id="menu li">
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+
+
+
+            <div id="block-left-bottom">
+
+                <div id="block-left-bottom-left">
+
+                    <div class="blockleftstyle" id="blockleft1">
+                        Username and picture!!
+                    </div>
+
+                    <div class="blockleftstyle" id="blockleft2">
+                        <ul class="blockcontentleft" id="Ul2">
+                            <li><a href="#">Buscar 1</a></li>
+                            <li><a href="#">Buscar 2</a></li>
+                            <li><a href="#">Buscar 3</a></li>
+                            <li><a href="#">Buscar 4</a></li>
+                            <li><a href="#">Buscar 5</a></li>
+                            <li><a href="#">Buscar 6</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+
+                <div id="block-left-bottom-right" class="main-content">
+                    @RenderBody()
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div id="block-right">
+
+            <div class="blockrightstyle" id="blockright1">
+                <h3 class="linksblock"><a href="#">Did you know?</a></h3>
+                <div class="blockcontentright">
+                    <ul id="Ul1">
+                        <li><a href="#">Sabias que 1</a></li>
+                        <li><a href="#">Sabias que 2</a></li>
+                        <li><a href="#">Sabias que 3</a></li>
+                        <li><a href="#">Sabias que 4</a></li>
+                        <li><a href="#">Sabias que 5</a></li>
+                        <li><a href="#">Sabias que 6</a></li>
+                    </ul>
+                </div>
+            </div>
+
+
+
+            <div class="blockrightstyle" id="blockright2">
+                <h3 class="linksblock"><a href="#">Did you know?</a></h3>
+                <div class="blockcontentright">
+                    <ul id="Ul3">
+                        <li><a href="#">Sabias que 1</a></li>
+                        <li><a href="#">Sabias que 2</a></li>
+                        <li><a href="#">Sabias que 3</a></li>
+                        <li><a href="#">Sabias que 4</a></li>
+                        <li><a href="#">Sabias que 5</a></li>
+                        <li><a href="#">Sabias que 6</a></li>
+                    </ul>
+                </div>
+            </div>
+
+
+
+            <div class="blockrightstyle" id="blockright3">
+                <h3 class="linksblock"><a href="#">Did you know?</a></h3>
+                <div class="blockcontentright">
+                    <ul id="Ul4">
+                        <li><a href="#">Sabias que 1</a></li>
+                        <li><a href="#">Sabias que 2</a></li>
+                        <li><a href="#">Sabias que 3</a></li>
+                        <li><a href="#">Sabias que 4</a></li>
+                        <li><a href="#">Sabias que 5</a></li>
+                        <li><a href="#">Sabias que 6</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
 
     </div>
+
+
+
+
+
+
+
     <footer>
-        <div class="content-wrapper">
-            <div class="float-left">
+        <div>
+            <div>
                 <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
             </div>
         </div>
     </footer>
+
+
+
+
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

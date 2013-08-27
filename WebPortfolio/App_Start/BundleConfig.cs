@@ -32,6 +32,9 @@ namespace WebPortfolio
 
 
 
+
+
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -51,6 +54,10 @@ namespace WebPortfolio
 
             bundles.Add(new StyleBundle("~/Content/app")
                 .IncludeDirectory("~/Content/app", "*.css", true));
+
+            bundles.Add(new StyleBundle("~/Content/desing")
+                .Include("~/Content/custom.css"));
+
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
 
