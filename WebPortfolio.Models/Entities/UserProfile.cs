@@ -26,7 +26,7 @@ namespace WebPortfolio.Models.Entities
         public string LastName { get; set; }
         public string UserEmail { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
-        public byte[] PhotoProfile { get; set; }
+        public string RoutePhoto { get; set; }
     
         public virtual UserAddress UserAddress { get; set; }
         public virtual ICollection<UserPhone> UserPhones { get; set; }

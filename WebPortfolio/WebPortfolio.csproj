@@ -190,6 +190,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\CountryController.cs" />
+    <Compile Include="Controllers\Api\FileController.cs" />
     <Compile Include="Controllers\Api\UserProfileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -270,6 +271,7 @@
     <Content Include="Controllers\ProfileController.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Images\PhotosAccount\account.JPG" />
     <Content Include="ng-upload-sample.html" />
     <Content Include="Scripts\angular-bootstrap-prettify.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.min.js" />
@@ -714,7 +716,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\App_LocalResources\" />
-    <Folder Include="Images\PhotosAccount\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

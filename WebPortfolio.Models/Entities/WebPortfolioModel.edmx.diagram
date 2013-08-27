@@ -5,13 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="9901998046b348109f6500a6390620ac" Name="Diagram1">
-        <EntityTypeShape EntityType="WebPortfolioModel.Country" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="WebPortfolioModel.UserAddress" Width="1.5" PointX="4.125" PointY="3.125" />
-        <EntityTypeShape EntityType="WebPortfolioModel.UserPhone" Width="1.5" PointX="3" PointY="7.125" />
-        <EntityTypeShape EntityType="WebPortfolioModel.UserProfile" Width="1.5" PointX="0.75" PointY="3.25" />
+        <EntityTypeShape EntityType="WebPortfolioModel.Country" Width="1.5" PointX="4.125" PointY="0.5" />
+        <EntityTypeShape EntityType="WebPortfolioModel.UserAddress" Width="1.5" PointX="4" PointY="2.875" />
+        <EntityTypeShape EntityType="WebPortfolioModel.UserPhone" Width="1.5" PointX="0.75" PointY="6.5" />
+        <EntityTypeShape EntityType="WebPortfolioModel.UserProfile" Width="1.5" PointX="0.75" PointY="3" />
         <AssociationConnector Association="WebPortfolioModel.FK_UserAddress_Country" />
         <AssociationConnector Association="WebPortfolioModel.FK_UserAddress_UserProfile" />
         <AssociationConnector Association="WebPortfolioModel.FK_UserPhone_UserProfile" />
+        <EntityTypeShape EntityType="WebPortfolioModel.File" Width="1.5" PointX="4" PointY="6.375" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

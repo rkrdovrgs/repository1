@@ -7,6 +7,7 @@
     <Schema Namespace="WebPortfolioModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="WebPortfolioModelStoreContainer">
           <EntitySet Name="Country" EntityType="WebPortfolioModel.Store.Country" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="File" EntityType="WebPortfolioModel.Store.File" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserAddress" EntityType="WebPortfolioModel.Store.UserAddress" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserPhone" EntityType="WebPortfolioModel.Store.UserPhone" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserProfile" EntityType="WebPortfolioModel.Store.UserProfile" store:Type="Tables" Schema="dbo" />
@@ -29,6 +30,18 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="char" Nullable="false" MaxLength="10" />
+          <Property Name="FileName" Type="varchar" MaxLength="250" />
+          <Property Name="Content" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ContentLength" Type="int" Nullable="false" />
+          <Property Name="ContentType" Type="varchar" Nullable="false" MaxLength="250" />
         </EntityType>
         <EntityType Name="UserAddress">
           <Key>
@@ -61,7 +74,7 @@
           <Property Name="LastName" Type="varchar" MaxLength="50" />
           <Property Name="UserEmail" Type="varchar" MaxLength="500" />
           <Property Name="DOB" Type="date" />
-          <Property Name="PhotoProfile" Type="varbinary(max)" />
+          <Property Name="RoutePhoto" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_UserAddress_Country">
           <End Role="Country" Type="WebPortfolioModel.Store.Country" Multiplicity="0..1" />
@@ -120,6 +133,7 @@
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="UserPhone" EntitySet="UserPhones" />
           </AssociationSet>
+          <EntitySet Name="Files" EntityType="WebPortfolioModel.File" />
         </EntityContainer>
         <EntityType Name="Country">
           <Key>
@@ -163,7 +177,7 @@
           <Property Type="DateTime" Name="DOB" Precision="0" />
           <NavigationProperty Name="UserAddress" Relationship="WebPortfolioModel.FK_UserAddress_UserProfile" FromRole="UserProfile" ToRole="UserAddress" />
           <NavigationProperty Name="UserPhones" Relationship="WebPortfolioModel.FK_UserPhone_UserProfile" FromRole="UserProfile" ToRole="UserPhone" />
-          <Property Type="Binary" Name="PhotoProfile" MaxLength="Max" FixedLength="false" />
+          <Property Type="String" Name="RoutePhoto" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_UserAddress_Country">
           <End Type="WebPortfolioModel.Country" Role="Country" Multiplicity="0..1" />
@@ -201,6 +215,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="Guid" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="FileName" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="Binary" Name="Content" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Type="Int32" Name="ContentLength" Nullable="false" />
+          <Property Type="String" Name="ContentType" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -241,13 +267,26 @@
           <EntitySetMapping Name="UserProfiles">
             <EntityTypeMapping TypeName="WebPortfolioModel.UserProfile">
               <MappingFragment StoreEntitySet="UserProfile">
-                <ScalarProperty Name="PhotoProfile" ColumnName="PhotoProfile" />
+                <ScalarProperty Name="RoutePhoto" ColumnName="RoutePhoto" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />
                 <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Id" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Files">
+            <EntityTypeMapping TypeName="WebPortfolioModel.File">
+              <MappingFragment StoreEntitySet="File">
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="ContentLength" ColumnName="ContentLength" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

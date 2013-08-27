@@ -36,11 +36,16 @@
             //$('#picField').fileupload();
 
 
-            /* <div class="controls" data-ng-repeat="ph in userProfile.UserPhones" >
-                    <input type="text" class="validation" data-ng-model="ph.Number" />
-                </div>*/
-
+           
             //cargar imagen
+            //$('#inputimgurl').on('input', function () {
+            //    var url = $(this).val();
+            //    $('#profilepicture').attr('src', url);
+            //    alert(url);
+            //    $('#profilepicture').reload();
+            //});
+
+
             //$(function () {
             //    $('#picField').change(function (e) { //a un input de tipo 'file' se cargara la imagen(ruta de direccion), y llamamos al evento 'addImage'
             //        addImage(e);
@@ -156,8 +161,7 @@
             //    }
             //}
 
-            //document.getElementById('picField').addEventListener('change', archivo, false);
-
+            
             //mascaras para input
             $(document).ready(function () {
                 $(".DoB").inputmask("mask", { "mask": "9999-99-99" });

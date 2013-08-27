@@ -10,7 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebPortfolio.Core.Repositories;
 using System.Configuration;
-
+using System.Data.SqlTypes;
 
 namespace WebPortfolio.Controllers
 {
@@ -38,66 +38,93 @@ namespace WebPortfolio.Controllers
 
             return View();
         }
-        [HttpPost]
-        public void prueba(HttpPostedFileBase imagen)
-        {
-            int lenphoto = Convert.ToInt16(imagen.InputStream.Length);
-            byte[] image = new byte[lenphoto]; 
 
-            string DtsConection = "Data Source=rkrdo-pc;Initial Catalog=WebPortfolio; user id=adminwebportfolio; Password= adminwebportfolio;";
-            //SqlConnection Con = new SqlConnection(DtsConection);
-            
-            //try
-            //{
-            //    SqlCommand cmd = new SqlCommand("UPDATE UserProfile SET PhotoProfile = @Foto WHERE UserId = 36", Con);
-            //    //cmd.ExecuteNonQuery();
-            //    //Crear parámetros para la declaración de inserción que contiene la imagen ..
-            //    SqlParameter parametros = new SqlParameter("@Foto", SqlDbType.Binary, image.Length, ParameterDirection.Input, false, 0, 0, null, DataRowVersion.Current, image);
-                                
-            //    cmd.Parameters.Add(parametros);
-            //    Con.Open();
-            //    cmd.ExecuteNonQuery();
-            //}
-            //catch (Exception ex)
-            //{
-            //   ///dddf
-           
-            //}
-            //finally
-            //{
-            //    if (Con.State != ConnectionState.Closed)
-            //    { Con.Close(); }
-            //}
+        string DtsConection = "Data Source=rkrdo-pc;Initial Catalog=WebPortfolio; Trusted_Connection=Yes;";
+
+       
+
+        
+        /*public void getphoto(int id)
+        {
+            SqlConnection Con = new SqlConnection(DtsConection);
+           // SqlConnection conn = GetConnection();
+            Con.Open();
+            SqlTransaction trn = Con.BeginTransaction();
             try
             {
-                MemoryStream ms = new MemoryStream();
-                //FileStream fs = new FileStream(imagen.InputStream.ToString(), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                SqlCommand cmd = new SqlCommand(
+                    @"SELECT Size, ContentType, PhotoProfile.PathName() as pathhh,
+                        GET_FILESTREAM_TRANSACTION_CONTEXT ()
+                    FROM UserPhoto
+                    WHERE Id = " +id , Con, trn);
+                //SqlParameter paramFilename = new SqlParameter(
+                          //  @"fileName", SqlDbType.VarChar, 256);
+               // paramFilename.Value = fileName;
+               // cmd.Parameters.Add(paramFilename);
 
-                // ms.SetLength(fs.Length);
-                // fs.Read(ms.GetBuffer(), 0, (int)fs.Length);
-
-                // byte[] arrphoto = ms.GetBuffer();
-                //  ms.Flush();
-                // fs.Close();
-
-                using (SqlConnection Con = new SqlConnection(DtsConection))
-                using (SqlCommand cmd = Con.CreateCommand())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    Con.Open();
-                    cmd.CommandText = "UPDATE UserProfile SET PhotoProfile = @PhotoProfile WHERE UserId = 35";
-                    cmd.Parameters.Add("@PhotoProfile", SqlDbType.VarBinary).Value = image;
-                    cmd.ExecuteNonQuery();
-                    Con.Close();
+                    if (false == reader.Read())
+                    {
+                        reader.Close();
+                        trn.Dispose();
+                        Con.Dispose();
+                        trn = null;
+                        Con = null;
+                        //file = null;
+                       // return false;
+                    }
+
+                   //string contentDisposition = reader.GetString(0);
+                    string contentType = reader.GetString(1);
+                    string filepath = reader.GetString(2);
+                   // string contentCoding = reader.IsDBNull(2) ? null : reader.GetString(2);
+                    long contentLength = reader.GetInt32(0);
+                  //  string path = reader.GetString(4);
+                    byte[] context = reader.GetSqlBytes(3).Buffer;
+
+                    SqlFileStream sfs = new SqlFileStream(filepath, context, System.IO.FileAccess.Read);
+                    //file = new FileDownloadModel
+                    //{
+                    //    FileName = contentDisposition,
+                    //    ContentCoding = contentCoding,
+                    //    ContentType = contentType,
+                    //    ContentLength = contentLength,
+                    //    Content = new MvcResultSqlFileStream
+                    //    {
+                    //        SqlStream = new SqlFileStream(path, context, FileAccess.Read),
+                    //        Connection = conn,
+                    //        Transaction = trn
+                    //    }
+                    //};
+                    byte[] buffer = new byte[(int)sfs.Length];
+                    sfs.Read(buffer, 0, buffer.Length);
+                    sfs.Close();
+                    Response.ContentType = contentType;
+                    Response.OutputStream.Write(buffer, 0, buffer.Length);
+                    //return File(buffer, contentType, "prueba.jpg");
+                    //conn = null; // ownership transfered to the stream
+                    //trn = null;
+                    //return true;
                 }
             }
-            catch (Exception ex)
+            finally
             {
-                //
+                if (null != trn)
+                {
+                    trn.Dispose();
+                }
+                if (null != Con)
+                {
+                    Con.Dispose();
+                }
             }
-            
-            
         }
-
+        */
+        private SqlConnection GetConnection()
+        {
+            throw new NotImplementedException();
+        }
         //protected bool saveFile(byte[] _file)
         //{
         //    bool Fl = false;
