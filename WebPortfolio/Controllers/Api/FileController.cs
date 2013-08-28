@@ -18,105 +18,104 @@ namespace WebPortfolio.Controllers.Api
     [Authorize]
     public class FileController : Controller
     {
-       
+
         private string connectionName = "FileConnection";
         private SqlConnection GetConnection()
         {
             return new SqlConnection(ConfigurationManager.ConnectionStrings[connectionName].ToString());
         }
-        
+
         [HttpPost]
         public void Upload(HttpPostedFileBase file)
         {
             string name = StringExtensions.GetRandom();
-            
-            int lenphoto = Convert.ToInt16(file.InputStream.Length);
-            byte[] arrimage = new byte[lenphoto];
-               
-            file.InputStream.Read(arrimage, 0, lenphoto);
 
-            using (SqlConnection Con = GetConnection())
-            using (SqlCommand cmd = Con.CreateCommand())
+
+            byte[] content = new byte[file.ContentLength];
+
+            file.InputStream.Read(content, 0, file.ContentLength);
+
+            using (SqlConnection conn = GetConnection())
+            using (SqlCommand cmd = conn.CreateCommand())
             {
                 try
                 {
-                    Con.Open();
+                    conn.Open();
                     cmd.CommandText = "INSERT INTO [File] (Guid, Name, FileName, Content, ContentLength, ContentType) VALUES(newid(), @name, @filename, @content, @contentlen, @contenttype)";
                     cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = name;
                     cmd.Parameters.Add("@filename", SqlDbType.VarChar).Value = file.FileName;
-                    cmd.Parameters.Add("@content", SqlDbType.VarBinary).Value = arrimage;
+                    cmd.Parameters.Add("@content", SqlDbType.VarBinary).Value = content;
                     cmd.Parameters.Add("@contentlen", SqlDbType.Int).Value = file.ContentLength;
                     cmd.Parameters.Add("@contenttype", SqlDbType.VarChar).Value = file.ContentType;
                     cmd.ExecuteNonQuery();
-                    Con.Close();
+                    conn.Close();
                 }
                 catch (Exception ex)
                 {
                     throw ex;
                 }
                 finally
-                {                        
-                    if (null != Con)
-                        Con.Dispose();                        
+                {
+                    if (null != conn)
+                        conn.Dispose();
                 }
-            }               
+            }
         }
-              
+
 
         public void Get(int id, string name)
         {
 
-            using (SqlConnection Con = GetConnection())
+            using (SqlConnection conn = GetConnection())
             {
-                Con.Open();
-                SqlTransaction trn = Con.BeginTransaction();
-                using (SqlCommand cmd = new SqlCommand(@"SELECT ContentLength, ContentType, Content.PathName() as pathhh, GET_FILESTREAM_TRANSACTION_CONTEXT ()
-                         FROM [File]  WHERE Id = @id and Name = @name", Con, trn))
+                conn.Open();
+                SqlTransaction trn = conn.BeginTransaction();
+                using (SqlCommand cmd = new SqlCommand(@"SELECT ContentLength, ContentType, Content.PathName() as FilePath, GET_FILESTREAM_TRANSACTION_CONTEXT()
+                         FROM [File]  WHERE Id = @id and Name = @name", conn, trn))
                 {
-                    try
-                    { 
-                        cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
-                        cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = name;
-                        cmd.ExecuteNonQuery();                       
 
-                        using (SqlDataReader reader = cmd.ExecuteReader())
+                    cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                    cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = name;
+                    //cmd.ExecuteNonQuery();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        try
                         {
-                            if (false == reader.Read())
+                            if (reader.Read())
                             {
-                                reader.Close();
-                                trn.Dispose();
-                                Con.Dispose();
-                                trn = null;
+                                //string contentDisposition = reader.GetString(0);
+                                string contentType = reader.GetString(1);
+                                string filepath = reader.GetString(2);
+                                // string contentCoding = reader.IsDBNull(2) ? null : reader.GetString(2);
+                                long contentLength = reader.GetInt32(0);
+                                //  string path = reader.GetString(4);
+                                byte[] context = reader.GetSqlBytes(3).Buffer;
+
+                                SqlFileStream sfs = new SqlFileStream(filepath, context, System.IO.FileAccess.Read);
+
+                                byte[] buffer = new byte[(int)sfs.Length];
+                                sfs.Read(buffer, 0, buffer.Length);
+                                sfs.Close();
+                                Response.ContentType = contentType;
+                                Response.OutputStream.Write(buffer, 0, buffer.Length);
                             }
-
-                            //string contentDisposition = reader.GetString(0);
-                            string contentType = reader.GetString(1);
-                            string filepath = reader.GetString(2);
-                            // string contentCoding = reader.IsDBNull(2) ? null : reader.GetString(2);
-                            long contentLength = reader.GetInt32(0);
-                            //  string path = reader.GetString(4);
-                            byte[] context = reader.GetSqlBytes(3).Buffer;
-
-                            SqlFileStream sfs = new SqlFileStream(filepath, context, System.IO.FileAccess.Read);
-
-                            byte[] buffer = new byte[(int)sfs.Length];
-                            sfs.Read(buffer, 0, buffer.Length);
-                            sfs.Close();
-                            Response.ContentType = contentType;
-                            Response.OutputStream.Write(buffer, 0, buffer.Length);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw ex;
+                        }
+                        finally
+                        {
+                            reader.Close();
+                            trn.Dispose();
+                            conn.Dispose();
+                            trn = null;
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
-                    finally
-                    {
-                        if (null != Con)
-                            Con.Dispose();
-                    }
+
                 }
             }
-        }           
+        }
     }
 }
