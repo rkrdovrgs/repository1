@@ -39,7 +39,7 @@ namespace WebPortfolio
             config.Routes.MapHttpRoute(
                 "DefaultApiGet",
                 "api/{controller}",
-                new { action = "GetValues" },
+                new { action = "Get" },
                 new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) });
 
             config.Routes.MapHttpRoute(
