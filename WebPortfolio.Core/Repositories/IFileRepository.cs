@@ -9,10 +9,9 @@ namespace WebPortfolio.Core.Repositories
 {
     public interface IFileRepository
     {
+        IFile Get(int id, string name);
 
-        IFile Get(string name);
-
-        void Insert(IFile file);
+        void Insert(byte[] content, string fileName, string contentType);
 
     }
 }

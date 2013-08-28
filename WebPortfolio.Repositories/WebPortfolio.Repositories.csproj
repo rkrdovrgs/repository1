@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbRepository.cs" />
+    <Compile Include="DataAccess\File.cs" />
     <Compile Include="FileRepository.cs" />
     <Compile Include="WPRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

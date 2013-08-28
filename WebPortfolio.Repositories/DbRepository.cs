@@ -257,16 +257,12 @@ namespace WebPortfolio.Repositories
 
         }
 
-        private void Fill(int f, ExpandoObject row, SqlDataReader reader) {
+        private void Fill(int f, ExpandoObject row, SqlDataReader reader)
+        {
             var name = reader.GetName(f);
-
-
-
 
             if (!reader.IsDBNull(f))
             {
-
-
                 switch (reader.GetProviderSpecificFieldType(f).Name)
                 {
                     case "SqlInt32":
