@@ -13,7 +13,7 @@ namespace WebPortfolio.Controllers.Api
     {   
         public IWPRepository<Country> countryrepository { get; set; }
         // GET api/country
-        public IEnumerable<Country> GetValues()
+        public IEnumerable<Country> Get()
         {
             return countryrepository.GetList();
         }
