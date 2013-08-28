@@ -15,8 +15,8 @@ namespace WebPortfolio.Controllers.Api
         public IWPRepository<UserProfile> userprofilerepository { get; set; }
         public IWPRepository<UserAddress> useraddressrepository { get; set; }
         public IWPRepository<UserPhone> userphonerepository { get; set; }
-        public IWPRepository<Country> countryrepository { get; set; }
 
+        public IWPRepository<Country> countryrepository { get; set; }  
 
         public UserProfile Get(int id)
         {
@@ -30,7 +30,7 @@ namespace WebPortfolio.Controllers.Api
             var userName = User.Identity.Name;
             var userProfile = userprofilerepository.GetList(x => x.UserName == userName)
                                     .Include(x => x.UserAddress)
-                                    .Include(x => x.UserPhones)                                   
+                                    .Include(x => x.UserPhones)                                  
                                     .FirstOrDefault();
             //if (userProfile.UserAddress.CountryId.HasValue)
             //    userProfile.UserAddress.Country = countryrepository.Get((int)userProfile.UserAddress.CountryId);

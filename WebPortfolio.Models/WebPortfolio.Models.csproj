@@ -52,6 +52,9 @@
       <DependentUpon>WebPortfolioModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Extensions\EntityValidator.cs" />
+    <Compile Include="Entities\File.cs">
+      <DependentUpon>WebPortfolioModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\UserAddress.cs">
       <DependentUpon>WebPortfolioModel.tt</DependentUpon>
     </Compile>
@@ -76,6 +79,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WebPortfolioModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Entities\WebPortfolioModel1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebPortfolioModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -97,7 +105,7 @@
     <None Include="Entities\WebPortfolioModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>WebPortfolioModel.edmx</DependentUpon>
-      <LastGenOutput>WebPortfolioModel.cs</LastGenOutput>
+      <LastGenOutput>WebPortfolioModel1.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

@@ -8,10 +8,17 @@
     <section class="span3" id="section-left">
 
         <figure id="figure">
-            <img src="../../Image/account.jpg" class="img-polaroid profile-picture" id="profile-picture" data-ng-model="userProfile.PhotoProfile" />
-            <form id="form1" ng-upload="results()" action="/home/prueba">
-                <input type="file" id="picField" name="imagen"/>
+            
+            <form id="form1" ng-upload="results()" action="/File/Upload">
+                <img src="/File/Get/{{file[0].Id}}/{{fle[2].Name}}" class="img-polaroid profile-picture" id="profilepicture"   />
+                <input type="file" id="picField" name="file" />
+                <!--<input type="text" id="inputimgurl"  name="file" placeholder="imagen desde url" />-->
                 <input type="submit" value="Upload" class="upload-submit"/>
+               
+                <i class="glyphicon glyphicon-plus"></i>
+                    
+                    
+                
             </form>
             
         </figure>

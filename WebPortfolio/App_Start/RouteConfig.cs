@@ -27,6 +27,14 @@ namespace WebPortfolio
             );
 
             routes.MapRoute(
+               name: "File",
+               url: "File/{id}/{name}",
+               defaults: new { controller = "File", action = "Get" },
+               constraints: new { id = @"\d+", name = @"\w+" }
+
+           );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index" },
@@ -38,6 +46,8 @@ namespace WebPortfolio
                 url: "{controller}/{action}",
                 defaults: new { controller = "Home", action = "Index" }
             );
+
+           
         }
     }
 }

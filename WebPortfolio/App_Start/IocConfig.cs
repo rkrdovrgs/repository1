@@ -24,6 +24,7 @@ namespace WebPortfolio
 
             kernel.Bind(typeof(IWPRepository<>)).To(typeof(WPRepository<>));
             kernel.Bind(typeof(IDbRepository)).To(typeof(DbRepository));
+            kernel.Bind(typeof(IFileRepository)).To(typeof(FileRepository));
 
             kernel.Components.Add<IInjectionHeuristic, NinjectInjectionHeuristic>();
 
