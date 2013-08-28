@@ -23,6 +23,10 @@
             <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="UserPhone" EntitySet="UserPhone" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserProfile_File" Association="WebPortfolioModel.Store.FK_UserProfile_File">
+            <End Role="File" EntitySet="File" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Country">
           <Key>
@@ -39,9 +43,9 @@
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="char" Nullable="false" MaxLength="10" />
           <Property Name="FileName" Type="varchar" MaxLength="250" />
-          <Property Name="Content" Type="varbinary(max)" Nullable="false" />
           <Property Name="ContentLength" Type="int" Nullable="false" />
           <Property Name="ContentType" Type="varchar" Nullable="false" MaxLength="250" />
+          <Property Name="Content" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="UserAddress">
           <Key>
@@ -74,7 +78,7 @@
           <Property Name="LastName" Type="varchar" MaxLength="50" />
           <Property Name="UserEmail" Type="varchar" MaxLength="500" />
           <Property Name="DOB" Type="date" />
-          <Property Name="RoutePhoto" Type="varchar" MaxLength="50" />
+          <Property Name="PhotoId" Type="int" />
         </EntityType>
         <Association Name="FK_UserAddress_Country">
           <End Role="Country" Type="WebPortfolioModel.Store.Country" Multiplicity="0..1" />
@@ -112,6 +116,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserProfile_File">
+          <End Role="File" Type="WebPortfolioModel.Store.File" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="WebPortfolioModel.Store.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="PhotoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -134,6 +150,10 @@
             <End Role="UserPhone" EntitySet="UserPhones" />
           </AssociationSet>
           <EntitySet Name="Files" EntityType="WebPortfolioModel.File" />
+          <AssociationSet Name="FK_UserProfile_File" Association="WebPortfolioModel.FK_UserProfile_File">
+            <End Role="File" EntitySet="Files" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Country">
           <Key>
@@ -177,6 +197,8 @@
           <Property Type="DateTime" Name="DOB" Precision="0" />
           <NavigationProperty Name="UserAddress" Relationship="WebPortfolioModel.FK_UserAddress_UserProfile" FromRole="UserProfile" ToRole="UserAddress" />
           <NavigationProperty Name="UserPhones" Relationship="WebPortfolioModel.FK_UserPhone_UserProfile" FromRole="UserProfile" ToRole="UserPhone" />
+          <Property Type="Int32" Name="PhotoId" />
+          <NavigationProperty Name="File" Relationship="WebPortfolioModel.FK_UserProfile_File" FromRole="UserProfile" ToRole="File" />
         </EntityType>
         <Association Name="FK_UserAddress_Country">
           <End Type="WebPortfolioModel.Country" Role="Country" Multiplicity="0..1" />
@@ -222,10 +244,21 @@
           <Property Type="Guid" Name="Guid" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
           <Property Type="String" Name="FileName" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Type="Binary" Name="Content" Nullable="false" MaxLength="Max" FixedLength="false" />
           <Property Type="Int32" Name="ContentLength" Nullable="false" />
           <Property Type="String" Name="ContentType" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
+        <Association Name="FK_UserProfile_File">
+          <End Type="WebPortfolioModel.File" Role="File" Multiplicity="0..1" />
+          <End Type="WebPortfolioModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="PhotoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -266,6 +299,7 @@
           <EntitySetMapping Name="UserProfiles">
             <EntityTypeMapping TypeName="WebPortfolioModel.UserProfile">
               <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="PhotoId" ColumnName="PhotoId" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />
                 <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -280,7 +314,6 @@
               <MappingFragment StoreEntitySet="File">
                 <ScalarProperty Name="ContentType" ColumnName="ContentType" />
                 <ScalarProperty Name="ContentLength" ColumnName="ContentLength" />
-                <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Guid" ColumnName="Guid" />

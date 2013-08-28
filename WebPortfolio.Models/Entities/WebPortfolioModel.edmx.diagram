@@ -12,7 +12,8 @@
         <AssociationConnector Association="WebPortfolioModel.FK_UserAddress_Country" />
         <AssociationConnector Association="WebPortfolioModel.FK_UserAddress_UserProfile" />
         <AssociationConnector Association="WebPortfolioModel.FK_UserPhone_UserProfile" />
-        <EntityTypeShape EntityType="WebPortfolioModel.File" Width="1.5" PointX="4" PointY="6.375" />
+        <EntityTypeShape EntityType="WebPortfolioModel.File" Width="1.5" PointX="5.75" PointY="6.875" />
+        <AssociationConnector Association="WebPortfolioModel.FK_UserProfile_File" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

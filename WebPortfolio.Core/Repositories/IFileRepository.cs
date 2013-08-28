@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebPortfolio.Core.DataAccess.Abstract;
 
 namespace WebPortfolio.Core.Repositories
 {
     public interface IFileRepository
     {
 
-        File get(string name);
+        IFile Get(string name);
 
-        void Insert(File file);
+        void Insert(IFile file);
 
     }
 }
