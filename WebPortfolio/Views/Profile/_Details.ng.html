@@ -10,14 +10,12 @@
         <figure id="figure">
             
             <form id="form1" ng-upload="results()" action="/File/Upload">
-                <img src="" class="img-polaroid profile-picture" id="profilepicture"   />
+                <img src="File/{{userProfile.PhotoId}}/{{userProfile.File.Name}}" class="img-polaroid profile-picture" id="profilepicture" />
                 <input type="file" id="picField" name="file" />
                 <!--<input type="text" id="inputimgurl"  name="file" placeholder="imagen desde url" />-->
-                <input type="submit" value="Upload" class="upload-submit"/>
+                <input type="submit" value="Upload from computer" class="upload-submit"/>
                
-                <i class="glyphicon glyphicon-plus"></i>
-                    
-                    
+                <i class="glyphicon glyphicon-plus"></i>  
                 
             </form>
             

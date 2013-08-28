@@ -13,12 +13,16 @@ using System.Configuration;
 using System.Data.SqlTypes;
 using WebPortfolio.Core.Extensions;
 using WebPortfolio.Core.DataAccess.Abstract;
+using WebPortfolio.Models.Entities;
 
 namespace WebPortfolio.Controllers.Api
 {
     [Authorize]
     public class FileController : Controller
     {
+        public IWPRepository<UserProfile> userprofilerepository { get; set; }
+        public IWPRepository<File> filesfilerepository { get; set; }
+
         public IFileRepository filerepository { get; set; }
 
         [HttpPost]
@@ -29,8 +33,10 @@ namespace WebPortfolio.Controllers.Api
             file.InputStream.Read(content, 0, file.ContentLength);
 
             filerepository.Insert(content, file.FileName, file.ContentType);
-        }
 
+            
+        }
+        
 
         public void Get(int id, string name)
         {

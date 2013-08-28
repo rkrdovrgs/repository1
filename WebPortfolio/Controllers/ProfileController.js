@@ -203,7 +203,8 @@
                 $wprepository
                     .UserProfile
                     .Details($scope.userProfile),
-                $wprepository.Country.GetList($scope.countries)
+                $wprepository.Country.GetList($scope.countries),
+                $wprepository.File
             ]);
 
         };

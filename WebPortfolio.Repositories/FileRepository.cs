@@ -1,15 +1,19 @@
-﻿using System;
+﻿using Microsoft.SqlServer.Server;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using WebPortfolio.Core.DataAccess.Abstract;
 using WebPortfolio.Core.Extensions;
 using WebPortfolio.Core.Repositories;
+using WebPortfolio.Models.Entities;
+
 
 
 namespace WebPortfolio.Repositories
@@ -34,15 +38,19 @@ namespace WebPortfolio.Repositories
             return new SqlConnection(ConfigurationManager.ConnectionStrings[_connectionName].ToString());
         }
 
+
+       
         public IFile Get(int id, string name)
         {
             IFile file = null;
             using (SqlConnection conn = GetConnection())
             {
+               // WindowsIdentity newid = SqlContext.WindowsIdentity;
+               // WindowsImpersonationContext impersonatedUser = newid.Impersonate();
+
                 conn.Open();
                 SqlTransaction trn = conn.BeginTransaction();
-                using (SqlCommand cmd = new SqlCommand(@"execute as login ='rkrdo-pc\Ricardo';
-                         SELECT ContentLength, ContentType, Content.PathName() as FilePath, GET_FILESTREAM_TRANSACTION_CONTEXT()
+                using (SqlCommand cmd = new SqlCommand(@"SELECT ContentLength, ContentType, Content.PathName() as FilePath, GET_FILESTREAM_TRANSACTION_CONTEXT()
                          FROM [File]  WHERE Id = @id and Name = @name", conn, trn))
                 {
 
@@ -85,10 +93,14 @@ namespace WebPortfolio.Repositories
                         }
                         finally
                         {
+                            
                             reader.Close();
+                            //trn.Commit();
                             trn.Dispose();
+                            //conn.Close();
                             conn.Dispose();
                             trn = null;
+                            //impersonatedUser.Undo ();
                         }
                     }
 
@@ -100,10 +112,7 @@ namespace WebPortfolio.Repositories
 
         public void Insert(byte[] content, string fileName, string contentType)
         {
-            string name = StringExtensions.GetRandom();
-
-
-            
+            string name = StringExtensions.GetRandom();                    
 
             using (SqlConnection conn = GetConnection())
             using (SqlCommand cmd = conn.CreateCommand())
@@ -111,12 +120,20 @@ namespace WebPortfolio.Repositories
                 try
                 {
                     conn.Open();
-                    cmd.CommandText = "INSERT INTO [File] (Guid, Name, FileName, Content, ContentLength, ContentType) VALUES(newid(), @name, @filename, @content, @contentlen, @contenttype)";
+                    cmd.CommandText = "INSERT INTO [File] (Guid, Name, FileName, Content, ContentLength, ContentType) VALUES(newid(), @name, @filename, @content, @contentlen, @contenttype)" +
+                                      "SELECT Id FROM [File] WHERE Name = @name";
                     cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = name;
                     cmd.Parameters.Add("@filename", SqlDbType.VarChar).Value = fileName;
                     cmd.Parameters.Add("@content", SqlDbType.VarBinary).Value = content;
                     cmd.Parameters.Add("@contentlen", SqlDbType.Int).Value = content.Length;
                     cmd.Parameters.Add("@contenttype", SqlDbType.VarChar).Value = contentType;
+                    cmd.ExecuteNonQuery();
+
+                    int id = Convert.ToInt16(cmd.ExecuteScalar().ToString());
+                    conn.Close();
+
+                    conn.Open();
+                    cmd.CommandText = "UPDATE UserProfile SET PhotoId = " + id + "Where UserId = 43" ;
                     cmd.ExecuteNonQuery();
                     conn.Close();
                 }
