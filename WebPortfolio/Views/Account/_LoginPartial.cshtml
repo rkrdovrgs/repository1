@@ -37,27 +37,15 @@
                 @Html.ActionLink("Register", "Register", null, new {@id= "register-link" }) if you don't have an account.                
             </li>
 
-        </ul>
-        
+        </ul>     
         
     }
 </section>
 
 
-
-
-
-
 <section class="blockcontent" id="socialLoginForm">
     <br />
 
-
-
-
-
     @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl, })
-
-
-
 
 </section>

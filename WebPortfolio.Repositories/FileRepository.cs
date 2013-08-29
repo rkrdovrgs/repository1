@@ -110,7 +110,7 @@ namespace WebPortfolio.Repositories
 
         }
 
-        public void Insert(byte[] content, string fileName, string contentType)
+        public int Insert(byte[] content, string fileName, string contentType)
         {
             string name = StringExtensions.GetRandom();                    
 
@@ -127,15 +127,14 @@ namespace WebPortfolio.Repositories
                     cmd.Parameters.Add("@content", SqlDbType.VarBinary).Value = content;
                     cmd.Parameters.Add("@contentlen", SqlDbType.Int).Value = content.Length;
                     cmd.Parameters.Add("@contenttype", SqlDbType.VarChar).Value = contentType;
-                    cmd.ExecuteNonQuery();
+                    //cmd.ExecuteNonQuery();
 
-                    int id = Convert.ToInt16(cmd.ExecuteScalar().ToString());
+                    int id = Convert.ToInt16(cmd.ExecuteScalar());
                     conn.Close();
 
-                    conn.Open();
-                    cmd.CommandText = "UPDATE UserProfile SET PhotoId = " + id + "Where UserId = 43" ;
-                    cmd.ExecuteNonQuery();
-                    conn.Close();
+                    
+
+                    return id;
                 }
                 catch (Exception ex)
                 {

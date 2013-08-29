@@ -11,7 +11,7 @@ namespace WebPortfolio.Core.Repositories
     {
         IFile Get(int id, string name);
 
-        void Insert(byte[] content, string fileName, string contentType);
+        int Insert(byte[] content, string fileName, string contentType);
 
     }
 }

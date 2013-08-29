@@ -1,8 +1,10 @@
 ﻿var ProfileController = new Controller(WebPortfolio, "ProfileController",
     function () {
 
+        var _Index = function () {           
+            
+           
 
-        var _Index = function () {
         };
 
         var _Details = function ($scope, $wprepository, $q) {
@@ -12,8 +14,7 @@
             $scope.userAddress = {};
             $scope.userPhone = {};
             $scope.countries = [];
-
-            // $('.datepicker').datepicker();
+           
 
             //$('.validation').mouseenter(function () {
             //    if ($(this).val() != "")
@@ -25,31 +26,13 @@
             //});
 
             //estilos campos vacios
-            $('.validation').change(function () {
-                if ($(this).val() == "")
-                    $(this).addClass('inputempty');
-                else
-                    $(this).removeClass('inputempty');
-            });//END
+            //$('.validation').change(function () {
+            //    if ($(this).val() == "")
+            //        $(this).addClass('inputempty');
+            //    else
+            //        $(this).removeClass('inputempty');
+            //});//END                                 
 
-
-            //$('#picField').fileupload();
-
-
-           
-            //cargar imagen
-            //$('#inputimgurl').on('input', function () {
-            //    var url = $(this).val();
-            //    $('#profilepicture').attr('src', url);
-            //    alert(url);
-            //    $('#profilepicture').reload();
-            //});
-
-
-            //$(function () {
-            //    $('#picField').change(function (e) { //a un input de tipo 'file' se cargara la imagen(ruta de direccion), y llamamos al evento 'addImage'
-            //        addImage(e);
-            //    });
 
             //    function addImage(e) {
             //        var file = e.target.files[0],
@@ -164,7 +147,7 @@
             
             //mascaras para input
             $(document).ready(function () {
-                $(".DoB").inputmask("mask", { "mask": "9999-99-99" });
+                //$(".DoB").inputmask("mask", { "mask": "9999-99-99" });
                 $(".DoB").datepicker({ format: 'yyyy-mm-dd' });
                 // $(".maskphone").mask("(999) 999-9999");
             });//END
@@ -176,10 +159,7 @@
                 $(".maskphone").inputmask({ "mask": "(999) 999-9999" });
             };
 
-            $scope.results = function (content) {
-                console.log(content);
-            }
-
+           
 
             $scope.updateProfile = function () {
                 $wprepository
@@ -192,6 +172,10 @@
                         //$location.path('/Profile/' + $scope.userProfile.UserId);
                     });
             };
+
+            //$scope.UploadProfilePicture() = function () {
+            //    $wprepository.userProfile.Update($scope.userProfile)
+            //};
 
             $scope.isNullOrEmpty = function (val) {
                 return val == null || val == undefined || val.length == 0;
@@ -228,12 +212,11 @@
                 .Details($scope.userProfile);
         };
 
-
-
+        
         return {
             Index: _Index,
             Details: _Details,
-            Edit: _Edit
+            Edit: _Edit           
         };
 
     }()

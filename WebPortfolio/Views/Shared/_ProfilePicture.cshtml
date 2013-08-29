@@ -1,0 +1,19 @@
+﻿@model WebPortfolio.Models.Entities.UserProfile
+     
+            
+    <figure id="figure">    
+        <form id="form1" ng-upload="UploadProfilePiture()" action="/File/Upload">
+                       
+            <img src="File/@Model.PhotoId/@Model.File.Name" class="img-polaroid profile-picture" id="profilepicture" />
+            <label id="changepicture">Change Picture</label>
+
+
+            <input type="file" name="file" />
+            <!--<input type="text" id="inputimgurl"  name="file" placeholder="imagen desde url" />-->
+            <input type="button" value="Upload from computer" class="upload-submit" id="submitPicture" />
+
+            <i class="glyphicon glyphicon-plus"></i>
+
+        </form>
+    </figure>
+           

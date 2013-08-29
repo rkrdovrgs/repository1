@@ -3,23 +3,20 @@
 }
 
 
-.inputsempty{
-    background-color: #FF7373 !important;
-   
-}
 
 /*-------------------------------------------*/
-.inputempty {
+/*.inputempty {
     background: White !important;
+    background-color: #FF7373 !important;   
     border: 1px solid #CCCCCC !important;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset !important;
 }
     .inputempty:focus {
         border-color: rgba(82, 168, 236 , 0.8) !important;
         box-shadow:  0 0 4px rgba(82, 168, 236 , 0.8) !important;
-    }
+    }*/
 
-.ng-dirty.ng-valid.validation {  
+/*.ng-dirty.ng-valid.validation {  
     background-color: rgba(11, 155, 32, 0.2) ;
     border:1px solid Green;    
     font-weight:bold;
@@ -42,15 +39,25 @@
     .ng-pristine.ng-valid.validation:focus, .ng-pristine.ng-invalid.validation:focus, .ng-dirty.ng-valid.validation:focus , .ng-dirty.ng-invalid.validation:focus {  
         border-radius:0;
         
-    }
+    }*/
 
 .validation:hover {
     cursor:pointer;
 }
 .validation:focus {
+    border-radius:0;
     cursor:none;
 }
 
 #displayusername {
     border-bottom: 1px solid #0B889B;
+}
+
+#changepicture {
+    background-color: rgba(237, 236, 236, 0.5);
+    position:relative;
+    
+}
+#submitPicture {
+    
 }
