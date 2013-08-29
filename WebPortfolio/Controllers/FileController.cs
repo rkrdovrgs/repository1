@@ -32,10 +32,10 @@ namespace WebPortfolio.Controllers
 
             file.InputStream.Read(content, 0, file.ContentLength);
 
-            var id = filerepository.Insert(content, file.FileName, file.ContentType);
+            var dbFile = filerepository.Insert(content, file.FileName, file.ContentType);
             return new JsonResult
             {
-                Data = new  { Id = id }
+                Data = dbFile
             };
         }       
 

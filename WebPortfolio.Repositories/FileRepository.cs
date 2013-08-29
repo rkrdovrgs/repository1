@@ -23,7 +23,7 @@ namespace WebPortfolio.Repositories
         private string _connectionName;
 
         public FileRepository()
-            : this("FileConnection")
+            : this("DefaultConnection")
         {
 
         }
@@ -39,19 +39,21 @@ namespace WebPortfolio.Repositories
         }
 
 
-       
+
         public IFile Get(int id, string name)
         {
             IFile file = null;
             using (SqlConnection conn = GetConnection())
             {
-               // WindowsIdentity newid = SqlContext.WindowsIdentity;
-               // WindowsImpersonationContext impersonatedUser = newid.Impersonate();
+                // WindowsIdentity newid = SqlContext.WindowsIdentity;
+                // WindowsImpersonationContext impersonatedUser = newid.Impersonate();
 
-                conn.Open();
-                SqlTransaction trn = conn.BeginTransaction();
-                using (SqlCommand cmd = new SqlCommand(@"SELECT ContentLength, ContentType, Content.PathName() as FilePath, GET_FILESTREAM_TRANSACTION_CONTEXT()
-                         FROM [File]  WHERE Id = @id and Name = @name", conn, trn))
+                //conn.Open();
+                //SqlTransaction trn = conn.BeginTransaction();
+                //using (SqlCommand cmd = new SqlCommand(@"SELECT ContentLength, ContentType, Content.PathName() as FilePath, GET_FILESTREAM_TRANSACTION_CONTEXT()
+                //      FROM [File]  WHERE Id = @id and Name = @name", conn, trn))
+                using (SqlCommand cmd = new SqlCommand(@"SELECT ContentLength, ContentType, Content
+                         FROM [File]  WHERE Id = @id and Name = @name", conn))
                 {
 
                     cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
@@ -66,20 +68,20 @@ namespace WebPortfolio.Repositories
                             {
                                 int contentLength = reader.GetInt32(0);
                                 string contentType = reader.GetString(1);
-                                string filepath = reader.GetString(2);
-                                byte[] context = reader.GetSqlBytes(3).Buffer;
+                                //string filepath = reader.GetString(2);
+                                byte[] content = reader.GetSqlBytes(2).Buffer;
                                 //string contentDisposition = reader.GetString(0);                                
                                 // string contentCoding = reader.IsDBNull(2) ? null : reader.GetString(2);                               
                                 //  string path = reader.GetString(4);                                
 
-                                SqlFileStream sfs = new SqlFileStream(filepath, context, System.IO.FileAccess.Read);
+                                //SqlFileStream sfs = new SqlFileStream(filepath, context, System.IO.FileAccess.Read);
 
-                                byte[] buffer = new byte[(int)sfs.Length];
-                                sfs.Read(buffer, 0, buffer.Length);
-                                sfs.Close();
+                                //byte[] buffer = new byte[(int)sfs.Length];
+                                //sfs.Read(buffer, 0, buffer.Length);
+                                //sfs.Close();
                                 file = new File
                                 {
-                                    Content = buffer, 
+                                    Content = content,
                                     //ContentLength = contentLength,
                                     ContentType = contentType,
                                     Name = name
@@ -93,13 +95,13 @@ namespace WebPortfolio.Repositories
                         }
                         finally
                         {
-                            
+
                             reader.Close();
                             //trn.Commit();
-                            trn.Dispose();
+                            //trn.Dispose();
                             //conn.Close();
                             conn.Dispose();
-                            trn = null;
+                            //trn = null;
                             //impersonatedUser.Undo ();
                         }
                     }
@@ -110,9 +112,9 @@ namespace WebPortfolio.Repositories
 
         }
 
-        public int Insert(byte[] content, string fileName, string contentType)
+        public IFile Insert(byte[] content, string fileName, string contentType)
         {
-            string name = StringExtensions.GetRandom();                    
+            string name = StringExtensions.GetRandom();
 
             using (SqlConnection conn = GetConnection())
             using (SqlCommand cmd = conn.CreateCommand())
@@ -132,9 +134,12 @@ namespace WebPortfolio.Repositories
                     int id = Convert.ToInt16(cmd.ExecuteScalar());
                     conn.Close();
 
-                    
 
-                    return id;
+
+                    return new File { 
+                        Name = name,
+                        Id = id
+                    };
                 }
                 catch (Exception ex)
                 {
@@ -146,7 +151,7 @@ namespace WebPortfolio.Repositories
                         conn.Dispose();
                 }
             }
-            
+
         }
     }
 }
