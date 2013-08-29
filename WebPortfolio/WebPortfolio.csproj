@@ -190,9 +190,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\CountryController.cs" />
-    <Compile Include="Controllers\Api\FileController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\Api\UserProfileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -269,6 +270,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Controllers\LayoutController.js" />
     <Content Include="Controllers\ProfileController.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -715,6 +717,7 @@
     <Content Include="Scripts\ng-upload.min.js.map">
       <DependentUpon>ng-upload.js</DependentUpon>
     </Content>
+    <Content Include="Views\Shared\_ProfilePicture.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

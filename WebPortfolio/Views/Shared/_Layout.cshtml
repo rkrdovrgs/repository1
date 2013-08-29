@@ -12,12 +12,10 @@
     @Styles.Render("~/Content/app")
     @Styles.Render("~/Content/desing")
     @Scripts.Render("~/bundles/modernizr")
-
+     
 </head>
 
-
-
-<body>
+<body data-ng-controller="LayoutController" >
 
     <header id="header">
         <div>
@@ -34,23 +32,11 @@
         </div>
     </header>
 
-
-
-
-
-
-
-
-
-
-
-
     <div id="block-body">
         @*@RenderSection("featured", required: false)*@
 
 
         <div id="block-left">
-
 
             <div id="block-left-top">
                 <div id="menu">
@@ -64,15 +50,16 @@
                 </div>
             </div>
 
-
-
-
             <div id="block-left-bottom">
 
                 <div id="block-left-bottom-left">
 
-                    <div class="blockleftstyle" id="blockleft1">
-                        Username and picture!!
+                    <div class="blockleftstyle" id="blockleft1">                      
+                        
+                        @Html.Action("ProfilePicture", "Layout");
+
+                      
+
                     </div>
 
                     <div class="blockleftstyle" id="blockleft2">

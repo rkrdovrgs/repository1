@@ -15,28 +15,29 @@ using WebPortfolio.Core.Extensions;
 using WebPortfolio.Core.DataAccess.Abstract;
 using WebPortfolio.Models.Entities;
 
-namespace WebPortfolio.Controllers.Api
+namespace WebPortfolio.Controllers
 {
     [Authorize]
     public class FileController : Controller
     {
         public IWPRepository<UserProfile> userprofilerepository { get; set; }
-        public IWPRepository<File> filesfilerepository { get; set; }
+        //public IWPRepository<File> filesfilerepository { get; set; }
 
         public IFileRepository filerepository { get; set; }
 
         [HttpPost]
-        public void Upload(HttpPostedFileBase file)
+        public JsonResult Upload(HttpPostedFileBase file)
         {
             byte[] content = new byte[file.ContentLength];
 
             file.InputStream.Read(content, 0, file.ContentLength);
 
-            filerepository.Insert(content, file.FileName, file.ContentType);
-
-            
-        }
-        
+            var id = filerepository.Insert(content, file.FileName, file.ContentType);
+            return new JsonResult
+            {
+                Data = new  { Id = id }
+            };
+        }       
 
         public void Get(int id, string name)
         {

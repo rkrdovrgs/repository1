@@ -30,10 +30,10 @@ namespace WebPortfolio.Controllers.Api
         {
             var userName = User.Identity.Name;
             var userProfile = userprofilerepository.GetList(x => x.UserName == userName)
-                                    .Include(x => x.UserAddress)
-                                    .Include(x => x.UserPhones)   
-                                    .Include(x=> x.File)
-                                    .FirstOrDefault();
+                                                   .Include(x => x.UserAddress)
+                                                   .Include(x => x.UserPhones)   
+                                                   .Include(x => x.File)
+                                                   .FirstOrDefault();
             //if (userProfile.UserAddress.CountryId.HasValue)
             //    userProfile.UserAddress.Country = countryrepository.Get((int)userProfile.UserAddress.CountryId);
             return userProfile;
@@ -168,6 +168,12 @@ namespace WebPortfolio.Controllers.Api
         // DELETE api/userprofile/5
         public void Delete(int id)
         {
+        }
+
+        
+        public void PUTPhotoProfile(int id)
+        { 
+
         }
     }
 }
