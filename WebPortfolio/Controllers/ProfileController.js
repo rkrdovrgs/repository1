@@ -1,4 +1,4 @@
-﻿var ProfileController = new Controller(WebPortfolio, "ProfileController",
+﻿var ProfileController = new Controller(CoreModule, "ProfileController",
     function () {
 
         var _Index = function () {           
@@ -7,7 +7,7 @@
 
         };
 
-        var _Details = function ($scope, $wprepository, $q) {
+        var _Details = function ($scope, dataservice, $q) {
             //$rootScope.isReady = false;
 
             $scope.userProfile = {};
@@ -15,7 +15,8 @@
             $scope.userPhone = {};
             $scope.countries = [];
            
-
+            //#region Comments
+            
             //$('.validation').mouseenter(function () {
             //    if ($(this).val() != "")
             //        $(this).css("background", "#E4ECED");
@@ -143,7 +144,7 @@
 
             //    }
             //}
-
+            //#endregion
             
             //mascaras para input
             $(document).ready(function () {
@@ -162,7 +163,7 @@
            
 
             $scope.updateProfile = function () {
-                $wprepository
+                dataservice
                     .UserProfile
                     .Update($scope.userProfile)
                     .then(function (data) {
@@ -184,22 +185,21 @@
             //$wprepository.Country.GetList($scope.countries);
 
             return $q.all([
-                $wprepository
+                dataservice
                     .UserProfile
                     .Details($scope.userProfile),
-                $wprepository.Country.GetList($scope.countries),
-                $wprepository.File
+                dataservice.Country.GetList($scope.countries)
             ]);
 
         };
 
 
-        var _Edit = function ($scope, $wprepository, $routeParams, $location) {
+        var _Edit = function ($scope, dataservice, $routeParams, $location) {
 
             $scope.userProfile = {};
 
             $scope.updateProfile = function () {
-                $wprepository
+                dataservice
                     .UserProfile
                     .Update($scope.userProfile, $routeParams.id)
                     .then(function () {
@@ -207,7 +207,7 @@
                     });
             };
 
-            return $wprepository
+            return dataservice
                 .UserProfile
                 .Details($scope.userProfile);
         };

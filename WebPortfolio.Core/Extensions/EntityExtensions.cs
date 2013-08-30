@@ -17,7 +17,7 @@ namespace WebPortfolio.Core.Extensions
 
 
             var type = typeof(T);
-            foreach (var p in type.GetProperties().Where(x => !x.Name.EndsWith("Id")))
+            foreach (var p in type.GetProperties().Where(x => !(x.Name.EndsWith("Id") && Nullable.GetUnderlyingType(x.PropertyType) != null)))
             {
                 var t = p.PropertyType;
                 if (t.GetInterfaces().Contains(typeof(IEntity)))

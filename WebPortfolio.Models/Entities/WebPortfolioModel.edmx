@@ -42,7 +42,7 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="char" Nullable="false" MaxLength="10" />
-          <Property Name="FileName" Type="varchar" MaxLength="250" />
+          <Property Name="FileName" Type="varchar" Nullable="false" MaxLength="250" />
           <Property Name="ContentLength" Type="int" Nullable="false" />
           <Property Name="ContentType" Type="varchar" Nullable="false" MaxLength="250" />
           <Property Name="Content" Type="varbinary(max)" />
@@ -78,7 +78,7 @@
           <Property Name="LastName" Type="varchar" MaxLength="50" />
           <Property Name="UserEmail" Type="varchar" MaxLength="500" />
           <Property Name="DOB" Type="date" />
-          <Property Name="PhotoId" Type="int" />
+          <Property Name="PictureId" Type="int" />
         </EntityType>
         <Association Name="FK_UserAddress_Country">
           <End Role="Country" Type="WebPortfolioModel.Store.Country" Multiplicity="0..1" />
@@ -124,7 +124,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserProfile">
-              <PropertyRef Name="PhotoId" />
+              <PropertyRef Name="PictureId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -197,8 +197,8 @@
           <Property Type="DateTime" Name="DOB" Precision="0" />
           <NavigationProperty Name="UserAddress" Relationship="WebPortfolioModel.FK_UserAddress_UserProfile" FromRole="UserProfile" ToRole="UserAddress" />
           <NavigationProperty Name="UserPhones" Relationship="WebPortfolioModel.FK_UserPhone_UserProfile" FromRole="UserProfile" ToRole="UserPhone" />
-          <Property Type="Int32" Name="PhotoId" />
-          <NavigationProperty Name="File" Relationship="WebPortfolioModel.FK_UserProfile_File" FromRole="UserProfile" ToRole="File" />
+          <Property Type="Int32" Name="PictureId" />
+          <NavigationProperty Name="Picture" Relationship="WebPortfolioModel.FK_UserProfile_File" FromRole="UserProfile" ToRole="File" />
         </EntityType>
         <Association Name="FK_UserAddress_Country">
           <End Type="WebPortfolioModel.Country" Role="Country" Multiplicity="0..1" />
@@ -240,10 +240,10 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Guid" Name="Guid" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
-          <Property Type="String" Name="FileName" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FileName" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="ContentLength" Nullable="false" />
           <Property Type="String" Name="ContentType" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -255,7 +255,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserProfile">
-              <PropertyRef Name="PhotoId" />
+              <PropertyRef Name="PictureId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -299,7 +299,7 @@
           <EntitySetMapping Name="UserProfiles">
             <EntityTypeMapping TypeName="WebPortfolioModel.UserProfile">
               <MappingFragment StoreEntitySet="UserProfile">
-                <ScalarProperty Name="PhotoId" ColumnName="PhotoId" />
+                <ScalarProperty Name="PictureId" ColumnName="PictureId" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />
                 <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
