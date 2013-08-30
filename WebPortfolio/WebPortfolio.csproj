@@ -193,7 +193,6 @@
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\Api\UserProfileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -274,7 +273,7 @@
     <Content Include="Controllers\ProfileController.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Images\PhotosAccount\account.JPG" />
+    <Content Include="Images\account.JPG" />
     <Content Include="ng-upload-sample.html" />
     <Content Include="Scripts\angular-bootstrap-prettify.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.min.js" />
@@ -290,9 +289,9 @@
     <Content Include="Scripts\angular-sanitize.js" />
     <Content Include="Scripts\angular-sanitize.min.js" />
     <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\app\Core\Extensions\FunctionExtensions.js" />
-    <Content Include="Scripts\app\Core\Extensions\StringExtensions.js" />
-    <Content Include="Scripts\app\Repositories\WebPortfolioRepository.js" />
+    <Content Include="Scripts\app\core\Extensions\FunctionExtensions.js" />
+    <Content Include="Scripts\app\core\Extensions\StringExtensions.js" />
+    <Content Include="Scripts\app\services\dataservice.js" />
     <Content Include="Scripts\angular-scenario.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\account.js" />

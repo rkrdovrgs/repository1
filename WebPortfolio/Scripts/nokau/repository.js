@@ -2,27 +2,34 @@
 
     var prefix = "/api/";
 
-    
+
 
 
     return function (modelName, fxs) {
         var _modelName = modelName;
+        var _cache = [];
 
         var _get = function (model, url, filters) {
             var d = $q.defer();
 
+            var onsuccess = function (data) {
+                angular.copy(data, model);
+                d.resolve(data);
+            };
+
+            if (_cache[url] != undefined)
+                return _cache[url].then(onsuccess);
+
+
             $http.get(url, filters)
-                .success(function (data) {
-                    angular.copy(data, model);
-                    d.resolve(data);
-                })
+                .success(onsuccess)
                 .error(function () {
                     //error code here
-
                     deferred.reject();
                 });
 
-            return d.promise;
+            _cache[url] = d.promise;
+            return _cache[url];
         };
 
         var _Get = function (model, id) {
@@ -59,6 +66,8 @@
         var _Post = function (model, actionName) {
             var d = $q.defer();
 
+            _cache = [];
+
             var url = prefix + _modelName;
             if (actionName != undefined)
                 url += "/" + actionName;
@@ -78,6 +87,8 @@
 
         var _Put = function (model, id, actionName) {
             var d = $q.defer();
+
+            _cache = [];
 
             var url = prefix + _modelName + "/";
             if (actionName != undefined)
@@ -101,6 +112,8 @@
 
         var _Delete = function (id, actionName) {
             var d = $q.defer();
+
+            _cache = [];
 
             var url = prefix + _modelName + "/";
             if (actionName != undefined)

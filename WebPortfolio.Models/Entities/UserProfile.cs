@@ -26,10 +26,10 @@ namespace WebPortfolio.Models.Entities
         public string LastName { get; set; }
         public string UserEmail { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
-        public Nullable<int> PhotoId { get; set; }
+        public Nullable<int> PictureId { get; set; }
     
         public virtual UserAddress UserAddress { get; set; }
         public virtual ICollection<UserPhone> UserPhones { get; set; }
-        public virtual File File { get; set; }
+        public virtual File Picture { get; set; }
     }
 }

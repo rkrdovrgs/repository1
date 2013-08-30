@@ -48,7 +48,7 @@ namespace WebPortfolio.Repositories
                 // WindowsIdentity newid = SqlContext.WindowsIdentity;
                 // WindowsImpersonationContext impersonatedUser = newid.Impersonate();
 
-                //conn.Open();
+                conn.Open();
                 //SqlTransaction trn = conn.BeginTransaction();
                 //using (SqlCommand cmd = new SqlCommand(@"SELECT ContentLength, ContentType, Content.PathName() as FilePath, GET_FILESTREAM_TRANSACTION_CONTEXT()
                 //      FROM [File]  WHERE Id = @id and Name = @name", conn, trn))
@@ -138,7 +138,8 @@ namespace WebPortfolio.Repositories
 
                     return new File { 
                         Name = name,
-                        Id = id
+                        Id = id,
+                        ContentType = contentType
                     };
                 }
                 catch (Exception ex)

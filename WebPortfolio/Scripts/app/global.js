@@ -1,20 +1,20 @@
 ﻿var globalModule = angular.module("global", ['ngUpload']),
     //App main namespace
-    WebPortfolio = {};
+    CoreModule = {};
 
 
 
 globalModule.config(function ($routeProvider) {
 
-    RouteConfig.RegisterRoutes($routeProvider, WebPortfolio);
+    RouteConfig.RegisterRoutes($routeProvider, CoreModule);
 
 });
 
-globalModule.factory('$wprepository', function ($http, $q) {
+globalModule.factory('dataservice', function ($http, $q) {
     //Custom IoC
     var Repository = new $repository($http, $q);
 
-    return new WebPortfolioRepository(Repository);
+    return new CoreModule.dataservice(Repository);
 
 });
 

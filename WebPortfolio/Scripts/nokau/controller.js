@@ -11,11 +11,11 @@
         var parmNames = action.GetParamNames();
         var actionParms = new Array();
 
-        controller[actionName] = function ($scope, $routeParams, $wprepository, $rootScope, $location, $q) {
+        controller[actionName] = function ($scope, $routeParams, dataservice, $rootScope, $location, $q) {
             $context = {
                 $scope: $scope,
                 $routeParams: $routeParams,
-                $wprepository: $wprepository,
+                dataservice: dataservice,
                 $rootScope: $rootScope,
                 $location: $location,
                 $q: $q

@@ -1,7 +1,7 @@
 ﻿<figure>
     <form ng-upload="UploadProfilePiture()" action="/File/Upload">
 
-        <img data-ng-src="File/{{ userProfile.PhotoId }}/{{ userProfile.File.Name }}" class="img-polaroid profile-picture" />
+        <img data-ng-src="{{ userProfile.PictureUrl }}" class="img-polaroid profile-picture" />
 
         <input type="file" name="file" />
         <input type="submit" value="Upload from computer" class="upload-submit" id="submitPicture" />
