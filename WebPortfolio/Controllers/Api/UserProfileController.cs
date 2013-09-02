@@ -7,12 +7,13 @@ using WebPortfolio.Core.Extensions;
 using System.Collections.Generic;
 using System.Web;
 using WebPortfolio.Core.DataAccess.Abstract;
+using System.Threading;
 
 namespace WebPortfolio.Controllers.Api
 {
     public class UserProfileController : ApiController
     {
-
+        
         public IWPRepository<UserProfile> userprofilerepository { get; set; }
         public IWPRepository<UserAddress> useraddressrepository { get; set; }
         public IWPRepository<UserPhone> userphonerepository { get; set; }
@@ -29,8 +30,14 @@ namespace WebPortfolio.Controllers.Api
                                                    .Include(x => x.UserPhones)
                                                    .Include(x => x.Picture)
                                                    .FirstOrDefault();
+            if(!userProfile.UserPhones.Any())
+                userProfile.UserPhones.Add(new UserPhone {
+                    UserId = userProfile.Id
+                    
+                });
 
             return userProfile;
+
         }
 
         // PUT api/userprofile/5
@@ -80,6 +87,7 @@ namespace WebPortfolio.Controllers.Api
 
         }
 
+        
 
         [HttpPut]
         public object Picture([FromBody]File fileInfo)

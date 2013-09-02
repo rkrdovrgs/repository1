@@ -7,115 +7,120 @@
 <section class="row-fluid" id="profile-details">
     
     <section class="span9" >
-        <form name="formprofile" >
-            <fieldset  class="form-horizontal" >
-            
-                <legend>Personal Info</legend>
+        <form name="formprofile">
 
-                <div class="control-group">
-                    <label class="control-label">User name:</label>
-                    <div class="controls">
-                        <input type="text" name="UserName" class="validation"  data-ng-model="userProfile.UserName" data-ng-pattern="/^[A-Za-z0-9._]+$/" />
-                         <span class="error" data-ng-show="formprofile.UserName.$error.pattern"> Not space. Characters allowed: 'point(.)' , '_'</span>
-                    </div>
-                </div>
-                <div class="control-group" >
-                    <label class="control-label">First name:</label>
-                    <div class="controls" >
-                        <input type="text" name="FirstName" class="validation" data-ng-model="userProfile.FirstName" data-ng-pattern="/^[A-Za-z ]+$/" />                   
-                        <span class="error" data-ng-show="formprofile.FirstName.$error.pattern"> Invalid characters!</span>
-                    </div>
-                </div>
+            <fieldset  class="form-horizontal" >   
+                <legend></legend>         
+                <label class="lbllegend">Personal Info</label>
+                <div class="content-control-group">
                 
-                <div class="control-group">
-                    <label class="control-label">Last name:</label>
-                    <div class="controls">
-                        <input type="text" name="LastName" class="validation" data-ng-model="userProfile.LastName" data-ng-pattern="/^[A-Za-z ]+$/" />
-                        <span class="error" data-ng-show="formprofile.LastName.$error.pattern"> Invalid characters!</span>
+                    <div class="control-group">
+                        <label class="control-label">User name:</label>
+                        <div class="controls">
+                            <input type="text" name="UserName" class="validation"  data-ng-model="userProfile.UserName" data-ng-pattern="/^[A-Za-z0-9._]+$/" />
+                             <span class="error" data-ng-show="formprofile.UserName.$error.pattern"> Not space. Characters allowed: 'point(.)' , '_'</span>
+                        </div>
                     </div>
-                </div>
+                    <div class="control-group" >
+                        <label class="control-label">First name:</label>
+                        <div class="controls" >
+                            <input type="text" name="FirstName" class="validation" data-ng-model="userProfile.FirstName" data-ng-pattern="/^[A-Za-z ]+$/" />                   
+                            <span class="error" data-ng-show="formprofile.FirstName.$error.pattern"> Invalid characters!</span>
+                        </div>
+                    </div>
+                
+                    <div class="control-group">
+                        <label class="control-label">Last name:</label>
+                        <div class="controls">
+                            <input type="text" name="LastName" class="validation" data-ng-model="userProfile.LastName" data-ng-pattern="/^[A-Za-z ]+$/" />
+                            <span class="error" data-ng-show="formprofile.LastName.$error.pattern"> Invalid characters!</span>
+                        </div>
+                    </div>
 
-                <div class="control-group">
-                    <label class="control-label">Email:</label>
-                    <div class="controls">
-                        <input type="email" name="email"  class="validation" placeholder="email@x.com" data-ng-model="userProfile.UserEmail" required />
-                        <span class="error" data-ng-show="formprofile.email.$error.required"> Required email!</span>
-                        <span class="error" data-ng-show="formprofile.email.$error.email"> Invalid email!</span>
-                    </div>                
-                </div>
+                    <div class="control-group">
+                        <label class="control-label">Email:</label>
+                        <div class="controls">
+                            <input type="email" name="email"  class="validation" placeholder="email@x.com" data-ng-model="userProfile.UserEmail" required />
+                            <span class="error" data-ng-show="formprofile.email.$error.required"> Required email!</span>
+                            <span class="error" data-ng-show="formprofile.email.$error.email"> Invalid email!</span>
+                        </div>                
+                    </div>
+                    
+                    <!--<label class="addme">Add me</label>-->
+                    <div class="control-group">
+                        <label class="control-label">DOB:</label>
+                        <div class="controls">
+                            <input type="text"   class="DoB"  data-ng-model="userProfile.DOB" placeholder="year-month-day" />
 
-
-                <!--<label class="addme">Add me</label>-->
-                <div class="control-group">
-                    <label class="control-label">DOB:</label>
-                    <div class="controls">
-                        <input type="text"   class="DoB"  data-ng-model="userProfile.DOB" placeholder="year-month-day" />
-
+                        </div>
                     </div>
                 </div>
             </fieldset>
        
             <fieldset class="form-horizontal">
-                <legend>Contact info</legend>
-                <div class="control-group">
-                    <label class="control-label">Country:</label>                   
-                    <div class="controls">
-                        <select data-ng-model="userProfile.UserAddress.CountryId" data-ng-options="ctry.Id as ctry.Name for ctry in countries">
-                            <option value="">- Select -</option>
-                            <!--<option data-ng-repeat="ctry in countries"  value="{{ctry.Id}}">{{ ctry.Name }}</option>-->                       
-                        </select>
+                <legend></legend>    
+                <label class="lbllegend">Contact info</label>
+                <div class="content-control-group">
+                    <div class="control-group">
+                        <label class="control-label">Country:</label>                   
+                        <div class="controls">
+                            <select data-ng-model="userProfile.UserAddress.CountryId" data-ng-options="ctry.Id as ctry.Name for ctry in countries">
+                                <option value="">- Select -</option>
+                                <!--<option data-ng-repeat="ctry in countries"  value="{{ctry.Id}}">{{ ctry.Name }}</option>-->                       
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">State:</label>
-                    <div class="controls">
-                        <input type="text" name="state" class="validation" data-ng-model="userProfile.UserAddress.State" data-ng-pattern="/^[A-Za-z ]+$/" />
-                        <span class="error" data-ng-show="formprofile.state.$error.pattern"> Invalid characters!</span>
+                    <div class="control-group">
+                        <label class="control-label">State:</label>
+                        <div class="controls">
+                            <input type="text" name="state" class="validation" data-ng-model="userProfile.UserAddress.State" data-ng-pattern="/^[A-Za-z ]+$/" />
+                            <span class="error" data-ng-show="formprofile.state.$error.pattern"> Invalid characters!</span>
+                        </div>
                     </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">City:</label>
-                    <div class="controls">
-                        <input type="text" name="city" class="validation" data-ng-model="userProfile.UserAddress.City" data-ng-pattern="/^[A-Za-z ]+$/" />
-                        <span class="error" data-ng-show="formprofile.city.$error.pattern"> Invalid characters!</span>
+                    <div class="control-group">
+                        <label class="control-label">City:</label>
+                        <div class="controls">
+                            <input type="text" name="city" class="validation" data-ng-model="userProfile.UserAddress.City" data-ng-pattern="/^[A-Za-z ]+$/" />
+                            <span class="error" data-ng-show="formprofile.city.$error.pattern"> Invalid characters!</span>
+                        </div>
                     </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">Address:</label>
-                    <div class="controls">
-                        <input type="text" name="address" class="validation" data-ng-model="userProfile.UserAddress.Line1" data-ng-pattern="/^[A-Za-z0-9 ]+$/" />  
-                        <span class="error" data-ng-show="formprofile.address.$error.pattern"> Special characters are not supported!</span>                 
+                    <div class="control-group">
+                        <label class="control-label">Address:</label>
+                        <div class="controls">
+                            <input type="text" name="address" class="validation" data-ng-model="userProfile.UserAddress.Line1" data-ng-pattern="/^[A-Za-z0-9 ]+$/" />  
+                            <span class="error" data-ng-show="formprofile.address.$error.pattern"> Special characters are not supported!</span>                 
+                        </div>
                     </div>
-                </div>
-                <div class="control-group">
-                    <div class="controls">
-                        <input type="text" name="address2" class="validation" data-ng-model="userProfile.UserAddress.Line2" data-ng-pattern="/^[A-Za-z0-9 ]+$/" />   
-                        <span class="error" data-ng-show="formprofile.address2.$error.pattern"> Special characters are not supported!</span>                   
+                    <div class="control-group">
+                        <div class="controls">
+                            <input type="text" name="address2" class="validation" data-ng-model="userProfile.UserAddress.Line2" data-ng-pattern="/^[A-Za-z0-9 ]+$/" />   
+                            <span class="error" data-ng-show="formprofile.address2.$error.pattern"> Special characters are not supported!</span>                   
+                        </div>
                     </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">Zip code:</label>
-                    <div class="controls">
-                        <input type="text" name="zipcode" class="validation" data-ng-model="userProfile.UserAddress.Zipcode" data-ng-pattern="/^[0-9]+$/"/>
-                        <span class="error" data-ng-show="formprofile.zipcode.$error.pattern"> Only numbers!</span>   
+                    <div class="control-group">
+                        <label class="control-label">Zip code:</label>
+                        <div class="controls">
+                            <input type="text" name="zipcode" class="validation" data-ng-model="userProfile.UserAddress.Zipcode" data-ng-pattern="/^[0-9]+$/"/>
+                            <span class="error" data-ng-show="formprofile.zipcode.$error.pattern"> Only numbers!</span>   
+                        </div>
                     </div>
-                </div>
-                <div class="control-group" id="divphones">
-                     
-                    <label class="control-label">Phone:</label>
-                    <div class="controls" data-ng-repeat="ph in userProfile.UserPhones" >
-                        <input type="text" name="phone" class="validation maskphone" data-ng-model="ph.Number"  data-ng-pattern="/^[0-9]+$/"/>
-                        <span class="error" data-ng-show="formprofile.phone.$error.pattern"> Only numbers!</span>
-                    </div>  
-                    <div class="controls">   
-                        <a data-ng-click="addPhone()" >add</a>
-                    </div>             
-                </div>
-                
+
+                    <div class="control-group" id="divphones">                     
+                        <label class="control-label">Phone:</label>
+                        <div class="controls" data-ng-repeat="ph in userProfile.UserPhones" >                                                                             
+                            <input type="text" name="phone" class="validation maskphone" data-ng-model="ph.Number"  data-ng-pattern="/^[0-9]+$/"/>
+                            <span class="error" data-ng-show="formprofile.phone.$error.pattern"> Only numbers!</span>
+                        </div>  
+                        <div class="controls">   
+                            <a data-ng-click="addPhone()" >Add</a>
+                        </div>             
+                    </div>
+                </div>                
             </fieldset>
+
             <div class="form-actions">
                 <input type="button" id="Save" name="Save" value="Save" class="btn btn-primary" data-ng-click="updateProfile()" data-ng-disabled="formprofile.$invalid" />
-                <span class="error" data-ng-show="formprofile.$invalid"> correct the fields!</span>
+                <span class="error" data-ng-show="formprofile.$invalid"> Correct the fields!</span>
             </div>
         </form>
     </section>

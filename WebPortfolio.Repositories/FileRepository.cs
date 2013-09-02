@@ -123,7 +123,7 @@ namespace WebPortfolio.Repositories
                 {
                     conn.Open();
                     cmd.CommandText = "INSERT INTO [File] (Guid, Name, FileName, Content, ContentLength, ContentType) VALUES(newid(), @name, @filename, @content, @contentlen, @contenttype)" +
-                                      "SELECT Id FROM [File] WHERE Name = @name";
+                                        "SELECT Id FROM [File] WHERE Name = @name";
                     cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = name;
                     cmd.Parameters.Add("@filename", SqlDbType.VarChar).Value = fileName;
                     cmd.Parameters.Add("@content", SqlDbType.VarBinary).Value = content;
@@ -135,8 +135,8 @@ namespace WebPortfolio.Repositories
                     conn.Close();
 
 
-
-                    return new File { 
+                    return new File
+                    {
                         Name = name,
                         Id = id,
                         ContentType = contentType
@@ -152,6 +152,7 @@ namespace WebPortfolio.Repositories
                         conn.Dispose();
                 }
             }
+       
 
         }
     }

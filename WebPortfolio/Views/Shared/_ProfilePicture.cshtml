@@ -1,10 +1,10 @@
 ﻿<figure>
-    <form ng-upload="UploadProfilePiture()" action="/File/Upload">
+    <form id="formpicture" data-ng-upload="UploadProfilePiture()" action="/File/Upload">
 
         <img data-ng-src="{{ userProfile.PictureUrl }}" class="img-polaroid profile-picture" />
 
-        <input type="file" name="file" />
-        <input type="submit" value="Upload from computer" class="upload-submit" id="submitPicture" />
+        <input type="file" name="file" id="sbmtfilePicture"/>
+        <input type="submit" value="Upload from computer" class="upload-submit" id="sbmtpicture"/>
 
         <i class="glyphicon glyphicon-plus"></i>
 

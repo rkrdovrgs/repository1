@@ -69,13 +69,13 @@ namespace WebPortfolio.Models
     public class LoginModel
     {
         
-        [Required]               
-        [EmailAddress(ErrorMessage = "Mail does not have the correct format.")]        
+        [Required]
         [Display(Name = "User email")]
+        [EmailAddress(ErrorMessage = "Mail does not have the correct format.")]  
         public string UserEmail { get; set; }
 
         [Required]
-        [DataType(DataType.Password)]
+        [DataType(DataType.Password)]       
         [Display(Name = "Password")]
         public string Password { get; set; }
 
@@ -90,19 +90,19 @@ namespace WebPortfolio.Models
         [EmailAddress(ErrorMessage = "Mail does not have the correct format")]
         public string UserEmail { get; set; }
                 
-        [Display(Name = "User name")]
+       
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
-               
+        [Display(Name = "User name")]
         [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "No special characters are allowed in the user name.")]
         public string UserName { get; set; }
         
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required]       
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         public string Password { get; set; }
 
-        [DataType(DataType.Password)]
+        [DataType(DataType.Password)]  
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }

@@ -2,7 +2,10 @@
     min-width:130px
 }
 
-
+fieldset.legend {
+    display :block;
+    border :none;
+}
 
 /*-------------------------------------------*/
 /*.inputempty {
@@ -45,12 +48,12 @@
     cursor:pointer;
 }
 .validation:focus {
-    border-radius:0;
-    cursor:none;
+    border-radius:0;    
 }
 
 #displayusername {
-    border-bottom: 1px solid #0B889B;
+    border-bottom: 1px solid #2B424A !important;
+    margin-bottom: 1em ;   
 }
 
 #changepicture {
@@ -58,6 +61,14 @@
     position:relative;
     
 }
-#submitPicture {
-    
+#sbmtpicture {
+    display:none;
+}
+
+#sbmtfilePicture {
+    position:absolute;   
+	left: 15px;    
+    height:130px;
+    width:130px;
+    opacity:0;
 }

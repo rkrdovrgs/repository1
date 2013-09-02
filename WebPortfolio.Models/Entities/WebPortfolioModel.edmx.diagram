@@ -7,7 +7,7 @@
       <Diagram DiagramId="9901998046b348109f6500a6390620ac" Name="Diagram1">
         <EntityTypeShape EntityType="WebPortfolioModel.Country" Width="1.5" PointX="3" PointY="7.875" />
         <EntityTypeShape EntityType="WebPortfolioModel.UserAddress" Width="1.5" PointX="5.25" PointY="2.25" />
-        <EntityTypeShape EntityType="WebPortfolioModel.UserPhone" Width="1.5" PointX="5.25" PointY="6.375" />
+        <EntityTypeShape EntityType="WebPortfolioModel.UserPhone" Width="1.5" PointX="2.25" PointY="5.875" />
         <EntityTypeShape EntityType="WebPortfolioModel.UserProfile" Width="1.5" PointX="3" PointY="2.125" />
         <AssociationConnector Association="WebPortfolioModel.FK_UserAddress_Country" />
         <AssociationConnector Association="WebPortfolioModel.FK_UserAddress_UserProfile" />
