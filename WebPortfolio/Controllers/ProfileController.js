@@ -1,9 +1,8 @@
-﻿var ProfileController = new Controller(CoreModule, "ProfileController",
-   
+﻿var ProfileController = new Controller(CoreModule, "ProfileController",   
 
     function () {
         
-        var _Index = function () {           
+        var _Index = function () {          
             
            
 
@@ -15,9 +14,7 @@
             $scope.userProfile = {};
             $scope.userAddress = {};
             $scope.userPhone = {};
-            $scope.countries = [];
-           
-
+            $scope.countries = []; 
             
 
             $('.validation').focus(function () {
@@ -193,11 +190,7 @@
 
             ////    }
             //}
-            //#endregion
-
-         
-
-            
+            //#endregion            
         };
 
 
@@ -225,8 +218,6 @@
             Details: _Details,
             Edit: _Edit           
         };
-
-      
 
     }()
    

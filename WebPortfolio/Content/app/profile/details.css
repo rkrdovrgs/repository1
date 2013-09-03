@@ -56,19 +56,30 @@ fieldset.legend {
     margin-bottom: 1em ;   
 }
 
-#changepicture {
+#changepic {
+    cursor:default;
+    background-color: rgba(41, 177, 219, 0.6);
+    padding:1em;
+    position: absolute;    
+    top:25px;  
+    visibility: hidden;  
+}
+   
+/*#changepicture {
     background-color: rgba(237, 236, 236, 0.5);
     position:relative;
     
-}
+}*/
 #sbmtpicture {
     display:none;
 }
 
 #sbmtfilePicture {
     position:absolute;   
-	left: 15px;    
-    height:130px;
-    width:130px;
+	left: 15px; 
+    top:25px;   
+    height:170px;
+    width:140px;
     opacity:0;
 }
+    

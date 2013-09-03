@@ -1,11 +1,15 @@
 ﻿<figure>
     <form id="formpicture" data-ng-upload="UploadProfilePiture()" action="/File/Upload">
 
-        <img data-ng-src="{{ userProfile.PictureUrl }}" class="img-polaroid profile-picture" />
+        <div id="contenphotoprofile">
+            <img data-ng-src="{{ userProfile.PictureUrl }}" class="img-polaroid profile-picture" id="profile-picture" />
 
-        <input type="file" name="file" id="sbmtfilePicture"/>
-        <input type="submit" value="Upload from computer" class="upload-submit" id="sbmtpicture"/>
+            <label id="changepic">Change picture  @*<br />or<br /> Drag and drop<br /> the picture*@</label>
+            <input type="file" name="file" id="sbmtfilePicture" accept="image/*" />
+       
+            <input type="submit" value="Upload from computer" class="upload-submit" id="sbmtpicture"/>
 
+        </div>
         <i class="glyphicon glyphicon-plus"></i>
 
     </form>

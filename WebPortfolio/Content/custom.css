@@ -149,7 +149,7 @@
 
 #blockleft1 {
     width: 140px;
-    background-color: #29b1db;
+   overflow:hidden;
     color: #000;
     height: 165px;
     display: block;
@@ -254,7 +254,6 @@
             text-decoration: none;
         }
 
-
             .blockcontentright li a:hover {
                 color: #fff;
                 text-decoration: underline;
@@ -265,7 +264,11 @@
     display:inline-block;
     color:#A0A0A0;
     font-size:20px;
+    
 }
+    #formprofile > fieldset:nth-child(2) > label {
+        margin-right: 10px;
+    }
 .content-control-group {
     display:inline-block;
     vertical-align:top;
@@ -472,6 +475,13 @@ input[type="color"],
 .uneditable-input,
 select {
     background: -moz-linear-gradient(center top, rgba(61, 95, 107, 0.5) 0px, rgba(61, 95, 107, 0.5) 50%, rgba(58, 89, 100, 0.5) 60%, rgba(20, 32, 36, 0.5) 100%) no-repeat scroll 0 0 transparent;
+    background: -webkit-linear-gradient(center top, rgba(61, 95, 107, 0.5) 0px, rgba(61, 95, 107, 0.5) 50%, rgba(58, 89, 100, 0.5) 60%, rgba(20, 32, 36, 0.5) 100%) no-repeat scroll 0 0 transparent;
+    /*background-image: linear-gradient(left bottom, #030303 8%, #035738 49%, #000000 100%);
+    background-image: -o-linear-gradient(left bottom, #030303 8%, #035738 49%, #000000 100%);
+    background-image: -moz-linear-gradient(left bottom, #030303 8%, #035738 49%, #000000 100%);
+    background-image: -webkit-linear-gradient(left bottom, #030303 8%, #035738 49%, #000000 100%);
+    background-image: -ms-linea*/r-gradient(left bottom, #030303 8%, #035738 49%, #000000 100%);
+
     border: 1px solid rgba(106, 178, 200, 0.5);
     border-radius: 4px 4px 4px 4px;
     margin: 0 auto;
@@ -493,7 +503,7 @@ select {
 
 
 
-.ng-dirty.ng-valid.validation {
+/*.ng-dirty.ng-valid.validation {
     background-color: #0E0E0E;
     border: medium none;
     font-weight: normal;
@@ -505,7 +515,7 @@ select {
         font-weight: normal;
         color: #fff;
         border: 1px solid rgba(106, 178, 200, 0.5);
-    }
+    }*/
 
 
 
